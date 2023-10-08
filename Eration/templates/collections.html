@@ -1,46 +1,6 @@
 {% extends 'layouts/main.html' %}
-
 {% load static %}
-
 {% block body %}
-  <!-- Categories Section Begin -->
-  <section class="categories">
-    <div class="container">
-        <div class="row">
-            <h2><b><br>Products</b></h2>
-            <div class="categories__slider owl-carousel">
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="{% static 'assets/img/categories/cat-1.jpg' %}">
-                        <h5><a href="#">Rice</a></h5>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="{% static 'assets/img/categories/cat-2.jpg' %}">
-                        <h5><a href="#">Kerosene</a></h5>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="{% static 'assets/img/categories/cat-3.jpg' %}">
-                        <h5><a href="#">Wheat</a></h5>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="{% static 'assets/img/categories/cat-4.jpg' %}">
-                        <h5><a href="#">Sugar</a></h5>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="{% static 'assets/img/categories/cat-5.jpg' %}">
-                        <h5><a href="#">Atta</a></h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Categories Section End -->
-{% if user.is_authenticated %}
-<!-- Featured Section Begin -->
 <section class="featured spad">
     <div class="container">
         <div class="row">
@@ -51,10 +11,10 @@
                 <div class="featured__controls">
                     <ul>
                         <li class="active" data-filter="*">All</li>
-                        <li data-filter=".Rice">Rice</li>
-                        <li data-filter=".Sugar">Sugar</li>
-                        <li data-filter=".Atta">Atta</li>
-                        <li data-filter=".Wheat">Wheat</li>
+                        <li data-filter=".oranges">Rice</li>
+                        <li data-filter=".fresh-meat">Sugar</li>
+                        <li data-filter=".vegetables">Atta</li>
+                        <li data-filter=".fastfood">Wheat</li>
                     </ul>
                 </div>
             </div>
@@ -123,8 +83,5 @@
     </div>
 </section>
 <!-- Featured Section End -->
-{% endif %}
-<br>
-<br>
 
 {% endblock body %}

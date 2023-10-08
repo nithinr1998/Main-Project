@@ -49,13 +49,15 @@ def register(request):
 
         user = User.objects.create_user(username=username, email=email, password=password)
         user.save()
-        return redirect('/')
+        return redirect('loginpage')
     else:
         return render(request, 'Registrationpage.html')
 
+def blog(request):
+     return render(request,'blog.html') 
  
- 
- 
+def contact(request):
+     return render(request,'contact.html') 
  
  
 def logout(request):
