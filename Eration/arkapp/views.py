@@ -59,6 +59,32 @@ def blog(request):
 def contact(request):
      return render(request,'contact.html') 
  
+def customer_update(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        cname = request.POST['cname']
+        email = request.POST['email']
+        address = request.POST['address']
+        place = request.POST['place']
+        wardno = int(request.POST['wardno'])  # Convert to int
+        houseno = int(request.POST['houseno'])  # Convert to int
+        membersno = int(request.POST['membersno'])  # Convert to int
+        cnumber = int(request.POST['cnumber'])  # Convert to int
+        card_type = request.POST['type']
+        card_color = request.POST['color']
+        zipcode = request.POST['zipcode']
+        
+
+        # Create an instance of the Customer model and populate it with the data
+        customer = customer_update(username=username,cname=cname,email=email,address=address,place=place,houseno=houseno,membersno=membersno,cnumber=cnumber,card_type=card_type,card_color=card_color,zipcode=zipcode )
+
+        # Save the customer data to the database
+        customer.save()
+
+        return render(request, 'update.html')
+
+    return render(request, 'update.html') 
+
  
 def logout(request):
      auth.logout(request)
