@@ -1,0 +1,88 @@
+{% extends 'admin/adminindex.html' %}
+{% load static %}
+
+{% block body %}
+<style>
+  body {
+    background-image: url("{% static 'images/r6.jpg' %}");
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  td:last-child {
+    text-align: center;
+  }
+
+  .delete-button {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
+
+<body>
+  <div class="container">
+    <h4>Card Item List</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Card Color</th>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Rate</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for carditem in carditems %}
+        <tr>
+          <td>{{ carditem.cardcolor }}</td>
+          <td>{{ carditem.item }}</td>
+          <td>{{ carditem.quantity }}</td>
+          <td>{{ carditem.rate }}</td>
+          <td>
+            
+              {% csrf_token %}
+              <input type="hidden" name="carditem_id" value="{{ carditem.id }}">
+              <button type="submit" class="delete-button">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+
+{% endblock body %}

@@ -1,0 +1,46 @@
+{% extends 'admin/adminindex.html' %}
+{% load static %}
+{% block body %}
+<center><div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card mt-4">
+        <div class="card-body">
+          <h4 class="text-center mb-4">Add Item</h4>
+          <form method="POST" class="d-flex flex-column justify-content-center align-items-center">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="item" class="mb-2">Item:</label>
+              <input type="text" name="item" class="form-control form-control-lg custom-input" required>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-custom-green btn-lg btn-block btn-custom-large">Add Item</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</center>
+<style>
+  .btn-custom-green {
+    background-color: #00ff00; /* Green color you prefer */
+    color: #fff; /* Text color */
+    border: none;
+  }
+  
+  .btn-custom-green:hover {
+    background-color: #00cc00; /* Green color on hover */
+  }
+
+  .custom-input {
+    border: 2px solid #00ff00; /* Green border */
+    border-radius: 10px;
+    padding: 10px 15px;
+  }
+  
+  .btn-custom-large {
+    padding: 15px 20px; /* Adjust padding to increase button size */
+  }
+</style>
+{% endblock body %}

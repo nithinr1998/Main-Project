@@ -1,0 +1,53 @@
+{% extends 'shopownerbase.html' %}
+{% block body %}
+
+                <h3 class="mb-4 pb-2 pb-md-0 mb-md-5" style="margin-left:500px;margin-top:100px;" >Add Customers</h3>
+                <form class="w-50" style="margin-left:500px;" method="POST">
+                  {% csrf_token %}    
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+    
+                      <div class="form-outline">
+                        <input type="text" id="firstName" class="form-control form-control-lg" name="name" />
+                        <label class="form-label" for="firstName">Cardholder Name</label>
+                      </div>
+                  <div class="form-outline datepicker w-100">
+                        <input type="number" class="form-control form-control-lg"  name="cardnumber" />
+                        <label for="birthdayDate" class="form-label">Card Number</label>
+                  </div>         
+                    </div>               
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+    
+                      <select class="select form-control-lg" name="selectcard">
+                        <option value="1">Choose Card</option>
+                        <option value="APL">APL</option>
+                        <option value="BPL">BPL</option>
+                        
+                      </select>
+                      <label class="form-label select-label">Choose option</label><br><br>
+    
+                    </div>
+                    <div class="col-12">
+    
+                        <select class="select form-control-lg" name="selectcolor">
+                          <option value="White">White</option>
+                          <option value="Blue">Blue</option>
+                          <option value="Pink">Pink</option>
+                          <option value="Yellow">Yellow</option>
+                          
+                        </select>
+                        <label class="form-label select-label">Choose option</label>
+      
+                      </div>
+                  </div>
+    
+                  <div class="mt-4 pt-2">
+                    <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
+                  </div>
+    
+                </form>
+             
+            
+{% endblock body %}
