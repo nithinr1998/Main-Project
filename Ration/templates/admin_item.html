@@ -1,0 +1,22 @@
+{% extends 'adminbase.html' %}
+{% load static %}
+
+{% block body %}
+<body style='background-image:url("{% static 'images/r6.jpg' %}");'>
+ 
+
+<body>
+  <div class="container">
+      <br></br>  
+    <h2>Add Item</h2>
+    <br></br>
+    <form method="POST">
+      {% csrf_token %}
+      <label for="item">Item:</label>
+      <input type="text" name="item" required>
+      <button type="submit">Add Item</button>
+    </form>
+  </div>
+</body>
+{% endblock body %}
+

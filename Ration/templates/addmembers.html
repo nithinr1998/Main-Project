@@ -1,0 +1,108 @@
+{% extends 'customerbase.html' %}
+{% load static %}
+{% block body %}
+<body style='background-image:url("{% static 'images/r15.jpg' %}");'>
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-80">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-lg-9 col-xl-7">
+                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Add Members</h3>
+                        <form method="POST">
+                            {% csrf_token %}
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input type="text" id="firstName" name='fname' class="form-control form-control-lg" />
+                                        <label class="form-label" for="firstName">First Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input type="text" id="lastName" name='lname' class="form-control form-control-lg" />
+                                        <label class="form-label" for="lastName">Last Name</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-outline">
+                                <input type="number" id="cardNumber" name='cardnumber' class="form-control form-control-lg" />
+                                <label class="form-label" for="cardNumber">Card Number</label>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4 d-flex align-items-center">
+                                    <div class="form-outline datepicker w-100">
+                                        <input type="number" name='age' class="form-control form-control-lg" id="age" />
+                                        <label for="age" class="form-label">Age</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                  <div class="form-outline w-100">
+                                      <label for="gender" class="form-label">&nbsp;Gender</label>
+                                      <select name='gender' class="form-select form-select-lg" id="gender">
+                                          <option value="male">Male</option>
+                                          <option value="female">Female</option>
+                                          <option value="others">Others</option>
+                                      </select>
+                                  </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4 pb-2">
+                                    <div class="form-outline">
+                                        <input type="text" id="occupation" name='occupation' class="form-control form-control-lg" />
+                                        <label class="form-label" for="occupation">Occupation</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4 pb-2">
+                                    <div class="form-outline">
+                                        <input type="text" id="relation" name='relation' class="form-control form-control-lg" />
+                                        <label class="form-label" for="relation">Relation with Card Holder</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 pt-2">
+                                <button class="btn btn-success btn-lg btn-block" type="submit">Submit</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+  function validateFirstName() {
+      var firstNameInput = document.getElementById('firstName');
+      var firstNameError = document.getElementById('firstNameError');
+
+      if (firstNameInput.value.trim() === '') {
+          firstNameError.textContent = 'First Name is required.';
+      } else {
+          firstNameError.textContent = '';  // Clear the error message if the input is valid
+      }
+  }
+</script>
+<script>
+  function validateAge() {
+      var ageInput = document.getElementById('age');
+      var ageError = document.getElementById('ageError');
+
+      // Clear previous error message
+      ageError.textContent = '';
+
+      var ageValue = parseInt(ageInput.value, 10);
+
+      // Perform validation
+      if (isNaN(ageValue) || ageValue < 0 || ageValue > 150) {
+          ageError.textContent = 'Please enter a valid age between 0 and 150.';
+      }
+  }
+</script>
+{% endblock body %}

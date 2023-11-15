@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+      <div class="col-md-5 text-center">
+          <div class="login-box">
+              <h2 class="text-center">Login</h2><br>
+              <form action="" method="POST">
+              {% csrf_token %}   
+              <div class="form-outline mb-4">
+                  <label class="form-label" for="form2Example1">UserName</label>
+                  <input type="text" id="form2Example1" class="form-control" name="name"/>
+                </div>
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="form2Example2">Password</label>
+                      <input type="password" id="form2Example2" class="form-control" name="password" />
+                    </div>
+                  <button type="submit" class="btn btn-primary btn-block">Login</button>
+              </form>
+              
+              <hr>
+              <div class="text-center">
+                  <a href="{% url 'password_reset' %}">Forgot Password?</a>
+              </div>
+              <div class="text-center mt-3">
+                  <p>Not a member? <a href="{% url 'customersignup' %}">Register as Customer</a></p>
+                  <p><a href="{% url 'shopownersignup' %}">Register as Shopowner</a></p>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+{% endblock body %}

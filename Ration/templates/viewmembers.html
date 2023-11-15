@@ -1,0 +1,35 @@
+{% extends 'customerbase.html' %}
+{% load static %}
+
+{% block body %}
+<div class="w-75 h-100" style="margin-left: 300px;margin-top:100px;">
+      <table class="w-100 text-center">
+            <tr>
+                  <th>fname</th>
+                  <th>lname</th>
+                  <th>age</th>
+                  <th>gender</th>
+                  <th>occupation</th>
+                  <th>relation</th>
+
+            </tr>
+            {% for i in items %}
+            <tr>
+                  <td>{{i.fname}}</td>
+                  <td>{{i.lname}}</td>
+                  <td>{{i.age}}</td>
+                  <td>{{i.gender}}</td>
+                  <td>{{i.occu}}</td>
+                  <td>{{i.relation}}</td>
+                 
+            </tr>
+            {% endfor %}
+            
+      </table>
+</div>
+<style>
+      table,th{
+            border: 1px solid black;
+      }
+</style>
+{% endblock body %}

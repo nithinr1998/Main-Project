@@ -1,0 +1,71 @@
+{% extends 'adminbase.html' %}
+{% load static %}
+
+{% block body %}
+  <style>
+    body {
+      background-image: url("{% static 'images/r6.jpg' %}");
+      background-size: cover;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      color: #000;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .item-list {
+      margin: 20px auto;
+      width: 80%;
+      background-color: #f2f2f2;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .item {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .item p {
+      font-size: 18px;
+      margin: 0;
+      flex: 1;
+    }
+
+    .delete-button {
+      background-color: #ff0000;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .no-items {
+      font-size: 18px;
+      text-align: center;
+    }
+  </style>
+
+  <h1>View Items</h1>
+  <div class="item-list">
+    {% for item in items %}
+      <div class="item">
+        <p>{{ item }}</p>
+        <form action="{% url 'view_item' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="item_id" value="{{ item.id }}">
+          <button type="submit" class="delete-button">Delete</button>
+        </form>
+      </div>
+    {% empty %}
+      <p class="no-items">No items available</p>
+    {% endfor %}
+  </div>
+{% endblock body %}

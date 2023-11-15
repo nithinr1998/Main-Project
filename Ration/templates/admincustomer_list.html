@@ -1,0 +1,127 @@
+{% extends 'adminbase.html' %}
+{% load static %}
+{% block body %}
+<style>
+  body {
+    background-image: url("{% static 'images/r6.jpg' %}");
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  td:last-child {
+    text-align: center;
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    table {
+      font-size: 12px;
+    }
+    th, td {
+      padding: 6px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    table {
+      font-size: 10px;
+    }
+    th, td {
+      padding: 4px;
+    }
+  }
+</style>
+
+<body>
+  <div class="container">
+    <div class="customer-table">
+      <form method="POST">
+        {% csrf_token %}
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Card_Number</th>
+                <th>Place</th>
+                <th>card_Members</th>
+                <th>Ration_card</th>
+                <th>Approval_Status</th>
+              </tr>
+            </thead>
+            <body>
+              {% for customer in customers %}
+              <tr>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.cardnumber }}</td>
+                <td>{{ customer.address }}</td>
+                <td>{{ customer.place }}</td>
+                <td>{{ customer.membersno }}</td>
+                <td>
+                  {% if user.customer.ration_card %}
+                  <a href="{{ user.customer.ration_card.url }}" target="_blank" class="ration-button" style="text-decoration: none; padding: 5px 10px; background-color: #007bff; color: #fff; border: none; border-radius: 3px; cursor: pointer; display: inline-block;">View ration</a>
+                  {% else %}
+                      Not Uploaded
+                  {% endif %}
+              </td>
+              <td>
+                <span class="badge {% if customer.user.is_active %}badge-success{% else %}badge-secondary{% endif %}">
+                    {% if customer.user.is_active %}Active{% else %}Inactive{% endif %}
+                </span>
+            </td>
+            <td>
+                {% if customer.user.is_active %}
+                    <!-- Trigger/Open The Modal -->
+                    <button id="deactivateBtn{{ customer.user.id }}" class="btn btn-danger" onclick="openModal({{ customer.user.id }})">Deactivate</button>
+
+                    <!-- The Modal -->
+                    <div id="deactivateModal{{ customer.user.id }}" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <span class="close" onclick="closeModal({{ customer.user.id }})">&times;</span>
+                            <form method="post" action="{% url 'toggle_user_activation' customer.user.id %}">
+                                {% csrf_token %}
+                                <h2>Deactivate Account</h2>
+                                <p>Please enter the reason for deactivation:</p>
+                                <textarea name="reason" placeholder="Enter reason for deactivation" class="textarea-reason"></textarea>
+                                <button type="submit" class="btn btn-danger">Send and Deactivate</button>
+                            </form>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{% url 'toggle_user_activation' customer.user.id %}" class="btn btn-success">Activate</a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+</body>
+
+{% endblock body %}

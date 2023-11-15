@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="registration-box">
+                <h2 class="text-center">Registration</h2>
+                <form action="" method="POST" onsubmit="return validateForm()">
+                    {% csrf_token %}
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="cname">Card holder Name</label>
+                        <input type="text" id="cname" class="form-control" name="cname" required>
+                        <span id="cname-error" class="text-danger"></span>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="address">Address</label>
+                        <input type="text" id="address" class="form-control" name="address" required>
+                        <span id="address-error" class="text-danger"></span>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="place">Place of shop</label>
+                        <input type="text" id="place" class="form-control" name="place" required>
+                        <span id="place-error" class="text-danger"></span>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="houseno">House number</label>
+                        <input type="number" id="houseno" class="form-control" name="houseno" required>
+                        <span id="houseno-error" class="text-danger"></span>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="membersno">Number of members</label>
+                        <input type="number" id="membersno" class="form-control" name="membersno" required>
+                        <span id="membersno-error" class="text-danger"></span>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="cnumber">Ration Card Number</label>
+                        <input type="number" id="cnumber" class="form-control" name="cnumber" required>
+                        <span id="cnumber-error" class="text-danger"></span>
+                    </div>
+                    <div class="col-12">
+                        <select class="select form-control-lg" name="type" id="type">
+                            <option value="1">Choose Card</option>
+                            <option value="APL">APL</option>
+                            <option value="BPL">BPL</option>
+                        </select>
+                        <label class="form-label select-label">Choose option</label><br><br>
+                    </div>
+                    <div class="col-12">
+                        <select class="select form-control-lg" name="color" id="color">
+                            <option value="1">Choose Color</option>
+                            <option value="White">White</option>
+                            <option value="Blue">Blue</option>
+                            <option value="Pink">Pink</option>
+                            <option value="Yellow">Yellow</option>
+                        </select>
+                        <label class="form-label select-label">Choose option</label>
+                    </div>
+                    <br></br>
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" id="email" class="form-control" name="email" required>
+                        <span id="email-error" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                      <label for="rationCard">Upload Ration Card (PDF):</label>
+                      <input type="file" class="form-control-file" id="rationCard" name="ration_card" accept=".pdf">
+                  </div>                  
+                  
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="password" class="form-control" name="password" required>
+                        <span id="password-error" class="text-danger"></span>
+                    </div>
+
+                    <!-- Add more fields for additional customer details as needed -->
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                </form>
+                {% for message in messages %}
+                    <h5 style="color: #ff512f">{{ message }}</h5>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<br></br>
+
+<style>
+    /* Add your custom CSS styles here */
+    .registration-box {
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+{% endblock body %}
+
+<script>
+    // Real-time email validation
+    document.getElementById("email").addEventListener("input", function() {
+        var emailInput = document.getElementById("email");
+        var emailValue = emailInput.value;
+        var emailError = document.getElementById("email-error");
+
+        if (!isValidEmail(emailValue)) {
+            emailError.textContent = "Invalid email address";
+            emailInput.classList.add("is-invalid");
+        } else {
+            emailError.textContent = "";
+            emailInput.classList.remove("is-invalid");
+        }
+    });
+
+    // Real-time password validation
+    document.getElementById("password").addEventListener("input", function() {
+        var passwordInput = document.getElementById("password");
+        var passwordValue = passwordInput.value;
+        var passwordError = document.getElementById("password-error");
+
+        if (passwordValue.length < 8) {
+            passwordError.textContent = "Password must be at least 8 characters";
+            passwordInput.classList.add("is-invalid");
+        } else {
+            passwordError.textContent = "";
+            passwordInput.classList.remove("is-invalid");
+        }
+    });
+
+    // Custom validation for other fields as needed
+    // Card holder Name, Address, Place of shop, House number, Number of members, Ration Card Number
+    document.getElementById("cname").addEventListener("input", function() {
+        var cnameInput = document.getElementById("cname");
+        var cnameValue = cnameInput.value;
+        var cnameError = document.getElementById("cname-error");
+
+        if (cnameValue.trim() === "") {
+            cnameError.textContent = "Card holder Name is required";
+            cnameInput.classList.add("is-invalid");
+        } else {
+            cnameError.textContent = "";
+            cnameInput.classList.remove("is-invalid");
+        }
+      });
+      
