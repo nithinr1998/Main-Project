@@ -24,4 +24,10 @@
   .ajax-file-upload-statusbar {
     max-width: 100%;
   }
+  .ajax-file-upload-filename {
+    max-width: 100%;
+  }
+  .ajax-file-upload-error {
+    color: theme-color(danger);
+  }
 }

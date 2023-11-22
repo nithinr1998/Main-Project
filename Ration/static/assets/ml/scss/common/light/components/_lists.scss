@@ -18,11 +18,10 @@ dl {
   li {
     padding-left: 1.5rem;
     &:before {
-      font-family: "themify";
+      font-family: "typicons";
       margin-left: -1.5rem;
       width: 1.5rem;
       margin-right: .5rem;
-      font-size: .6rem;
     }
   }
 }
@@ -30,7 +29,7 @@ dl {
 .list-ticked {
   li {
     &:before {
-      content: '\e64c';
+      content: '\e11e';
       color: theme-color(danger);
     }
   }
@@ -39,7 +38,7 @@ dl {
 .list-arrow {
   li {
     &:before {
-      content: '\e649';
+      content: '\e049';
       color: theme-color(success);
     }
   }
@@ -48,7 +47,7 @@ dl {
 .list-star {
   li {
     &:before {
-      content: '\e60a';
+      content: '\e109';
       color: theme-color(warning);
     }
   }
@@ -140,23 +139,6 @@ dl {
     .rtl & {
       left: unset;
       right: 7px;
-    }
-  }
-}
-
-.icon-data-list {
-  list-style-type: none;
-  padding-left: 0;
-  position: relative;
-  margin-bottom: 0;
-  font-family: $type1;
-  li {
-    margin-bottom:1rem;
-    img {
-      width: 40px;
-      height: 40px;
-      margin-right: 10px;
-      border-radius:100%;
     }
   }
 }

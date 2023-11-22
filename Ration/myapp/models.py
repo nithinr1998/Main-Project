@@ -7,18 +7,17 @@ class itemlist(models.Model):
             return self.item
       
 class custreg(models.Model):
-      name=models.CharField(max_length=50)
-      cardnumber=models.IntegerField(unique=True)
-      email=models.CharField(max_length=50)
-      password=models.CharField(max_length=50)
-      address=models.CharField(max_length=50,default='address')
-      place=models.CharField(max_length=50,default='place')
-      membersno=models.IntegerField(default=0)
-      cardtype=models.CharField(max_length=50,default='type')
-      cardcolor=models.CharField(max_length=50,default='color')
-      phoneno=models.IntegerField(default=0)
-      approve=models.CharField(max_length=50,default='declined')
-      def __str__(self):
+    name = models.CharField(max_length=50)
+    cardnumber = models.IntegerField(unique=True)
+    email = models.CharField(max_length=50)
+    password = models.CharField(max_length=50)
+    address = models.CharField(max_length=50, default='address')
+    place = models.CharField(max_length=50, default='place')
+    membersno = models.IntegerField(default=0)
+    cardcolor = models.CharField(max_length=10)  # Update this line
+    ration_card = models.FileField(upload_to='ration_cards/', null=True, blank=True)
+    approve = models.CharField(max_length=50, default='declined')
+    def __str__(self):
             return self.name
       
       
@@ -68,4 +67,22 @@ class booking(models.Model):
       pickup_time=models.TimeField()
       status = models.CharField(max_length=20, choices=[('pending', 'Pending'), ('approved', 'approved'), ('delivered', 'delivered')], default='pending')
 
-      
+      # myapp/models.py
+
+from django.db import models
+
+class UserProfile(models.Model):
+    cname = models.CharField(max_length=100)
+    address = models.CharField(max_length=255)
+    place = models.CharField(max_length=100)
+    houseno = models.IntegerField()
+    membersno = models.IntegerField()
+    cnumber = models.IntegerField()
+    type = models.CharField(max_length=3, choices=[('1', 'Choose Card'), ('APL', 'APL'), ('BPL', 'BPL')])
+    color = models.CharField(max_length=10, choices=[('1', 'Choose Color'), ('White', 'White'), ('Blue', 'Blue'), ('Pink', 'Pink'), ('Yellow', 'Yellow')])
+    email = models.EmailField()
+    ration_card = models.FileField(upload_to='ration_cards/')
+    password = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.cname

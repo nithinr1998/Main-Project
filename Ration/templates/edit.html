@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="edit-box">
+                <h2 class="text-center">Edit Information</h2>
+                <form action="{% url 'edit_view' %}" method="POST" onsubmit="return validateForm()" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ user.id }}">
+                    <!-- Include a hidden field for the user ID or any identifier -->
+
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="cname">Card holder Name</label>
+                        <input type="text" id="cname" class="form-control" name="cname" value="{{ user.cname }}" required>
+                        <span id="cname-error" class="text-danger"></span>
+                    </div>
+                    <!-- Repeat similar blocks for other fields with their corresponding values -->
+
+                    <div class="col-12">
+                        <select class="select form-control-lg" name="type" id="type">
+                            <option value="1">Choose Card</option>
+                            <option value="APL" {% if user.type == 'APL' %}selected{% endif %}>APL</option>
+                            <option value="BPL" {% if user.type == 'BPL' %}selected{% endif %}>BPL</option>
+                        </select>
+                        <label class="form-label select-label">Choose option</label><br><br>
+                    </div>
+
+                    <!-- Repeat similar blocks for other select fields -->
+
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" id="email" class="form-control" name="email" value="{{ user.email }}" required>
+                        <span id="email-error" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rationCard">Upload Ration Card (PDF):</label>
+                        <input type="file" class="form-control-file" id="rationCard" name="ration_card" accept=".pdf">
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="password" class="form-control" name="password" required>
+                        <span id="password-error" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Update</button>
+                </form>
+                {% for message in messages %}
+                    <h5 style="color: #ff512f">{{ message }}</h5>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<br></br>
+
+<style>
+    /* Add your custom CSS styles here */
+    .edit-box {
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+{% endblock body %}

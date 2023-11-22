@@ -3,7 +3,7 @@
 .footer {
   background: $footer-bg;
   color: $footer-color;
-  padding: 30px 2.45rem;
+  padding: 0 1.812rem 2.062rem 1.812rem;
   transition: all $action-transition-duration $action-transition-timing-function;
   -moz-transition: all $action-transition-duration $action-transition-timing-function;
   -webkit-transition: all $action-transition-duration $action-transition-timing-function;
@@ -11,7 +11,6 @@
   font-size: calc(#{$default-font-size} - 0.05rem);
   font-family: $type1;
   font-weight: 400;
-  border-top: 1px solid rgba($black, .06);
   a {
     color: theme-color(primary);
     font-size: inherit;

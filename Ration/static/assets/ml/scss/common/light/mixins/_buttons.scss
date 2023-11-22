@@ -9,13 +9,12 @@
     }
     &.btn-social-icon-text {
       padding: 0 1.5rem 0 0;
-      background: lighten($color, 10%); 
+      background: lighten($color, 10%);
       i {
         background: $color;
         padding: .75rem;
         display: inline-block;
         margin-right: 1.5rem;
-        border-radius: 15px 0 0 15px;
       }
     }
 }

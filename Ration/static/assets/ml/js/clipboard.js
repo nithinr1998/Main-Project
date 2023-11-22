@@ -1,6 +1,6 @@
 (function($) {
   'use strict';
-  var clipboard = new ClipboardJS('.btn-clipboard');
+  var clipboard = new Clipboard('.btn-clipboard');
   clipboard.on('success', function(e) {
     console.log(e);
   });

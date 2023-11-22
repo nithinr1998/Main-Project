@@ -2,7 +2,7 @@ from django.contrib import admin
 from . models import *
 
 class custregfields(admin.ModelAdmin):
-      list_display=('name','cardnumber','address','place','membersno','approve')
+      list_display=('name','cardnumber','address','place','membersno','ration_card','approve')
 class customerdetailsfields(admin.ModelAdmin):
       list_display=('name','cardnumber','shopowner','cardtype','cardcolor')
 class itemsfields(admin.ModelAdmin):

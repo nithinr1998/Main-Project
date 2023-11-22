@@ -5,13 +5,15 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [ 
     path('',views.home,name='myhome'),
     path('contact/',views.contact,name="contact"),
+    path('signin.html', views.signin, name='signin'),
     path('blog/',views.blog,name="blog"),
     path('ration/',views.ration,name="ration"),
+    path('adminbase/',views.adminbase,name="adminbase"),
     path('customerbase/',views.customerbase,name="customerbase"),
     path('shopowner/',views.shopowner,name="shopowner"),
     path('customersignup/',views.customersignup,name="customersignup"),
     path('shopownersignup/',views.shopownersignup,name="shopownersignup"),
-    path('signin/',views.signin,name="signin"),
+    path('customersignup/signin.html', views.signin, name='signin'),
     path('signout/',views.logout_view,name="logout"),
     path('viewc/',views.viewcustomers,name="viewc"),  
     path('addstock/',views.addstock,name="addstock"),
@@ -33,6 +35,8 @@ urlpatterns = [
     path('admin_item/', views.admin_item, name='admin_item'),
     path('add_carditem/',views.add_carditem, name='add_carditem'),
     path('admin_view_carditem/',views.admin_view_carditem, name='admin_view_carditem'),
+    path('admincustomer_list/', views.admincustomer_list, name='admincustomer_list'),
+    path('adminshopowner_list/', views.adminshopowner_list, name='adminshopowner_list'),
     path('view_item/', views.view_item, name='view_item'),
     path('shopcarditem/', views.shopcarditem, name='shopcarditem'),
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
@@ -40,9 +44,9 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('admincustomer_list',views.admincustomer_list, name='admincustomer_list'),
-    path('activate_user/<int:user_id>/', views.activate_user, name='activate_user'),
-    path('deactivate_user/<int:user_id>/', views.deactivate_user, name='deactivate_user'),
-   
+    path('edit/<int:user>/', views.edit_profile_view, name='edit_profile'),
+    
+    
     
     
       

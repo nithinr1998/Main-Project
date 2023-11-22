@@ -90,18 +90,9 @@
 }
 
 .text-small {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .flex-grow {
   flex-grow: 1;
-}
-
-.hover-cursor {
-  &:hover {
-    cursor: pointer;
-  }
-}
-.min-width-cell {
-  min-width: 110px;
 }

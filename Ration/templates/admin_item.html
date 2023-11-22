@@ -3,20 +3,21 @@
 
 {% block body %}
 <body style='background-image:url("{% static 'images/r6.jpg' %}");'>
- 
 
-<body>
   <div class="container">
-      <br></br>  
-    <h2>Add Item</h2>
-    <br></br>
-    <form method="POST">
+    <div style="margin-top: 50px; margin-bottom: 50px;">
+      <h2 style="color: #fff; text-align: center;">Add Item</h2>
+    </div>
+
+    <form method="POST" style="max-width: 400px; margin: auto; background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);">
       {% csrf_token %}
-      <label for="item">Item:</label>
-      <input type="text" name="item" required>
-      <button type="submit">Add Item</button>
+      <div class="form-group">
+        <label for="item" style="color: #333; font-weight: bold;">Item:</label>
+        <input type="text" name="item" class="form-control" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="background-color:  #003366; border-color: #5bc0de;">Add Item</button>
     </form>
   </div>
 </body>
 {% endblock body %}
-

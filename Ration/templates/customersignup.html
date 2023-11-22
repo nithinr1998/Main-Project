@@ -6,7 +6,7 @@
         <div class="col-md-6">
             <div class="registration-box">
                 <h2 class="text-center">Registration</h2>
-                <form action="" method="POST" onsubmit="return validateForm()">
+                <form action="" method="POST" onsubmit="return validateForm()" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="form-outline mb-4">
                         <label class="form-label" for="cname">Card holder Name</label>
@@ -63,9 +63,9 @@
                         <span id="email-error" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                      <label for="rationCard">Upload Ration Card (PDF):</label>
-                      <input type="file" class="form-control-file" id="rationCard" name="ration_card" accept=".pdf">
-                  </div>                  
+                        <label for="rationCard">Upload Ration Card (PDF):</label>
+                        <input type="file" class="form-control-file" id="rationCard" name="ration_card" accept=".pdf">
+                    </div>              
                   
                     <div class="form-outline mb-4">
                         <label class="form-label" for="password">Password</label>

@@ -4,7 +4,6 @@
   font-size: $btn-font-size;
   line-height: 1;
   font-weight: 400;
-  border-radius:15px;
   i {
     font-size: 1rem;
   }
@@ -13,11 +12,10 @@
   }
   &.btn-sm {
     font-size: $btn-font-size-sm;
-    border-radius:15px;
+    padding: 0.47rem 0.6rem;
   }
   &.btn-lg {
     font-size: $btn-font-size-lg;
-    padding: 1.375rem 3.4rem;
   }
   &.btn-xs {
     padding: $btn-padding-y-xs $btn-padding-x-xs;
@@ -35,18 +33,13 @@
       margin-right: .5rem;
     }
     .btn-icon-append {
-      margin-left: .5rem;
+      margin-left: 0;
     }
   }
   &.btn-social-icon {
     width: 50px;
     height: 50px;
     padding: 0;
-  }
-  &:focus,
-  &:active {
-    outline: 0;
-    box-shadow: none;
   }
 }
 
@@ -79,9 +72,12 @@
   .btn-inverse-#{$color} {
     @include button-inverse-variant($value);
   }
-}
-
-.btn-outline-light {
-  color: #6c7383;
-  border-color: #e3e3e3;
+  .btn-#{$color} {
+    &,
+    &:hover {
+      box-shadow: 0 2px 2px 0 rgba(theme-color($color), .14), 
+                0 3px 1px -2px rgba(theme-color($color), .2), 
+                0 1px 5px 0 rgba(theme-color($color), .12)
+    }
+  }
 }

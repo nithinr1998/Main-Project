@@ -50,7 +50,7 @@
         position: relative;
         max-height: 100vh;
         height: 100%;
-        padding-bottom: 180px;
+        padding-bottom: 150px;
       }
     }
   }
@@ -139,10 +139,6 @@
       &.danger {
         @extend .bg-danger;
       }
-      &.light {
-        @extend .bg-light;
-        border:1px solid lighten(color(gray),60%);
-      }
       &.info {
         @extend .bg-info;
       }
@@ -150,8 +146,7 @@
         @extend .bg-dark;
       }
       &.default {
-        @extend .bg-light;
-        border: 1px solid lighten(color(gray), 60%);
+        background: lighten(color(gray),60%);
       }
     }
   }

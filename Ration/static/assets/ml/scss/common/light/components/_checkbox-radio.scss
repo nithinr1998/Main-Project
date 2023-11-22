@@ -63,17 +63,18 @@
           transition-duration: 0s;
           -webkit-transition-duration: 250ms;
           transition-duration: 250ms;
-          font-family: themify;
+          font-family: 'typicons';
           opacity: 0;
           filter: alpha(opacity=0);
           -webkit-transform: scale(0);
           -ms-transform: scale(0);
           -o-transform: scale(0);
           transform: scale(0);
-          content: '\e64c';
+          content: '\e11e';
           font-size: .9375rem;
           font-weight: bold;
           color: $white;
+          margin-left: 3px;
         }
       }
       &:checked {

@@ -35,28 +35,28 @@ $colors: (
   gray-light:       #aab2bd,
   gray-lighter:     #e8eff4,
   gray-lightest:    #e6e9ed,
-  gray-dark:        #0f1531, 
+  gray-dark:        #0f1531,
   black:            #000000
 );
 
 
 $theme-colors: (
-  primary:         #4B49AC,
-  secondary:       #a3a4a5,
-  success:         #57B657,
-  info:            #248AFD,
-  warning:         #FFC100,
-  danger:          #FF4747,
+  primary:         #844fc1,
+  secondary:       #6c7293,
+  success:         #21bf06,
+  info:            #3b86d1,
+  warning:         #f39915,
+  danger:          #dc3545,
   light:           #f8f9fa,
   dark:            #282f3a
 );
 
 $theme-gradient-colors: (
-  primary:         linear-gradient(230deg, #759bff, #843cf6),
+  primary:         linear-gradient(to right, #3023ae, #c86dd7),
   secondary:       linear-gradient(to right, #e7ebf0, #868e96),
   success:         linear-gradient(45deg, #7bffce, #30c93e),
   info:            linear-gradient(to bottom, #0e4cfd, #6a8eff),
-  warning:         linear-gradient(135deg, #ffc480, #ff763b),
+  warning:         linear-gradient(to top, #f76b1c, #fad961),
   danger:          linear-gradient(316deg, #fc5286, #fbaaa2),
   light:           linear-gradient(to right, #cfd9df 0%, #e2ebf0 100%),
   dark:            linear-gradient(to right, #7d7979 0%, #000000 100%)
@@ -65,9 +65,8 @@ $theme-gradient-colors: (
 ////////// COLOR SYSTEM //////////
 
 ////////// COLOR VARIABLES //////////
-$content-bg: #F5F7FF;
-$border-color: #CED4DA;
-$border-radius: 8px;
+$content-bg: #f4f5fa;
+$border-color: #f3f3f3;
 
 ////////// COLOR VARIABLES //////////
 
@@ -76,10 +75,10 @@ $border-radius: 8px;
 ////////// SOCIAL COLORS //////////
 
 $social-colors: (
-  twitter: #4747A1,
-  facebook: #7DA0FA,
+  twitter: #2caae1,
+  facebook: #3b579d,
   google: #dc4a38,
-  linkedin: #7978E9,
+  linkedin: #0177b5,
   pinterest: #cc2127,
   youtube: #e52d27,
   github: #333333,
@@ -92,14 +91,12 @@ $social-colors: (
 
 ////////// FONTS//
 
-$type1:     'Nunito', sans-serif;
+$type1:    'Poppins', sans-serif;
 
 $default-font-size: .875rem; // 14px as base font size
 
-$text-muted: #737F8B;
-$body-color: #1F1F1F;
-$color-light-blue: #52C4FF;
-
+$text-muted: #a5abcc;
+$body-color: #001737;
 
 ////////// FONT VARIABLES //////////
 
@@ -127,7 +124,7 @@ $btn-padding-x-lg:    3rem;
 
 $btn-font-size:       .875rem;
 $btn-font-size-xs:    .625rem;
-$btn-font-size-sm:    0.812rem;
+$btn-font-size-sm:    .875rem;
 $btn-font-size-lg:    .875rem;
 
 $btn-border-radius:         .1875rem;
@@ -158,6 +155,10 @@ $input-border-radius:     2px;
 $input-placeholder-color: #c9c8c8;
 $input-font-size: .875rem;
 
+$input-height :           2.875rem;
+$input-height-sm :           2.25rem;
+$input-height-lg :           3.5rem;
+
 $input-padding-y:       .875rem;
 $input-padding-x:       1.375rem;
 $input-line-height:     1;
@@ -169,16 +170,12 @@ $input-padding-y-sm:    .50rem;
 $input-padding-x-sm:    .81rem;
 
 $input-padding-y-lg:    .94rem;
-$input-padding-x-lg:    1.94rem;
-
-$input-height:          2.875rem;
-$input-height-sm:       2.575rem;
-$input-height-lg:       3.175rem;
+$input-padding-x-lg:    .94rem;
 
 ///////// FORMS /////////
 
 ////////  DROPDOWNS ///////
-
+$dropdown-color: $body-color;
 $dropdown-border-color: $border-color;
 $dropdown-divider-bg:   $border-color;
 $dropdown-link-color:   $body-color;
@@ -187,16 +184,14 @@ $dropdown-link-hover-bg: #eaeaf1;
 ////////  DROPDOWNS ///////
 
 //////// TABLES ////////
-
+$table-color: $body-color;
 $table-accent-bg: $content-bg;
 $table-hover-bg:  #eaeaf1;
-$table-cell-padding: 1.125rem 1.375rem;
+$table-cell-padding: 1.25rem .9375rem;
 $table-border-color: $border-color;
 
 $table-inverse-bg: #2a2b32;
 $table-inverse-color: color(white);
-$expanded-table-cell-color:#0B0F32;
-$alpha-orange:#FE5C83;
 
 //////// TABLES ////////
 
@@ -205,21 +200,17 @@ $alpha-orange:#FE5C83;
 ////////// MEASUREMENT AND PROPERTY VARIABLES //////////
 
 $border-property: 1px solid $border-color;
-$card-spacing-y: 2.5rem;
-$card-padding-y: 1.25rem;
-$card-padding-x: 1.25rem;
-$card-border-radius: 20px;
-$card-border-color: #e3e3e3;
-$card-box-shadow: none;
-$card-title-color: #010101;
+$card-spacing-y: 1.375rem;
+$card-padding-y: 1.5rem;
+$card-padding-x: 1.8rem;
+$card-border-radius: 0.25rem;
+$card-border-color: #e4e4f4;
+$card-box-shadow: 0 5px 10px 0 rgba(230, 230, 243, 0.88);
+$card-title-color: $body-color;
 $card-description-color: #76838f;
-$grid-gutter-width: 30px;
+$grid-gutter-width: 1.375rem;
 $action-transition-duration: 0.25s;
 $action-transition-timing-function: ease;
-$card-tale:#7DA0FA;
-$card-dark-blue:#4747A1;
-$card-light-blue:#7978E9;
-$card-light-danger:#F3797E;
 ////////// OTHER VARIABLES //////////
 
 
@@ -242,7 +233,7 @@ $breadcrumb-divider:                "/";
 $breadcrumb-custom-padding-y:       0;
 $breadcrumb-custom-padding-x:       0;
 $breadcrumb-custom-item-padding-y:  0.56rem;
-$breadcrumb-custom-item-padding-x:  12px;
+$breadcrumb-custom-item-padding-x:  10px;
 $breadcrumb-custom-item-color:      $black;
 $breadcrumb-item-bg:                #dbe3e6;
 
@@ -252,7 +243,7 @@ $breadcrumb-item-bg:                #dbe3e6;
 
 ////////// MODALS VARIABLES //////////
 
-$modal-inner-padding:              0.9375rem;
+$modal-inner-padding:               0.9375rem;
 $modal-dialog-margin:               10px;
 $modal-dialog-margin-y-sm-up:       30px;
 $modal-title-line-height:           $line-height-base;
@@ -300,4 +291,8 @@ $nav-pills-custom-bg:               #fcfcfd;
 
 ////////   CALENDAR  //////////////
 $fullcalendar-color: #a8b2b9;
+////////   CALENDAR  //////////////
+
+////////   Toggle Switch  //////////////
+$toggle-switch-bg: #e9ecef;
 ////////   CALENDAR  //////////////

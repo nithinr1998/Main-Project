@@ -28,10 +28,13 @@
   if ($('input[name="date-range"]').length) {
     $('input[name="date-range"]').daterangepicker();
   }
-  if($('.input-daterange').length) {
-    $('.input-daterange input').each(function() {
-      $(this).datepicker('clearDates');
+  if ($('input[name="date-time-range"]').length) {
+    $('input[name="date-time-range"]').daterangepicker({
+      timePicker: true,
+      timePickerIncrement: 30,
+      locale: {
+        format: 'MM/DD/YYYY h:mm A'
+      }
     });
-    $('.input-daterange').datepicker({});
   }
 })(jQuery);

@@ -8,6 +8,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.shortcuts import render, redirect, get_object_or_404
+from .models import UserProfile
 # Create your views here.
 
 
@@ -15,10 +16,16 @@ def home(request):
     return render(request,'home.html')
 def customerbase(request):
           return render(request,'customerbase.html')
+def adminbase(request):
+          return render(request,'adminbase.html')      
 def customer(request):
           return render(request,'customer.html')      
 def shopowner(request):
-          return render(request,'shopowner.html')            
+          return render(request,'shopowner.html')  
+def admincustomer_list(request):
+          return render(request,'admincustomer_list.html')   
+def adminshopowner_list(request):
+          return render(request,'adminshopowner_list.html')                     
 def contact(request):
     return render(request,"contact.html")
 def blog(request):
@@ -27,6 +34,13 @@ def ration(request):
           return render(request,'ration.html')       
 def admincustomer_list(request):
           return render(request,'admincustomer_list.html')     
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.core.files.storage import FileSystemStorage
+from django.utils.datastructures import MultiValueDictKeyError
+from django.contrib.auth.models import User
+from .models import custreg
 
 def customersignup(request):
     if request.method == "POST":
@@ -50,7 +64,7 @@ def customersignup(request):
 
         try:
             ration_card_file = request.FILES['ration_card']
-            # Save the file
+            # Save the file to the ration_card field
             fs = FileSystemStorage()
             filename = fs.save(ration_card_file.name, ration_card_file)
         except MultiValueDictKeyError:
@@ -68,12 +82,14 @@ def customersignup(request):
         customer.cardnumber = cardnumber
         customer.email = email
         customer.password = password
+        customer.ration_card = fs.url(filename)  # Save the file URL to the model
         customer.save()
 
         messages.success(request, 'You have successfully registered!')
         return redirect("signin.html")
 
     return render(request, "customersignup.html")
+
       
       
 def shopownersignup(request):
@@ -112,7 +128,7 @@ def signin(request):
               if user is not None:
                     login(request,user)
                     if user.is_superuser:
-                        return render(request, 'admin.html')
+                        return render(request, 'adminbase.html')
                     elif  user.last_name=='1':
                         details=custreg.objects.filter(email=user.email)
                         {'details':details}
@@ -341,18 +357,17 @@ def custtiming(request):
 def customer_list(request):
     if request.method == 'POST':
         for key, value in request.POST.items():
+            print(f'Key: {key}, Value: {value}')
             if key.startswith('approval_status_'):
                 customer_id = key.split('_')[-1]
-                try:
-                    customer = custreg.objects.get(pk=customer_id)
-                    customer.approve = value
-                    customer.save()
-                except custreg.DoesNotExist:
-                    messages.error(request, f"Customer with ID {customer_id} does not exist.")
+                customer = custreg.objects.get(pk=customer_id)
+                customer.approve = value
+                customer.save()
         return redirect('customer_list')
     else:
         customers = custreg.objects.all()
         return render(request, 'admincustomer_list.html', {'customers': customers})
+
 
 def shopowner_list(request):
     if request.method == 'POST':
@@ -504,9 +519,38 @@ def activate_user(request, user_id):
         messages.warning(request, f"User '{user.username}' is already active.")
     return redirect('admin.html')
 
+# myapp/views.py
 
 
+def edit_profile_view(request, user):
+    user = get_object_or_404(UserProfile, id=user)
 
+    if request.method == 'POST':
+        # Update user fields directly from request.POST
+        user.cname = request.POST.get('cname')
+        user.address = request.POST.get('address')
+        user.place = request.POST.get('place')
+        user.houseno = request.POST.get('houseno')
+        user.membersno = request.POST.get('membersno')
+        user.cnumber = request.POST.get('cnumber')
+        user.type = request.POST.get('type')
+        user.color = request.POST.get('color')
+        user.email = request.POST.get('email')
+
+        # Handle file upload for the ration_card
+        if 'ration_card' in request.FILES:
+            user.ration_card = request.FILES['ration_card']
+
+        # Update the password if provided
+        password = request.POST.get('password')
+        if password:
+            user.password = password
+
+        user.save()
+        # Add a success message if needed
+        return redirect('index')  # Replace 'index' with the name of the view where you want to redirect
+
+    return render(request, 'edit_profile.html', {'user': user})
 
 
 

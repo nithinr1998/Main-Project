@@ -12,7 +12,7 @@
       mode: "javascript",
       theme: "ambiance",
       lineNumbers: true,
-      readOnly: "true"
+      readOnly: "nocursor"
     });
   }
   if ($('#cm-js-mode').length) {
@@ -32,7 +32,7 @@
         mode: "javascript",
         theme: "ambiance",
         lineNumbers: true,
-        readOnly: "true",
+        readOnly: "nocursor",
         maxHighlightLength: 0,
         workDelay: 0
       });
@@ -48,7 +48,7 @@
       CodeMirror.fromTextArea(document.getElementById('code-' + i), {
         mode: "shell",
         theme: "ambiance",
-        readOnly: "true",
+        readOnly: "nocursor",
         maxHighlightLength: 0,
         workDelay: 0
       });

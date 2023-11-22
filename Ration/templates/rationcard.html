@@ -1,0 +1,15 @@
+{% extends 'customerbase.html' %}
+{% block body %}
+    <h2>Welcome, {{ user.username }}!</h2>
+
+    <!-- Display user information, other details, and Ration Card -->
+    <p>Email: {{ user.email }}</p>
+    <!-- Add more user details as needed -->
+
+    {% if ration_card_url %}
+        <p>Ration Card:</p>
+        <img src="{{ ration_card_url }}" alt="Ration Card">
+    {% else %}
+        <p>No Ration Card uploaded.</p>
+    {% endif %}
+{% endblock body%}

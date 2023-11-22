@@ -24,7 +24,6 @@
       }
       &:before{
         content: "";
-        padding-right: 0;
       }
       a{
         position: relative;
@@ -61,9 +60,6 @@
         vertical-align: top;
       }
       &.active {}
-       & > .breadcrumb-item {
-        padding-right: 0;
-      }
     }
   }
 

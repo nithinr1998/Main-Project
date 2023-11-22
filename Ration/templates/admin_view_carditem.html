@@ -72,7 +72,7 @@
           <td>{{ carditem.quantity }}</td>
           <td>{{ carditem.rate }}</td>
           <td>
-            
+            <form method="post" action="">
               {% csrf_token %}
               <input type="hidden" name="carditem_id" value="{{ carditem.id }}">
               <button type="submit" class="delete-button">Delete</button>

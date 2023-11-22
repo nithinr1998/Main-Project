@@ -1,13 +1,13 @@
 /* Badges */
 
 .badge {
-  border-radius: 20px;
+  border-radius: 4px;
   font-size: 12px;
   line-height: 1;
-  padding: .375rem .5625rem;
+  padding: .345rem .46rem;
   font-weight: normal;
   &.badge-pill {
-    border-radius: 10rem; 
+    border-radius: 10rem;
   }
 }
 

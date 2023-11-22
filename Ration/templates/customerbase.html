@@ -84,11 +84,14 @@
                             <ul class="header__menu__dropdown">
                                 <li><a href="{% url 'addmembers' %}">Add Members</a></li>
                                 <li><a href="{% url 'viewmembers' %}">View Members</a></li>
-                                <li><a href=".">View RationCard</a></li>
+                                <li><a href="{% url 'customerbase'%}">View RationCard</a></li>
                             </ul>
                         </li>
                         <li><a href="#">Pages</a>
                             <ul class="header__menu__dropdown">
+                             <!-- template.html -->
+                             <li><a href="{% url 'edit_profile' user=user.id %}">Edit</a></li>
+
                                 <li><a href="./shoping-cart.html">Shopping Cart</a></li>
                                 <li><a href="{% url 'customer' %}">products</a></li>
                                 <li><a href="{% url 'purchese' %}">Purchase</a></li>

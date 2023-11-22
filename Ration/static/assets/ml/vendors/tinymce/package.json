@@ -1,37 +1,33 @@
 {
-  "_from": "tinymce@^5.0.8",
-  "_id": "tinymce@5.7.0",
+  "_from": "tinymce@4.6.4",
+  "_id": "tinymce@4.6.4",
   "_inBundle": false,
-  "_integrity": "sha512-WikgMpJbqYPaucV3lfstCj+Y4NquZlK61gyuJ2eqDUBlSU+4fFh6rpwnelVTxuvtEyJsAVOl8HZmbzBfDJiLsQ==",
+  "_integrity": "sha1-dBVVnyZt4kvqfmnVnkPh5h59EaQ=",
   "_location": "/tinymce",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
+    "type": "version",
     "registry": true,
-    "raw": "tinymce@^5.0.8",
+    "raw": "tinymce@4.6.4",
     "name": "tinymce",
     "escapedName": "tinymce",
-    "rawSpec": "^5.0.8",
+    "rawSpec": "4.6.4",
     "saveSpec": null,
-    "fetchSpec": "^5.0.8"
+    "fetchSpec": "4.6.4"
   },
   "_requiredBy": [
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/tinymce/-/tinymce-5.7.0.tgz",
-  "_shasum": "bc565877e4041db83848a330dfa7916993110cba",
-  "_spec": "tinymce@^5.0.8",
-  "_where": "/Users/jyothish/Documents/skydash-free-bootstrap-admin-template/template",
-  "author": {
-    "name": "Tiny Technologies, Inc"
-  },
+  "_resolved": "https://registry.npmjs.org/tinymce/-/tinymce-4.6.4.tgz",
+  "_shasum": "7415559f266de24bea7e69d59e43e1e61e7d11a4",
+  "_spec": "tinymce@4.6.4",
+  "_where": "/Users/jyothish/Documents/polluxui-free/template",
   "bugs": {
-    "url": "https://github.com/tinymce/tinymce/issues"
+    "url": "http://www.tinymce.com/develop/bugtracker.php"
   },
   "bundleDependencies": false,
   "deprecated": false,
   "description": "Web based JavaScript HTML WYSIWYG editor control.",
-  "homepage": "https://github.com/tinymce/tinymce-dist#readme",
   "keywords": [
     "editor",
     "wysiwyg",
@@ -43,10 +39,5 @@
   "license": "LGPL-2.1",
   "main": "tinymce.js",
   "name": "tinymce",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tinymce/tinymce-dist.git"
-  },
-  "types": "tinymce.d.ts",
-  "version": "5.7.0"
+  "version": "4.6.4"
 }

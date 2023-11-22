@@ -29,7 +29,7 @@ function initMap() {
       zoom: MapZoom,
       center: MapLocation
     });
-    var iconBase = '../../images/file-icons/';
+    var iconBase = '../../../../images/file-icons/flag/';
     var marker_2 = new google.maps.Marker({
       position: MapLocation,
       map: CustomMarker,

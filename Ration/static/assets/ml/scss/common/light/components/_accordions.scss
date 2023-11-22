@@ -1,27 +1,14 @@
 /* Accordions */
 
 .accordion {
-  border-radius: 8px;
-  > .card {
+  .card {
     margin-bottom: .75rem;
     box-shadow: 0px 1px 15px 1px rgba(230, 234, 236, 0.35);    
     border-radius: .25rem;
-    border-radius: 8px;
-    &:not(:last-of-type) {
-      border-bottom: 0;
-      @include border-bottom-radius(8);
-      border-radius: 8px;
-    }
-
-    &:not(:first-of-type) {
-      @include border-top-radius(8);
-      border-radius: 8px;
-    }
     .card-header {
       background-color: transparent;
       border: none;
       padding: 2rem;
-      border-radius: 8px;
       * {
         font-weight: 400;
         font-size: 1rem;        
@@ -35,22 +22,22 @@
         @include transition(color .5s ease);
         padding-right: 1.5rem;
         &:before {
-          font-family:"themify";
+          font-family:"typicons";
           position: absolute;
           right: 7px;
           top: 0;
-          font-size: 14px;
+          font-size: 18px;
           display: block;
         }
         &[aria-expanded="true"] {
           color: theme-color(primary);
           &:before {
-            content: "\e622";
+            content: "\e0cf";
           }
         }
         &[aria-expanded="false"] {
           &:before{
-            content: "\e61a";
+            content: "\e0bd";
           }
         }
       }
@@ -88,12 +75,12 @@
           &[aria-expanded="true"] {
             color: inherit;
             &:before {
-              content: "\e65c";
+              content: "\e01d";
             }
           }
           &[aria-expanded="false"] {
             &:before {
-              content: "\e65f";
+              content: "\e01e";
             }
           }
         }
@@ -122,13 +109,13 @@
             background: theme-color(info);
             color: $white;
             &:before {
-              content: "\e648";
+              content: "\e01d";
               color: $white;
             }
           }
           &[aria-expanded="false"] {
             &:before {
-              content: "\e64b";
+              content: "\e01e";
             }
           }
         }
@@ -155,15 +142,14 @@
           &[aria-expanded="true"] {
             background: theme-color(primary);
             color: $white;
-            border-radius: 8px;
             &:before {
-              content: "\e648";
+              content: "\e01d";
               color: $white;
             }
           }
           &[aria-expanded="false"] {
             &:before {
-              content: "\e64b";
+              content: "\e01e";
             }
           }
         }
@@ -188,12 +174,12 @@
           &[aria-expanded="true"] {
             color: inherit;
             &:before {
-              content: "\e648";
+              content: "\e01d";
             }
           }
           &[aria-expanded="false"] {
             &:before {
-              content: "\e64b";
+              content: "\e01e";
             }
           }
         }
@@ -202,7 +188,6 @@
         padding: 2rem;
         background: theme-color(success);
         color: $white;
-        border-radius: 8px;
       }
     }
   }
@@ -233,12 +218,12 @@
           &[aria-expanded="true"] {
             color: inherit;
             &:before {
-              content: "\e648";
+              content: "\e01d";
             }
           }
           &[aria-expanded="false"] {
             &:before {
-              content: "\e64b";
+              content: "\e01e";
             }
           }
         }
