@@ -1,0 +1,25 @@
+from django.urls import path
+
+from ration_shop_app.customer_views import CartView, Indexview, Payment, UpdateProfile,View_Product,AddMember,ApprovedmemberView,CardOwnerView, View_confirm_order, cancel_order, chpayment, view_cart
+
+urlpatterns = [
+
+    path('',Indexview.as_view()),
+    path('products_list',View_Product.as_view()),
+    path('addmember',AddMember.as_view()),
+    path('approvedmember',ApprovedmemberView.as_view()),
+    path('cardowner',CardOwnerView.as_view()),
+    
+    
+    path('CartView/<int:id>/', CartView.as_view(), name='cart-view'),
+    path('view_cart',view_cart.as_view()),
+    path('Payment',Payment.as_view()),
+    path('chpayment', chpayment.as_view()),
+    path('View_confirm_order',View_confirm_order.as_view()),
+    path('cancel_order', cancel_order.as_view()),
+    path('updateprofile',UpdateProfile.as_view())
+]
+
+
+def urls():
+    return urlpatterns, 'customer','customer'

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %} 
+{% if message %}
+<script>
+alert("{{ message }}")
+</script>
+{% endif %}
+            <div class="col-xl-8 col-lg-8 col-md-7">
+                <div class="form">
+                    <form id="register-form" action="" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            
+                            <div class="col-xl-6">
+                                <div class="input_field">
+                                    <label for="email">Mail Id:</label>
+                                    <input type="email" name="email" placeholder="Email">
+                                </div>
+                            </div>
+                            
+                            <div class="col-xl-6">
+                                <div class="input_field">
+                                    <label for="password">Password:</label>
+                                    <input type="password" name="password" placeholder="Password">
+                                </div>
+                            </div>
+                            
+                            <div class="col-xl-12">
+                                <div class="input_field">
+                                    <input type="submit" value="Login" class="boxed-btn3-line">                                  
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Estimate_area end  -->
+{% endblock  %}

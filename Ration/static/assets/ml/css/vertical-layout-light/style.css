@@ -8921,8 +8921,6 @@ button,
 [type="reset"],
 [type="submit"] {
   -webkit-appearance: button;
-  -moz-appearance: button;
-  appearance: button; /* Standard property */
 }
 
 button:not(:disabled),
@@ -8982,8 +8980,6 @@ progress {
 [type="search"] {
   outline-offset: -2px;
   -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none; /* Standard property */
 }
 
 [type="search"]::-webkit-search-decoration {
@@ -12332,7 +12328,9 @@ input[type="button"].btn-block {
   display: block;
   min-height: 1.5rem;
   padding-left: 1.5rem;
+  color-adjust: exact;
 }
+
 .custom-control-inline {
   display: inline-flex;
   margin-right: 1rem;

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %} 
+{% if message %}
+<script>
+alert("{{ message }}")
+</script>
+{% endif %}
+    <br>
+    <br>
+    <!-- slider_area_end -->
+
+    <!-- contact_location  -->
+    <div class="col-xl-12">
+        <div id="page-inner" >
+            <h1>Working Hours</h1>
+            <br>
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th class="info">Day</th>
+                    <th class="info">Opening Time</th>
+                    <th class="info">Closing Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Monday</td>
+                    <td>9:00 AM</td>
+                    <td>5:00 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Tuesday</td>
+                    <td>9:00 AM</td>
+                    <td>5:00 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Wednesday</td>
+                    <td>9:00 AM</td>
+                    <td>5:00 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Thursday</td>
+                    <td>9:00 AM</td>
+                    <td>5:00 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Friday</td>
+                    <td>9:00 AM</td>
+                    <td>5:00 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Saturday</td>
+                    <td>10:00 AM</td>
+                    <td>2:00 PM</td>
+                  </tr>
+                  <tr>
+                    <td>Sunday</td>
+                    <td>Closed</td>
+                    <td>Closed</td>
+                  </tr>
+                </tbody>
+              </table>
+              
+        </div>
+    </div>
+
+    <!--/ contact_location  -->
+
+    {% endblock  %}
+    

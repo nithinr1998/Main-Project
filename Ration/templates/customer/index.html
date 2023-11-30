@@ -1,0 +1,13 @@
+{% extends 'customer/base.html' %}
+{% load static %}
+{% block content %} 
+{% if message %}
+<script>
+alert("{{ message }}")
+</script>
+{% endif %}
+
+
+
+    {% endblock  %}
+    

@@ -1,0 +1,50 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block content %} 
+{% if message %}
+<script>
+alert("{{ message }}")
+</script>
+{% endif %}
+    <br>
+    <br>
+    <div class="col-xl-12">
+        <div id="page-inner" >
+            <h1>Pending Member Addition List</h1>
+            <br>
+                <table class="table table-bordered table-striped table-hover">
+            
+                    <th class="info">Card Owner</th>
+                    <th class="info">Card Number</th>
+                    <th class="info">Card Type/Color</th>
+                    <th class="info">Member Name</th>
+                    <th class="info">Relation</th>
+                    <th class="info">Age</th>
+                    <th class="info">Gender</th>
+                    <th class="info">Job</th>
+                    <th class="info">Approve</th>
+                    <th class="info">Reject</th>
+                    
+            {% for i in member  %}
+            
+            <tr>
+                <td>{{ i.cust.user.first_name}}</td>
+                <td>{{ i.cust.card_number}}</td>
+                <td>{{ i.cust.card.card}}</td>
+                <td>{{ i.name}}</td>
+                <td>{{ i.relation }}
+                <td>{{ i.age}}</td>
+                <td>{{ i.gender}}</td>
+                <td>{{ i.job}}</td>
+                <td><a href="aprove_member?id={{ i.id}}" class=" btn btn-success">Approve</a></td>
+                <td><a href="rejectmember?id={{ i.id}}" class=" btn btn-danger">Reject</a></td>
+            
+            </tr>
+            
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    
+    {% endblock  %}
+    

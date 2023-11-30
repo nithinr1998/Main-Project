@@ -1,0 +1,56 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block content %} 
+{% if message %}
+<script>
+alert("{{ message }}")
+</script>
+{% endif %}
+
+    <br>
+    <br>
+    <div class="col-xl-12 center">
+        <div id="page-inner" >
+            <h1>Approved Member Details</h1>
+            <br>
+                <table class="table table-bordered table-striped table-hover">
+            
+                    <th class="info">Card Owner</th>
+                    <th class="info">Address</th>
+                    <th class="info">Card</th>
+                    <th class="info">Member Name</th>
+                    <th class="info">Relation</th>
+                    <th class="info">Age</th>
+                    <th class="info">Gender</th>
+                    <th class="info">Job</th>
+                    
+                    
+            {% for i in view1  %}
+            
+            <tr>
+                
+                <td>{{ i.cust.user.first_name}}</td>
+                <td>{{ i.cust.address}}</td>
+                <td>{{ i.cust.card.card}}</td>
+                <td>{{ i.name}}</td>
+                <td>{{ i.relation }}
+                <td>{{ i.age}}</td>
+                <td>{{ i.gender}}</td>
+                <td>{{ i.job}}</td>
+                
+            
+            </tr>
+            
+                {% endfor %}
+                <tr>
+                    <form action="" method="post">
+                        {% csrf_token %}
+               <td> <textarea name="qu" placeholder="reply" > </textarea>
+                <input type="hidden" name="id" value="{{ count.id }}"><button type="submit">Submit</button></td></form>
+            </tr>
+            </table>
+        </div>
+    </div>
+    
+    {% endblock  %}
+    

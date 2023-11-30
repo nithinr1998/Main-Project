@@ -1,0 +1,46 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block content %} 
+{% if message %}
+<script>
+alert("{{ message }}")
+</script>
+{% endif %}
+    <br>
+    <br>
+    <div class="col-xl-12">
+        <div id="page-inner" >
+            <h1> Products Ordered List</h1>
+                <table class="table table-bordered table-striped table-hover">
+            
+                    <th class="info">Customer</th>
+                    <th class="info">Card</th>
+                    <th class="info">Item</th>
+                    {% comment %} <th class="info">Quantity</th> {% endcomment %}
+                    {% comment %} <th class="info">Arrived On</th> {% endcomment %}
+                    <th class="info">Amount Paid</th>  
+                    <th class="info">Payment</th>
+                    {% comment %} <th class="info">Reject</th> {% endcomment %}
+            {% for i in pro  %}
+            
+            <tr>
+                <td>{{ i.cust.user.first_name}}</td>
+                <td>{{ i.product.card.card}}</td>
+                <td>{{ i.product.item.item }}
+                {% comment %} <td>{{ i.quantity}}</td> {% endcomment %}
+                {% comment %} <td>{{ i.arrived}}</td> {% endcomment %}
+                <td>{{ i.amount}}</td>  
+                <td>{{ i.payment}}</td>              
+                {% comment %} <td><a href="remove?id={{i.id}}" class="btn btn-success">Remove</a></td>
+                <td><a href="CartView?id={{i.id}}" class="cart-btn"><i class="fa fa-shopping-cart"></i>Add to Cart</a></td> {% endcomment %}
+                {% comment %} <td><a href="reject?id={{ i.user_id}}" class=" btn btn-danger">Reject</a></td> {% endcomment %}
+            
+            </tr>
+            
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    
+    {% endblock  %}
+    

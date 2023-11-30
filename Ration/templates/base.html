@@ -61,7 +61,7 @@
                       </div>
 
                       <div class="header__top__right__auth">
-                              <a href="{% url 'signin' %}"><i class="fa fa-user"></i><b> Login</b></a>
+                              <a href="login"><i class="fa fa-user"></i><b> Login</b></a>
                       </div>
                       
                   </div>
@@ -73,19 +73,18 @@
       <div class="row">
           <div class="col-lg-3">
               <div class="header__logo">
-                  <a href="{% url 'myhome' %}"><img src="{% static 'assets/img/logo.png' %}" alt=""></a>
+                  <a href="/"><img src="{% static 'assets/img/logo.png' %}" alt=""></a>
               </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-7">
               <nav class="header__menu">
                   <ul>
-                      <li class="active"><a href="{% url 'myhome' %}">Home</a></li>
-                      <li><a href="{% url 'contact' %}">Blog</a></li>
-                      <li><a href="{% url 'contact' %}">Contact</a></li>
+                      <li class="active"><a href="/">Home</a></li>
+                      <li><a href="time">Shop Timing</a></li>
                       <li><a href="#">Register</a>
                         <ul class="header__menu__dropdown">
-                            <li><a  href="{% url 'customersignup' %}">Customer</a></li>
-                            <li><a href="{% url 'shopownersignup' %}">Shop Owner</a></li>
+                            <li><a  href="customerreg">Customer</a></li>
+                            <li><a href="shopreg">Shop Owner</a></li>
                   </ul>
               </nav>
           </div>
@@ -93,8 +92,8 @@
   </div>
 </header>
 <!-- Header Section End -->
-{% block body %}
-{% endblock body %}
+{% block content %}
+{% endblock  %}
 <!-- Hero Section Begin -->
 <section class="hero">
   <div class="container">
@@ -106,11 +105,10 @@
                       <span>All Products</span>
                   </div>
                   <ul>
-                      <li><a href="#">Matta Rice</a></li>
-                      <li><a href="#">Raw Rice</a></li>
+                      <li><a href="#">Rice</a></li>
+                      <li><a href="#">Rice(white)</a></li>
                       <li><a href="#">Sugar</a></li>
                       <li><a href="#">Wheat</a></li>
-                      <li><a href="#">Atta</a></li>
                       <li><a href="#">Kerosene</a></li>
                   </ul>
               </div>
@@ -139,10 +137,10 @@
               </div>
               <div class="hero__item set-bg" data-setbg="{% static 'assets/img/hero/banner.jpg' %}">
                   <div class="hero__text">
-                      <span>E-RATION</span>
-                      <h2>Online <br />Ration</h2>
+                      <span>New idea for a better life</span>
+                      <h2>Online <br />Ration Shop</h2>
                       <p>Quality ration provided by kerala Govt.</p>
-                      <a href="{% url 'signin' %}" class="primary-btn">SHOP NOW</a>
+                      <a href="login" class="primary-btn">SHOP NOW</a>
                   </div>
               </div>
           </div>
@@ -150,7 +148,6 @@
   </div>
 </section>
 <!-- Hero Section End -->
-
 <!-- Banner Begin -->
 <div class="banner">
     <div class="container">
@@ -244,7 +241,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="footer__about">
                     <div class="footer__about__logo">
-                        <a href="./index.html"><img src="{% static 'assetsimg/logo.png' %}" alt=""></a>
+                        <a href="./index.html"><img src="{% static 'assets/img/logo.png' %}" alt=""></a>
                     </div>
                     <ul>
                         <li>Address: kerala</li>
