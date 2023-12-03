@@ -3,69 +3,107 @@
 {% block content %} 
 {% if message %}
 <script>
-alert("{{ message }}")
+    alert("{{ message }}")
 </script>
 {% endif %}
-    <br>
-    <br>
-    <!-- slider_area_end -->
+<!-- Internal CSS -->
+<style>
+    #page-inner {
+        margin-top: 20px;
+    }
 
-    <!-- contact_location  -->
-    <div class="col-xl-12">
-        <div id="page-inner" >
-            <h1>Working Hours</h1>
-            <br>
-            <table class="table table-bordered table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th class="info">Day</th>
-                    <th class="info">Opening Time</th>
-                    <th class="info">Closing Time</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Monday</td>
-                    <td>9:00 AM</td>
-                    <td>5:00 PM</td>
-                  </tr>
-                  <tr>
-                    <td>Tuesday</td>
-                    <td>9:00 AM</td>
-                    <td>5:00 PM</td>
-                  </tr>
-                  <tr>
-                    <td>Wednesday</td>
-                    <td>9:00 AM</td>
-                    <td>5:00 PM</td>
-                  </tr>
-                  <tr>
-                    <td>Thursday</td>
-                    <td>9:00 AM</td>
-                    <td>5:00 PM</td>
-                  </tr>
-                  <tr>
-                    <td>Friday</td>
-                    <td>9:00 AM</td>
-                    <td>5:00 PM</td>
-                  </tr>
-                  <tr>
-                    <td>Saturday</td>
-                    <td>10:00 AM</td>
-                    <td>2:00 PM</td>
-                  </tr>
-                  <tr>
-                    <td>Sunday</td>
-                    <td>Closed</td>
-                    <td>Closed</td>
-                  </tr>
-                </tbody>
-              </table>
-              
-        </div>
-    </div>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
 
-    <!--/ contact_location  -->
-
-    {% endblock  %}
+    th, td {
+        padding: 10px;
+        text-align: center;
+    }
     
+    th.info {
+        background-color: #28a745; /* Green background color for table head */
+        color: #fff; /* White text color */
+    }
+</style>
+
+<!-- Working Hours Table -->
+<div class="col-xl-12">
+  <div id="page-inner" >
+      <h1>Working Hours</h1>
+      <br>
+      <table class="table table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th class="in"></th>
+              <th class="info text-center" colspan="2">For Noon</th>
+              <th class="info text-center" colspan="2">after  Noon</th>
+              
+            </tr>
+            <tr>
+              <th class="info">Day</th>
+              <th class="info">Opening Time</th>
+              <th class="info">Closing Time</th>
+              <th class="info">Opening Time</th>
+              <th class="info">Closing Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Monday</td>
+              <td>8:00 AM</td>
+              <td>12:00 PM</td>
+              <td>3:00 PM</td>
+              <td>7:00 PM</td>
+            </tr>
+            <tr>
+              <td>Tuesday</td>
+              <td>8:00 AM</td>
+              <td>12:00 PM</td>
+              <td>3:00 PM</td>
+              <td>7:00 PM</td>
+            </tr>
+            <tr>
+              <td>Wednesday</td>
+              <td>8:00 AM</td>
+              <td>12:00 PM</td>
+              <td>3:00 PM</td>
+              <td>7:00 PM</td>
+            </tr>
+            <tr>
+              <td>Thursday</td>
+              <td>8:00 AM</td>
+              <td>12:00 PM</td>
+              <td>3:00 PM</td>
+              <td>7:00 PM</td>
+            </tr>
+            <tr>
+              <td>Friday</td>
+              <td>8:00 AM</td>
+              <td>12:00 PM</td>
+              <td>3:00 PM</td>
+              <td>7:00 PM</td>
+            </tr>
+            <tr>
+              <td>Saturday</td>
+              <td>8:00 AM</td>
+              <td>12:00 PM</td>
+              <td>3:00 PM</td>
+              <td>7:00 PM</td>
+            </tr>
+            <tr>
+              <td>Sunday</td>
+              
+              <th class="text-center" colspan="4">closed</th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!--/ Working Hours Table -->
+<br></br>
+<br></br>
+<br></br>
+{% endblock  %}

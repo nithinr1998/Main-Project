@@ -1,316 +1,232 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="zxx">
+<!doctype html>
+<html class="no-js" lang="zxx">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Ogani Template">
-    <meta name="keywords" content="Ogani, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>E-Ration</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Ration Shop</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+    <!-- <link rel="manifest" href="site.webmanifest"> -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+    <!-- Place favicon.ico in the root directory -->
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'assets/css/font-awesome.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'assets/css/elegant-icons.css' %} " type="text/css">
-    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %} " type="text/css">
-    <link rel="stylesheet" href="{% static 'assets/css/jquery-ui.min.css' %} " type="text/css">
-    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %} " type="text/css">
-    <link rel="stylesheet" href="{% static 'assets/css/slicknav.min.css' %} " type="text/css">
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %} " type="text/css">
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/gijgo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slicknav.css' %}">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/responsive.css' %}"> -->
 </head>
 
 <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
 
-    
-<!-- Header Section Begin -->
-<header class="header">
-  <div class="header__top">
-      <div class="container">
-          <div class="row">
-              <div class="col-lg-6 col-md-6">
-                  <div class="header__top__left">
-                      <ul>
-                          <li><i class="fa fa-envelope"></i> ration@kerala.com.in</li>
-                          <li>Free Shipping for all Orders over 99</li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="col-lg-6 col-md-6">
-                  <div class="header__top__right">
-                      <div class="header__top__right__social">
-                          <a href="#"><i class="fa fa-facebook"></i></a>
-                          <a href="#"><i class="fa fa-twitter"></i></a>
-                      </div>
-                      <div class="header__top__right__language">
-                        <img src="{% static 'static/img/language.png' %}" alt="">
-                          <div>English</div>
-                          <span class="arrow_carrot-down"></span>
-                          <ul>
-                              <li><a href="#">Malayalam</a></li>
-                              <li><a href="#">English</a></li>
-                          </ul>
-                      </div>
+    <header>
+        <div class="header-area ">
+            <div class="header-top_area d-none d-lg-block">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-xl-4 col-lg-4">
+                            <div class="logo">
+                                <a href="/">
+                                    <h1 class="m-0 display-5 text-warning"><i class="fa fa-university mr-2"></i> Ration Shop</h1>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-md-8">
+                            <div class="header_right d-flex align-items-center">
+                                <div class="short_contact_list">
+                                    <ul>
+                                        <li><a href="#"> <i class="fa fa-envelope"></i>ration@kerala.com.in</a></li>
+                                        <li><a href="#"> <i class="fa fa-phone"></i> 1601-609 6780</a></li>
+                                    </ul>
+                                </div> 
 
-                      <div class="header__top__right__auth">
-                              <a href="login"><i class="fa fa-user"></i><b> Login</b></a>
-                      </div>
-                      
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  <div class="container">
-      <div class="row">
-          <div class="col-lg-3">
-              <div class="header__logo">
-                  <a href="/"><img src="{% static 'assets/img/logo.png' %}" alt=""></a>
-              </div>
-          </div>
-          <div class="col-lg-7">
-              <nav class="header__menu">
-                  <ul>
-                      <li class="active"><a href="/">Home</a></li>
-                      <li><a href="time">Shop Timing</a></li>
-                      <li><a href="#">Register</a>
-                        <ul class="header__menu__dropdown">
-                            <li><a  href="customerreg">Customer</a></li>
-                            <li><a href="shopreg">Shop Owner</a></li>
-                  </ul>
-              </nav>
-          </div>
-      </div>
-  </div>
-</header>
-<!-- Header Section End -->
-{% block content %}
-{% endblock  %}
-<!-- Hero Section Begin -->
-<section class="hero">
-  <div class="container">
-      <div class="row">
-          <div class="col-lg-3">
-              <div class="hero__categories">
-                  <div class="hero__categories__all">
-                      <i class="fa fa-bars"></i>
-                      <span>All Products</span>
-                  </div>
-                  <ul>
-                      <li><a href="#">Rice</a></li>
-                      <li><a href="#">Rice(white)</a></li>
-                      <li><a href="#">Sugar</a></li>
-                      <li><a href="#">Wheat</a></li>
-                      <li><a href="#">Kerosene</a></li>
-                  </ul>
-              </div>
-          </div>
-          <div class="col-lg-9">
-              <div class="hero__search">
-                  <div class="hero__search__form">
-                      <form action="#">
-                          <div class="hero__search__categories">
-                              All Categories
-                              <span class="arrow_carrot-down"></span>
-                          </div>
-                          <input type="text" placeholder="What do yo u need?">
-                          <button type="submit" class="site-btn">SEARCH</button>
-                      </form>
-                  </div>
-                  <div class="hero__search__phone">
-                      <div class="hero__search__phone__icon">
-                          <i class="fa fa-phone"></i>
-                      </div>
-                      <div class="hero__search__phone__text">
-                          <h5>8848972275</h5>
-                          <span>support 24/7 time</span>
-                      </div>
-                  </div>
-              </div>
-              <div class="hero__item set-bg" data-setbg="{% static 'assets/img/hero/banner.jpg' %}">
-                  <div class="hero__text">
-                      <span>New idea for a better life</span>
-                      <h2>Online <br />Ration Shop</h2>
-                      <p>Quality ration provided by kerala Govt.</p>
-                      <a href="login" class="primary-btn">SHOP NOW</a>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-</section>
-<!-- Hero Section End -->
-<!-- Banner Begin -->
-<div class="banner">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6">
-                <div class="banner__pic">
-                    <img src="{% static 'assets/img/banner/banner-11.jpg' %}" alt="">
+                                <div class="book_btn d-none d-lg-block">
+                                    <a class="boxed-btn3-line" href="http://akshaya.kerala.gov.in/services/73/ration-card-services">Ration-card-services</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6">
-                <div class="banner__pic">
-                    <img src="{% static 'assets/img/banner/banner-22.jpg' %}" alt="">
+            <div id="sticky-header" class="main-header-area bg-warning ">
+                <div class="container ">
+                    <div class="header_bottom_border">
+                        <div class="row align-items-center">
+                            <div class="col-12 d-block d-lg-none">
+                                <div class="logo">
+                                    <a href="index.html">
+                                        <img src="{% static 'img/logo.png' %}" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xl-9 col-lg-9">
+                                <div class="main-menu  d-none d-lg-block ">
+                                    <nav>
+                                        <ul id="navigation">
+                                            <li><a  href="/">home</a></li>
+                                            <li><a href="">Register <i class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                    <li><a href="customerreg">Customer</a></li>
+                                                    <li><a href="shopreg">Shop</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="time">Shop Timing</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 d-none d-lg-block">
+                                <div class="Appointment justify-content-end">
+                                    <div class="boxed-btn3 ">
+                                        <li><i class="fa fa-user-circle-o mr-2"></i><a href="login">Login</a></li>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- Banner End -->
+    </header>
+    <!-- header-end -->
+    {% block content %}
+    {% endblock  %}
 
+    <!-- footer start -->
+    <footer class="footer">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Services
+                            </h3>
+                            <ul>
+                                <li><a href="#">Our Services</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
 
-
- <!-- Blog Section Begin -->
- <section class="from-blog spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title from-blog__title">
-                    <h2>From The Blog</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <div class="blog__item">
-                    <div class="blog__item__pic">
-                        <img src="{% static 'assets/img/blog/blog-11.jpg' %}" alt="">
+                        </div>
                     </div>
-                    <div class="blog__item__text">
-                        <ul>
-                            <li><i class="fa fa-calendar-o"></i> Oct 1,2023</li>
-                            <li><i class="fa fa-comment-o"></i> 5</li>
-                        </ul>
-                        <h5><a href="#">Ration shop times</a></h5>
-                        <p>റേഷന്‍ കടകളുടെ നിലവിലെ പ്രവര്‍ത്തന സമയം:-
-                            8.00 am to 12.00 noon & 4.00 pm to 7.00 pm </p>
+                    <div class="col-xl-3 col-md-6 col-lg-3">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Useful Links
+                            </h3>
+                            <ul>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">About Our Shop</a></li>
+                                <li><a href="#">Secure Shopping</a></li>
+                                <li><a href="#">Delivery infomation</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <div class="blog__item">
-                    <div class="blog__item__pic">
-                        <img src="{% static 'assets/img/blog/blog-22.jpg' %}" alt="">
-                    </div>
-                    <div class="blog__item__text">
-                        <ul>
-                            <li><i class="fa fa-calendar-o"></i> Oct 1,2023</li>
-                            <li><i class="fa fa-comment-o"></i> 5</li>
-                        </ul>
-                        <h5><a href="#">Sandes മൊബൈൽ ആപ്പ്</a></h5>
-                        <p> 
-                            റേഷൻ കാർഡ് ഓൺലൈൻ ആപ്ലിക്കേഷൻ സ്റ്റാറ്റസ്, പ്രിന്റ് പാസ്‌വേഡ് എന്നിവ ലഭിക്കുന്നതിന് 
-                            Sandes മൊബൈൽ ആപ്പ് 
-                            ഡൗൺലോഡ് ചെയ്യുക. </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <div class="blog__item">
-                    <div class="blog__item__pic">
-                        <img src="{% static 'assets/img/blog/blog-33.jpg' %}" alt="">
-                    </div>
-                    <div class="blog__item__text">
-                        <ul>
-                            <li><i class="fa fa-calendar-o"></i> Oct 1,2023</li>
-                            <li><i class="fa fa-comment-o"></i> 5</li>
-                        </ul>
-                        <h5><a href="#">Department of Civil supplies </a><a>& Consumer Affairs</a></h5>
-                        <p>The Civil Supplies Department discharges the important responsibilities of Public Distribution, enforcement of markets discipline and promotion of consumer awareness and protection of their interest. In the 60s and 70s it won many accolades for the pioneering achievements in the implementation of Universal Rationing System.t </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Blog Section End -->
-
-<!-- Footer Section Begin -->
-<footer class="footer spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="footer__about">
-                    <div class="footer__about__logo">
-                        <a href="./index.html"><img src="{% static 'assets/img/logo.png' %}" alt=""></a>
-                    </div>
-                    <ul>
-                        <li>Address: kerala</li>
-                        <li>Phone: +65 11.188.888</li>
-                        <li>Email: eration@kerala.com.in</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-                <div class="footer__widget">
-                    <h6>Useful Links</h6>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">About Our Shop</a></li>
-                        <li><a href="#">Secure Shopping</a></li>
-                        <li><a href="#">Delivery infomation</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Our Sitemap</a></li>
-                    </ul>
-                    <ul>
-                        <li><a href="#">Who We Are</a></li>
-                        <li><a href="#">Our Services</a></li>
-                        <li><a href="#">Projects</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Innovation</a></li>
-                        <li><a href="#">Testimonials</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-12">
-                <div class="footer__widget">
-                    <h6>Join Our Newsletter Now</h6>
-                    <p>Get E-mail updates about our latest shop and special offers.</p>
-                    <form action="#">
-                        <input type="text" placeholder="Enter your mail">
-                        <button type="submit" class="site-btn">Subscribe</button>
-                    </form>
+                    <div class="col-xl-4 col-md-6 col-lg-4">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">
+                                Subscribe
+                            </h3>
+                            <form action="#" class="newsletter_form">
+                                <input type="text" placeholder="Enter your mail">
+                                <button type="submit">Subscribe</button>
+                            </form>
+                            
                     <div class="footer__widget__social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-instagram"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
                         <a href="#"><i class="fa fa-pinterest"></i></a>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="footer__copyright">
-                    <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved |  <i class="fa fa-heart" aria-hidden="true"></i> by <a href="#" target="_blank">NithinR</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
-                    <div class="footer__copyright__payment"><img src="{% static 'assets/img/payment-item.png' %} " alt=""></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- Footer Section End -->
 
-<!-- Js Plugins -->
-<script src="{% static 'assets/js/jquery-3.3.1.min.js' %} "></script>
-<script src="{% static 'assets/js/bootstrap.min.js' %} "></script>
-<script src="{% static 'assets/js/jquery.nice-select.min.js' %} "></script>
-<script src="{% static 'assets/js/jquery-ui.min.js' %} "></script>
-<script src="{% static 'assets/js/jquery.slicknav.js' %} "></script>
-<script src="{% static 'assets/js/mixitup.min.js' %} "></script>
-<script src="{% static 'assets/js/owl.carousel.min.js' %} "></script>
-<script src="{% static 'assets/js/main.js' %} "></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copy-right_text">
+            <div class="container">
+                <div class="footer_border"></div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <p class="copy_right text-center">
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved |  <i class="fa fa-heart" aria-hidden="true"></i> by <a href="#" target="_blank">NithinR</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
+                                                <div class="footer__copyright__payment"><img src="{% static 'assets/img/payment-item.png' %} " alt=""></div>
+                            
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--/ footer end  -->
+<!-- Button trigger modal -->
+  
+  <!-- Modal -->
+  <div class="modal fade custom_search_pop" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="serch_form">
+            <input type="text" placeholder="search" >
+            <button type="submit">search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- JS here -->
+    <script src="{% static 'js/vendor/modernizr-3.5.0.min.js' %}"></script>
+    <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/ajax-form.js' %}"></script>
+    <script src="{% static 'js/waypoints.min.js' %}"></script>
+    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'js/scrollIt.js' %}"></script>
+    <script src="{% static 'js/jquery.scrollUp.min.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/nice-select.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slicknav.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <!-- <script src="{% static 'js/gijgo.min.js' %}"></script> -->
+    <script src="{% static 'js/slick.min.js' %}"></script>
+
+
+
+    <!--contact js-->
+    <script src="{% static 'js/contact.js' %}"></script>
+    <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'js/jquery.form.js' %}"></script>
+    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'js/mail-script.js' %}"></script>
+
+
+    <script src="{% static 'js/main.js' %}"></script>
+
 
 
 
