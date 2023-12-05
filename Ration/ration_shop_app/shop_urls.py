@@ -17,6 +17,7 @@ urlpatterns = [
     path('rejectmember',Member_Reject_Request.as_view()),
     path('remove',Reject.as_view()),
     path('order_placed',View_confirmed_order.as_view())
+    
 ]   
 
 

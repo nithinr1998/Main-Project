@@ -116,3 +116,6 @@ class loginview(TemplateView):
 
         else:
             return render(request, 'login.html', {'message': "Invalid Username or Password"})
+        
+        
+        

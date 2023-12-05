@@ -1,45 +1,79 @@
 {% extends 'admin/base.html' %}
 {% load static %}
-{% block content %} 
-{% if message %}
-<script>
-alert("{{ message }}")
-</script>
-{% endif %}
-<!-- Estimate_area start  -->
-<div class="Estimate_area overlay">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-4 col-lg-4 col-md-5">
-                <div class="Estimate_info">
-                    <h3>Register to avail services</h3>
-                    <p>The Department of Civil Supplies functions under the Department of Food, Civil Supplies and Consumer Affairs of the Government of Kerala.</p>
-                    <a href="#" class="boxed-btn3">+91 9966336699</a>
-                </div>
-            </div>
-            <div class="col-xl-8 col-lg-8 col-md-7">
-                <div class="form">
-                    <form id="register-form" action="" method="post">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="input_field">
-                                    <label for="item">Product Name:</label>
-                                    <input type="item" name="item" placeholder="Product Item name">
-                                </div>
-                            </div>
-                            
-                            <div class="col-xl-12">
-                                <div class="input_field">
-                                    <input type="submit" value="Add Product" class="boxed-btn3-line">                                  
-                                </div>
-                            </div>
+{% block content %}
+    {% if message %}
+        <script>
+            alert("{{ message }}")
+        </script>
+    {% endif %}
+    <!-- Estimate_area start -->
+    <div class="col-xl-8 col-lg-8 col-md-7">
+        <div class="form">
+            <form id="register-form" action="" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="input_field">
+                            <label for="item">Product Name:</label>
+                            <input type="item" name="item" placeholder="Product Item name">
                         </div>
-                    </form>
+                    </div>
+                    <div class="col-xl-12">
+                        <div class="input_field">
+                            <input type="submit" value="Add Product" class="boxed-btn3-line">
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
+        <!-- Add beautiful design and interface styles -->
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f4f4f4;
+            }
+
+            .form {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .input_field {
+                margin-bottom: 20px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: bold;
+            }
+
+            input[type="item"] {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+
+            .boxed-btn3-line {
+                background-color: #3498db;
+                color: #fff;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .boxed-btn3-line:hover {
+                background-color: #2980b9;
+            }
+        </style>
     </div>
-</div>
-<!-- Estimate_area end  -->
-{% endblock  %}
+    </div>
+    </div>
+    </div>
+    <!-- Estimate_area end -->
+{% endblock %}

@@ -59,7 +59,7 @@
                                 </div>
 
                                 <div class="book_btn d-none d-lg-block">
-                                    <a class="boxed-btn3-line" href="#">Get Free Quote</a>
+                                    <p>Logged in as: {{request.user.first_name}}</p>
                                 </div>
                             </div>
                         </div>
@@ -112,7 +112,7 @@
                             <div class="col-xl-3 col-lg-3 d-none d-lg-block">
                                 <div class="Appointment justify-content-end">
                                     <div class="boxed-btn3 ">
-                                        <li><i class="fa fa-btn-outline-dark mr-2"></i><a href="/">LogOut</a></li>
+                                        <li><i class="fa fa-user-circle-o mr-2"></i><a href="{% url 'login' %}">Login</a></li>
                                     </div>
                                 </div>
                             </div>
@@ -135,61 +135,6 @@
         <div class="footer_top">
             <div class="container">
                 <div class="row">
-                    {% comment %} <div class="col-xl-3 col-md-6 col-lg-3">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                Services
-                            </h3>
-                            <ul>
-                                <li><a href="#">Air Transportation</a></li>
-                                <li><a href="#">Ocean Freight</a></li>
-                                <li><a href="#">Ocean Cargo</a></li>
-                                <li><a href="#">Logistics</a></li>
-                                <li><a href="#">Warehouse Moving</a></li>
-                            </ul>
-
-                        </div>
-                    </div> {% endcomment %}
-                    {% comment %} <div class="col-xl-2 col-md-6 col-lg-2">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                Company
-                            </h3>
-                            <ul>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">News</a></li>
-                                <li><a href="#"> Testimonials</a></li>
-                                <li><a href="#"> Why Us?</a></li>
-                            </ul>
-                        </div>
-                    </div> {% endcomment %}
-                    {% comment %} <div class="col-xl-3 col-md-6 col-lg-3">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                Industries
-                            </h3>
-                            <ul>
-                                <li><a href="#">Chemicals</a></li>
-                                <li><a href="#">Automotive</a></li>
-                                <li><a href="#"> Consumer Goods</a></li>
-                                <li><a href="#">Life Science</a></li>
-                                <li><a href="#">Foreign Trade</a></li>
-                            </ul>
-                        </div>
-                    </div> {% endcomment %}
-                    {% comment %} <div class="col-xl-4 col-md-6 col-lg-4">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                Subscribe
-                            </h3>
-                            <form action="#" class="newsletter_form">
-                                <input type="text" placeholder="Enter your mail">
-                                <button type="submit">Subscribe</button>
-                            </form>
-                            <p class="newsletter_text">Esteem spirit temper too say adieus who direct esteem esteems
-                                luckily.</p>
-                        </div>
-                    </div> {% endcomment %}
                 </div>
             </div>
         </div>

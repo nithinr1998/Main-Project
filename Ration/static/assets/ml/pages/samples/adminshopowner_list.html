@@ -1,0 +1,94 @@
+{% extends 'adminbase.html' %}
+{% load static %}
+{% block content %}
+<style>
+  body {
+    background-image: url("{% static 'images/r6.jpg' %}");
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  td:last-child {
+    text-align: center;
+  }
+</style>
+
+<body>
+  <div class="container">
+    <div class="shop-owner-table">
+      <form method="POST">
+        {% csrf_token %}
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Address</th>
+                
+                
+                <th>Licence</th>
+                <th>Shop Number</th>
+                <th>Contact Number</th>
+                <th>Place</th>
+                <th>Approval Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for shop_owner in shop_owners %}
+              <tr>
+                <td>{{ shop_owner.name }}</td>
+                <td>{{ shop_owner.address }}</td>
+                
+                
+                <td>{{ shop_owner.licence }}</td>
+                <td>{{ shop_owner.shop_number }}</td>
+                <td>{{ shop_owner.contact_number }}</td>
+                <td>{{ shop_owner.place }}</td>
+                <td>
+                  <select class="form-control" name="approval_status_{{ shop_owner.id }}">
+                    <option value="declined" {% if shop_owner.approve == 'declined' %}selected{% endif %}>Declined</option>
+                    <option value="approved" {% if shop_owner.approve == 'approved' %}selected{% endif %}>Approved</option>
+                  </select>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        
+        <br></br>
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+  </div>
+</body>
+
+{% endblock content %}

@@ -25,15 +25,17 @@ alert("{{ message }}")
                             
                             <div class="col-xl-6">
                                 <div class="input_field">
-                                    <label for="email">Mail Id:</label>
-                                    <input type="email" name="email" placeholder="Email">
+                                    <label for="email">E-mail:</label>
+                                    <input type="email" name="email" id="emailInput" placeholder="Email" oninput="validateEmail()">
+                                    <span id="emailError" style="color: red;"></span>
                                 </div>
                             </div>
                             
                             <div class="col-xl-6">
                                 <div class="input_field">
                                     <label for="password">Password:</label>
-                                    <input type="password" name="password" placeholder="Password">
+                                    <input type="password" name="password" id="passwordInput" placeholder="Password" oninput="validatePassword()">
+                                    <span id="passwordError" style="color: red;"></span>
                                 </div>
                             </div>
                             
@@ -49,5 +51,45 @@ alert("{{ message }}")
         </div>
     </div>
 </div>
+<script>
+    function validateEmail() {
+        var emailInput = document.getElementById('emailInput');
+        var emailError = document.getElementById('emailError');
+
+        // Regular expression for a valid email format
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (emailInput.value === "") {
+            // Display an error message if the field is empty
+            emailError.textContent = "Email is required";
+        } else if (!emailRegex.test(emailInput.value)) {
+            // Display an error message if the email format is invalid
+            emailError.textContent = "Invalid email format";
+        } else {
+            // Clear the error message if the email is valid
+            emailError.textContent = "";
+        }
+    }
+</script>
+<script>
+    function validatePassword() {
+        var passwordInput = document.getElementById('passwordInput');
+        var passwordError = document.getElementById('passwordError');
+
+        // Regular expression for a password with at least one special character and a minimum length of 8
+        var passwordRegex = /^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d)[a-zA-Z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
+
+        if (passwordInput.value === "") {
+            // Display an error message if the field is empty
+            passwordError.textContent = "Password is required";
+        } else if (!passwordRegex.test(passwordInput.value)) {
+            // Display an error message if the password format is invalid
+            passwordError.textContent = "Password must have at least 8 characters including one special character";
+        } else {
+            // Clear the error message if the password is valid
+            passwordError.textContent = "";
+        }
+    }
+</script>
 <!-- Estimate_area end  -->
 {% endblock  %}
