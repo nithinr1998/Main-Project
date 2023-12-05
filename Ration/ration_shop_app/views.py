@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate ,logout
 from django.views.generic import TemplateView
 
 from ration_shop_app.models import Card, Customer, Shop,UserType
@@ -116,6 +116,8 @@ class loginview(TemplateView):
 
         else:
             return render(request, 'login.html', {'message': "Invalid Username or Password"})
-        
+def logout_view(request):
+    logout(request)
+    return redirect('/')        
         
         

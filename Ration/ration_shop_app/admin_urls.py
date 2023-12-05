@@ -13,6 +13,7 @@ urlpatterns = [
     path('viewproduct',View_Product.as_view()),
     path('cust_view',CustView.as_view()),
     path('remove', Reject.as_view()),
+    
 ]
 
 

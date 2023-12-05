@@ -91,3 +91,4 @@ class Reject(View):
         id = request.GET['id']
         Product_Item.objects.get(id=id).delete()
         return redirect(request.META['HTTP_REFERER'])
+    

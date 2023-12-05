@@ -33,7 +33,6 @@ urlpatterns = [
     path('customerreg',Customer_RegView.as_view()),
     path('shopreg',Shop_RegView.as_view()),
     
-    
 ]
 if settings.DEBUG:
     urlpatterns+=static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
