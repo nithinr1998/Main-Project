@@ -1,0 +1,106 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block content %} 
+{% if message %}
+<script>
+    alert("{{ message }}");
+</script>
+{% endif %}
+<!-- Estimate_area start  -->
+<div class="Estimate_area overlay">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-5">
+                <div class="Estimate_info">
+                    <h3>Register to avail services</h3>
+                    <p>The Department of Civil Supplies functions under the Department of Food, Civil Supplies and Consumer Affairs of the Government of Kerala.</p>
+                    <a href="#" class="boxed-btn3">+91 9966336699</a>
+                </div>
+            </div>
+            <div class="col-xl-8 col-lg-8 col-md-7">
+                <div class="form">
+                    <form id="register-form" action="" method="post" onsubmit="return validateForm()">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="input_field">
+                                    <label for="item">Item Name:</label>
+                                    <select name="item">
+                                        {% for d in item %}
+                                            <option value="{{d.id}}">{{d.item}} </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="input_field">
+                                    <label for="quantity">Quantity:</label>
+                                    <input type="text" name="quantity" id="quantity" placeholder="total quantity">
+                                    <span id="quantity-error" class="error-message"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="input_field">
+                                    <label for="arrived">Item arrived on:</label>
+                                    <input type="date" name="arrived" placeholder="Item arrived date">
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="input_field">
+                                    <label for="amount">Amount per Kg or Lt:</label>
+                                    <input type="text" name="amount" id="amount" placeholder="Amount per Kg or Lt">
+                                    <span id="amount-error" class="error-message"></span>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="input_field">
+                                    <label for="card">Allotted to card:</label>
+                                    <select name="card">
+                                        {% for d in card %}
+                                            <option value="{{d.id}}">{{d.card}} </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="input_field">
+                                    <input type="submit" value="Add Item" class="boxed-btn3-line">                                  
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Estimate_area end  -->
+<script>
+    function validateForm() {
+        var quantity = document.getElementById("quantity").value;
+        var amount = document.getElementById("amount").value;
+        var quantityError = document.getElementById("quantity-error");
+        var amountError = document.getElementById("amount-error");
+
+        // Reset previous error messages
+        quantityError.innerHTML = "";
+        amountError.innerHTML = "";
+
+        // Validate Quantity
+        if (quantity === "") {
+            quantityError.innerHTML = "Please enter the quantity.";
+            return false;
+        }
+
+        // Validate Amount
+        if (amount === "") {
+            amountError.innerHTML = "Please enter the amount.";
+            return false;
+        }
+
+        // Additional validation rules can be added here
+
+        return true;
+    }
+</script>
+{% endblock %}

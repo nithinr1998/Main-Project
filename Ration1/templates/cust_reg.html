@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %} 
+{% if message %}
+<script>
+    alert("{{ message }}");
+</script>
+{% endif %}
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                    <div class="card-header">
+                        <h3 class="text-center font-weight-bold mb-4">Register to Avail Services</h3>
+                        <p class="text-center">The Department of Civil Supplies functions under the Department of Food, Civil Supplies and Consumer Affairs of the Government of Kerala.</p>
+                        <div class="text-center mb-4">
+                            <a href="#" class="boxed-btn3">Call Us: +91 9966336699</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form id="register-form" action="" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="card">Card Type</label>
+                                <select class="form-control" name="card">
+                                    {% for d in card %}
+                                        <option value="{{ d.id }}">{{ d.card }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input class="form-control" type="text" id="name" name="name" placeholder="Enter your name">
+                                    <span id="nameError" class="text-danger"></span>
+                                </div>
+                            
+                            <script>
+                                // Get the name input field and error span
+                                const nameInput = document.getElementById('name');
+                                const nameError = document.getElementById('nameError');
+                            
+                                // Add an event listener for the input event
+                                nameInput.addEventListener('input', function () {
+                                    // Call the validateName function when the user types
+                                    validateName();
+                                });
+                            
+                                function validateName() {
+                                    // Get the value of the name input
+                                    const nameValue = nameInput.value.trim();
+                            
+                                    // Reset the error message
+                                    nameError.textContent = '';
+                            
+                                    // Check if the name is empty
+                                    if (nameValue === '') {
+                                        nameError.textContent = 'Name is required';
+                                    } else if (!/^[a-zA-Z]+$/.test(nameValue)) {
+                                        // Check if the name contains only letters
+                                        nameError.textContent = 'Name should contain only letters';
+                                    }
+                                }
+                            </script>
+                            
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="card_number">Card Number:</label>
+                                    <input class="form-control" type="text" id="card_number" name="card_number" placeholder="11 digit Ration Card Number">
+                                    <span id="cardNumberError" class="text-danger"></span>
+                                </div>
+                            </div>
+                            
+                            <script>
+                                // Get the card number input field and error span
+                                const cardNumberInput = document.getElementById('card_number');
+                                const cardNumberError = document.getElementById('cardNumberError');
+                            
+                                // Add an event listener for the input event
+                                cardNumberInput.addEventListener('input', function () {
+                                    // Call the validateCardNumber function when the user types
+                                    validateCardNumber();
+                                });
+                            
+                                function validateCardNumber() {
+                                    // Get the value of the card number input
+                                    const cardNumberValue = cardNumberInput.value.trim();
+                            
+                                    // Reset the error message
+                                    cardNumberError.textContent = '';
+                            
+                                    // Check if the card number is empty
+                                    if (cardNumberValue === '') {
+                                        cardNumberError.textContent = 'Card number is required';
+                                    } else if (!/^\d{11}$/.test(cardNumberValue)) {
+                                        // Check if the card number contains only numbers and has exactly 11 digits
+                                        cardNumberError.textContent = 'Card number should be 11 digits long and contain only numbers';
+                                    }
+                                }
+                            </script>
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input class="form-control" type="email" id="email" name="email" placeholder="Email">
+                                    <span id="emailError" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <script>
+                                // Get the email input field and error span
+                                const emailInput = document.getElementById('email');
+                                const emailError = document.getElementById('emailError');
+                            
+                                // Add an event listener for the input event
+                                emailInput.addEventListener('input', function () {
+                                    // Call the validateEmail function when the user types
+                                    validateEmail();
+                                });
+                            
+                                function validateEmail() {
+                                    // Get the value of the email input
+                                    const emailValue = emailInput.value.trim();
+                            
+                                    // Reset the error message
+                                    emailError.textContent = '';
+                            
+                                    // Check if the email is empty
+                                    if (emailValue === '') {
+                                        emailError.textContent = 'Email is required';
+                                    } else if (!isValidEmail(emailValue)) {
+                                        // Check if the email is valid using a helper function
+                                        emailError.textContent = 'Enter a valid email address';
+                                    }
+                                }
+                            
+                                // Helper function to validate email format
+                                function isValidEmail(email) {
+                                    // Regular expression for a simple email validation
+                                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                                    return emailRegex.test(email);
+                                }
+                            </script>
+                            
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="contact">Contact:</label>
+                                    <input class="form-control" type="text" id="contact" name="contact" placeholder="Contact Number">
+                                    <span id="contactError" class="text-danger"></span>
+                                </div>
+                            </div>
+                            
+                            <script>
+                                // Get the contact input field and error span
+                                const contactInput = document.getElementById('contact');
+                                const contactError = document.getElementById('contactError');
+                            
+                                // Add an event listener for the input event
+                                contactInput.addEventListener('input', function () {
+                                    // Call the validateContact function when the user types
+                                    validateContact();
+                                });
+                            
+                                function validateContact() {
+                                    // Get the value of the contact input
+                                    const contactValue = contactInput.value.trim();
+                            
+                                    // Reset the error message
+                                    contactError.textContent = '';
+                            
+                                    // Check if the contact number is empty
+                                    if (contactValue === '') {
+                                        contactError.textContent = 'Contact number is required';
+                                    } else if (!isValidContact(contactValue)) {
+                                        // Check if the contact number is valid using a helper function
+                                        contactError.textContent = 'Enter a valid 10-digit contact number';
+                                    }
+                                }
+                            
+                                // Helper function to validate contact number format
+                                function isValidContact(contact) {
+                                    // Regular expression for a 10-digit numeric validation
+                                    const contactRegex = /^\d{10}$/;
+                                    return contactRegex.test(contact);
+                                }
+                            </script>
+                            
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="address">Permanent Address:</label>
+                                    <input class="form-control" type="text" name="address" placeholder="Address">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="password">Password:</label>
+                                    <input class="form-control" type="password" id="password" name="password" placeholder="Password">
+                                    <span id="passwordError" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                            
+                            <script>
+                                // Get the password input field and error span
+                                const passwordInput = document.getElementById('password');
+                                const passwordError = document.getElementById('passwordError');
+                            
+                                // Add an event listener for the input event
+                                passwordInput.addEventListener('input', function () {
+                                    // Call the validatePassword function when the user types
+                                    validatePassword();
+                                });
+                            
+                                function validatePassword() {
+                                    // Get the value of the password input
+                                    const passwordValue = passwordInput.value.trim();
+                            
+                                    // Reset the error message
+                                    passwordError.textContent = '';
+                            
+                                    // Check if the password is empty
+                                    if (passwordValue === '') {
+                                        passwordError.textContent = 'Password is required';
+                                    } else if (!isValidPassword(passwordValue)) {
+                                        // Check if the password is valid using a helper function
+                                        passwordError.textContent = 'Password must be at least 8 characters with one special character';
+                                    }
+                                }
+                            
+                                // Helper function to validate password format
+                                function isValidPassword(password) {
+                                    // Regular expression for password validation (at least 8 characters with one special character)
+                                    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+                                    return passwordRegex.test(password);
+                                }
+                            </script>
+                            
+                            <div class="col-xl-12">
+                                <div class="input_field">
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>                                 
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Estimate_area end  -->
+{% endblock  %}

@@ -1,0 +1,90 @@
+{% extends 'customer/base.html' %}
+{% load static %}
+{% block content %} 
+    {% if message %}
+        <script>
+            alert("{{ message }}")
+        </script>
+    {% endif %}
+    <!-- slider_area_start -->
+    <div class="slider_area">
+        <div class="single_slider d-flex align-items-center slider_bg_1">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-xl-8">
+                        <div class="slider_text text-center justify-content-center">
+                            <p>ONLINE RATION SHOP</p>
+                            <h3>My Profile Page</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- slider_area_end -->
+
+    <div class="Estimate_area overlay">
+        <div class="container">
+            <div class="row justify-content-center"> <!-- Centering the form -->
+                <div class="col-md-8">
+                    <div class="form">
+                        <div class="Estimate_info text-center"> <!-- Centering the heading -->
+                            <h3>Update Profile</h3>                      
+                        </div>
+                        <br>
+                        <form id="register-form" action="" method="post">
+                            {% csrf_token %}
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input_field">
+                                        <label for="name">Name:</label>
+                                        <input type="text" name="name" value="{{ view_cust.user.first_name }}" placeholder="Your name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input_field">
+                                        <label for="card_number">Card Number:</label>
+                                        <input type="card_number" name="card_number" value="{{ view_cust.card_number }}" placeholder="11 digit Ration Card Number">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input_field">
+                                        <label for="email">Mail Id:</label>
+                                        <input type="email" name="email" value="{{ view_cust.user.email }}" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input_field">
+                                        <label for="contact">Contact:</label>
+                                        <input type="contact" name="contact" value="{{ view_cust.contact }}" placeholder="Contact Number">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input_field">
+                                        <label for="address">Permanent Address:</label>
+                                        <input type="address" name="address" value="{{ view_cust.address }}" placeholder="Address">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="input_field">
+                                        <label for="location">Place:</label>
+                                        <input type="location" name="location" value="{{ view_cust.location }}" placeholder="Place">
+                                    </div>
+                                </div>         
+                                <div class="col-md-12 text-center"> <!-- Centering the button -->
+                                    <div class="input_field">
+                                        <input type="hidden" class="form-control mb-20" value="{{ view_cust.user.id }}" name="id" required autocomplete="off">
+                                        <button class="btn btn-primary" value="pf" name="profile" type="submit">
+                                            <i class="fa fa-fw fa-lg fa-check-circle"></i> Update Profile
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock  %}

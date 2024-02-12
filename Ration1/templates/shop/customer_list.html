@@ -1,0 +1,106 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block content %}
+    {% if message %}
+        <script>
+            alert("{{ message }}")
+        </script>
+    {% endif %}
+    <!-- slider_area_start -->
+    <div class="slider_area">
+        <div class="single_slider d-flex align-items-center slider_bg_1">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-xl-8">
+                        <div class="slider_text text-center justify-content-center">
+                            <h3>SHOP PAGE</h3>
+                            <a class="boxed-btn3" href="service.html">Our Services</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- slider_area_end -->
+    <br>
+    <br>
+    <div class="col-xl-12">
+        <div id="page-inner">
+            <h1>Pending Customer List</h1>
+            <table class="table table-bordered table-striped table-hover">
+                <thead style="background-color: yellow;"> <!-- Yellow background color for the table head -->
+                    <th class="info">Customer</th>
+                    <th class="info">Ration Card Number</th>
+                    <th class="info">Email</th>
+                    <th class="info">Contact Number</th>
+                    <th class="info">Address</th>
+                    <th class="info">Location</th>
+                    <th class="info">Approve</th>
+                    <th class="info">Reject</th>
+                </thead>
+                {% for i in customer %}
+                    <tr>
+                        <td>{{ i.user.first_name }}</td>
+                        <td>{{ i.card_number }}</td>
+                        <td>{{ i.user.email }}</td>
+                        <td>{{ i.contact }}</td>
+                        <td>{{ i.address }}</td>
+                        <td>{{ i.location }}</td>
+                        <td><a href="approve?id={{ i.user_id }}" class="btn btn-success">Approve</a></td>
+                        <td><a href="reject?id={{ i.user_id }}" class="btn btn-danger">Reject</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        #page-inner {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-success {
+            background-color: #5cb85c;
+            color: #fff;
+        }
+
+        .btn-danger {
+            background-color: #d9534f;
+            color: #fff;
+        }
+    </style>
+{% endblock %}
