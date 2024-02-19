@@ -77,23 +77,10 @@
             <div class="col-lg-8">
                 <nav class="header__menu">
                     <ul>
-                        <li class="active"><a href="/shop">Home</a></li>
-                        <li><a href="#">Delivery</a>
-                            <ul class="header__menu__dropdown">
-                                <li><a href="{% url 'cust_pending_list' %}">Pending Customer List</a></li>
-                                <li><a href="{% url 'approvemember' %}">Pending Membes</a></li>
-                            </ul>
-                        </li>
+                        <li class="active"><a href="/Delivery">Home</a></li>
                         <li><a href="#">Approved List</a>
                             <ul class="header__menu__dropdown">
                                 <li><a href="{% url 'cust_viewShop' %}">Approved Customer List</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Product stock</a>
-                            <ul class="header__menu__dropdown">
-                                <li><a href="{% url 'add_productShop' %}">Add Product</a></li>
-                                <li><a href="{% url 'viewproductShop' %}">Available Product List</a></li>
-                                <li><a href="{% url 'history' %}">History</a></li>
                             </ul>
                         </li>
                         <li><a href="{% url 'order_placed' %}">Order</a></li>
