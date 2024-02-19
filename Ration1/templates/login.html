@@ -38,33 +38,4 @@
     </div>
 </div>
 
-<script>
-    function validateEmail() {
-        var emailInput = document.getElementById('email');
-        var emailError = document.getElementById('emailError');
-        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (emailInput.value === "") {
-            emailError.textContent = "Email is required";
-        } else if (!emailRegex.test(emailInput.value)) {
-            emailError.textContent = "Invalid email format";
-        } else {
-            emailError.textContent = "";
-        }
-    }
-</script>
-
-<script>
-    function validatePassword() {
-        var passwordInput = document.getElementById('password');
-        var passwordError = document.getElementById('passwordError');
-        var passwordRegex = /^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d)[a-zA-Z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
-        if (passwordInput.value === "") {
-            passwordError.textContent = "Password is required";
-        } else if (!passwordRegex.test(passwordInput.value)) {
-            passwordError.textContent = "Password must have at least 8 characters including one special character";
-        } else {
-            passwordError.textContent = "";
-        }
-    }
-</script>
 {% endblock %}

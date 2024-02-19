@@ -1,0 +1,103 @@
+{% extends 'admin/index.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delivery Boys History</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    hr {
+        border-color: #333;
+        margin: 20px auto;
+        width: 50%;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    li {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+        padding: 15px;
+    }
+    form {
+        margin-top: 10px;
+        text-align: center;
+    }
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    textarea {
+        width: 100%;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        resize: vertical;
+    }
+    button {
+        background-color: #d9534f;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #c9302c;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Delivery Boys History</h1>
+    <hr>
+    <ul>
+    {% for delivery_boy in delivery_boys %}
+        <li>
+            <strong>Name:</strong> {{ delivery_boy.name }}<br>
+            <strong>Email:</strong> {{ delivery_boy.user.email }}<br>
+            <strong>Contact Number:</strong> {{ delivery_boy.contact_number }}<br>
+            <strong>Address:</strong> {{ delivery_boy.address }}<br>
+            <strong>Vehicle Type:</strong> {{ delivery_boy.vehicle_type }}<br>
+            <strong>Registration Number:</strong> {{ delivery_boy.registration_number }}<br>
+            <strong>Delivery Zones:</strong> {{ delivery_boy.delivery_zones }}<br>
+            <strong>Availability Timings:</strong> {{ delivery_boy.availability_timings }}<br>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ delivery_boy.id }}">
+                <label for="reason">Reason for Delete:</label><br>
+                <textarea id="reason" name="reason" rows="3" required></textarea><br>
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+</body>
+</html>
+{% endblock %}

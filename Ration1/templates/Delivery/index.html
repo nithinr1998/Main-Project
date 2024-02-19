@@ -1,0 +1,95 @@
+{% extends 'Delivery/base.html' %}
+{% load static %}
+{% block content %} 
+{% if message %}
+<script>
+alert("{{ message }}")
+</script>
+{% endif %}
+   <!-- Hero Section Begin -->
+ <section class="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>Functions</span>
+                    </div>
+                    <ul>
+                        <li><a href="/shop">Home</a></li>
+                        <li><a href="cust_view">Customers</a></li>
+                        <li><a href="add_product">Add stock</a></li>
+                        <li><a href="viewproduct">View stock</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        <form action="#">
+                            <div class="hero__search__categories">
+                                All Categories
+                                <span class="arrow_carrot-down"></span>
+                            </div>
+                            <input type="text" placeholder="What do yo u need?">
+                            <button type="submit" class="site-btn">SEARCH</button>
+                        </form>
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>8848972275</h5>
+                            <span>support 24/7 time</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero__item set-bg" data-setbg="{% static 'assets/img/hero/shop_1.jpg' %}">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End --> 
+
+
+ <!-- Categories Section Begin -->
+ <section class="categories">
+   <div class="container">
+       <div class="row">
+           <h2 class="text-center">Our Products</h2><br>
+           <div class="categories__slider owl-carousel">
+               <div class="col-lg-3">
+                   <div class="categories__item set-bg" data-setbg="{% static 'assets/img/categories/cat-1.jpg' %}">
+                       <h5><a href="#">Rice</a></h5>
+                   </div>
+               </div>
+               <div class="col-lg-3">
+                   <div class="categories__item set-bg" data-setbg="{% static 'assets/img/categories/cat-2.jpg' %}">
+                       <h5><a href="#">Kerosene</a></h5>
+                   </div>
+               </div>
+               <div class="col-lg-3">
+                   <div class="categories__item set-bg" data-setbg="{% static 'assets/img/categories/cat-3.jpg' %}">
+                       <h5><a href="#">Wheat</a></h5>
+                   </div>
+               </div>
+               <div class="col-lg-3">
+                   <div class="categories__item set-bg" data-setbg="{% static 'assets/img/categories/cat-4.jpg' %}">
+                       <h5><a href="#">Sugar</a></h5>
+                   </div>
+               </div>
+               <div class="col-lg-3">
+                   <div class="categories__item set-bg" data-setbg="{% static 'assets/img/categories/cat-5.jpg' %}">
+                       <h5><a href="#">Atta</a></h5>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+</section>
+<!-- Categories Section End -->
+<!-- Featured Section End -->
+{% endblock content %} 

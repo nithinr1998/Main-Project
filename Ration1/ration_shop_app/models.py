@@ -59,3 +59,14 @@ class Cart(models.Model):
     status = models.CharField(max_length=30,null=True)
     amount=models.CharField(max_length=30,null=True)
     quantity = models.CharField(max_length=1000, null=True)
+
+class UserType(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    type = models.CharField(max_length=50, null=True)
+    name = models.CharField(max_length=100, null=True)
+    contact_number = models.CharField(max_length=15, null=True)
+    address = models.CharField(max_length=100, null=True)
+    vehicle_type = models.CharField(max_length=50, null=True)
+    registration_number = models.CharField(max_length=50, null=True)
+    delivery_zones = models.CharField(max_length=100, null=True)
+    availability_timings = models.CharField(max_length=100, null=True)

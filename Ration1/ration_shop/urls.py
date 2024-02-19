@@ -17,17 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import path,include
 from django.contrib.auth import views as auth_views
 
 from ration_shop_app.views import IndexView,loginview,Customer_RegView,Shop_RegView,TimeView
 from ration_shop_app import admin_urls, customer_urls, shop_urls
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
-    path('admin/', admin_urls.urls()),
+    #path('admin/', admin.site.urls),
+    #path('admin/', admin_urls.urls()),
     path('customer/',customer_urls.urls()),
-    path('shop/',shop_urls.urls()),
+    path('shop/',include('ration_shop_app.shop_urls')),
+    path('admin/',include('ration_shop_app.admin_urls')),
     path('',IndexView.as_view()),
     path('time',TimeView.as_view()),
     path('login',loginview.as_view(), name='login'),

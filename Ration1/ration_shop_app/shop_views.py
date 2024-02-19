@@ -120,7 +120,8 @@ class AddProduct(TemplateView):
         arrived = request.POST['arrived']
         amount = request.POST['amount']
         card = request.POST['card']
-      
+        month = request.POST['month']  # Retrieve month value
+        
         reg = Product()
         
         reg.user = user
@@ -129,18 +130,38 @@ class AddProduct(TemplateView):
         reg.arrived = arrived
         reg.amount = amount
         reg.card_id = card
-        reg.status='added'
+        reg.month = month  # Assign month value to the model field
+        reg.status = 'added'
         reg.save()
         
-        return render(request, 'shop/index.html',{'message': "product successfully added "})
+        return render(request, 'shop/index.html', {'message': "product successfully added "})
     
+from datetime import datetime
+
 class View_Product(TemplateView):
     template_name = 'shop/productslist.html'
+
     def get_context_data(self, **kwargs):
         context = super(View_Product, self).get_context_data(**kwargs)
-        view_pp = Product.objects.all()
-        context['view_pp'] = view_pp
+
+        # Retrieve filter parameters from the request
+        card_id = self.request.GET.get('card', '')
+        month = self.request.GET.get('month', '')
+
+        # Get all cards for the dropdown
+        context['cards'] = Card.objects.all()
+
+        # Filter products based on selected card and month
+        products = Product.objects.all()
+        if card_id:
+            products = products.filter(card_id=card_id)
+        if month:
+            # Filter products by the month part of the arrived date
+            products = products.filter(arrived__month=int(month))
+
+        context['view_pp'] = products
         return context
+    
     
 class Member_Approve_Request(View):
     
@@ -176,3 +197,22 @@ class View_confirmed_order(TemplateView):
             'pro': pro,
         }
         return context
+
+
+from django.views.generic import ListView
+from django.db.models import Q
+
+class HistoryListView(ListView):
+    model = Product
+    template_name = 'shop/history.html'
+    context_object_name = 'history_items'
+
+    def get_queryset(self):
+        queryset = Product.objects.all()
+        month = self.request.GET.get('month')
+        card = self.request.GET.get('card')
+
+        if month:
+            queryset = queryset.filter(arrived__month=month)
+
+        return queryset

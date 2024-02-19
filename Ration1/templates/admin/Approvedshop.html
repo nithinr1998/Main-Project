@@ -1,48 +1,31 @@
-{% extends 'admin/base.html' %}
-{% load static %}
+{% extends 'admin/index.html' %}
 {% block content %}
-    {% if message %}
-        <script>
-            alert("{{ message }}")
-        </script>
-    {% endif %}
-    <br>
-    <br>
-    <div class="col-xl-10">
-        <div id="page-inner">
-            <h1>Approved Shop List</h1>
-            <div class="table-wrapper">
-                <table class="table table-bordered table-striped table-hover">
-                    <thead style="background-color: #b3e0a1;"> <!-- Light green background color for the table head -->
-                        <th class="info">Customer</th>
-                        <th class="info">License Number</th>
-                        <th class="info">Email</th>
-                        <th class="info">Contact Number</th>
-                        <th class="info">Address</th>
-                        <th class="info">Location</th>
-                    </thead>
-                    <tbody>
-                        {% for i in approved_shops %}
-                            <tr>
-                                <td>{{ i.user.first_name }}</td>
-                                <td>{{ i.license }}</td>
-                                <td>{{ i.user.email }}</td>
-                                <td>{{ i.mobile }}</td>
-                                <td>{{ i.address }}</td>
-                                <td>{{ i.location }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div style="text-align: center; margin-top: 50px;">
+    <h1 style="color: #333;">Approved Shop List</h1>
+    <hr style="width: 50%; margin: auto; border-color: #333;">
+    <div class="table-wrapper">
+        <table class="table table-bordered table-striped table-hover">
+            <thead style="background-color: #b3e0a1;">
+                <th>Customer</th>
+                <th>License Number</th>
+                <th>Email</th>
+                <th>Contact Number</th>
+                <th>Address</th>
+                <th>Location</th>
+            </thead>
+            <tbody>
+                {% for shop in shops %}
+                    <tr>
+                        <td>{{ shop.user.first_name }}</td>
+                        <td>{{ shop.license }}</td>
+                        <td>{{ shop.user.email }}</td>
+                        <td>{{ shop.mobile }}</td>
+                        <td>{{ shop.address }}</td>
+                        <td>{{ shop.location }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-    <style>
-        /* Your existing styles */
-
-        .table-wrapper {
-            overflow-x: auto; 
-            max-height: 400px; 
-        }
-    </style>
+</div>
 {% endblock %}

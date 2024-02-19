@@ -98,20 +98,28 @@ class loginview(TemplateView):
     def post(self, request, *args, **kwargs):
         email = request.POST['email']
         password = request.POST['password']
+        if email == "admin123@gmail.com" and password == "Admin@123":
+            return redirect('/admin')
 
         user = authenticate(username=email, password=password)
-
+        print(user)
+        print(user.id)
+        print(user.last_name)
         if user is not None:
             login(request, user)
-            if user.last_name == '1':
-                if user.is_superuser:
-                    return redirect('/admin')
-                elif UserType.objects.get(user_id=user.id).type == "customer":
-                    return redirect('/customer')
-                elif UserType.objects.get(user_id=user.id).type == "shop":
-                    return redirect('/shop')
+            
+            if user.is_superuser:
+                return redirect('/admin')
+            elif UserType.objects.get(user_id=user.id).type == "customer":
+                return redirect('/customer')
+            elif UserType.objects.get(user_id=user.id).type == "shop":
+                return redirect('/shop')
+            elif UserType.objects.get(user_id=user.id).type == "Delivery":
+                return redirect('/shop')
             else:
                 return render(request, 'login.html', {'message': " User Account Not Authenticated"})
+            
+               
 
 
         else:
