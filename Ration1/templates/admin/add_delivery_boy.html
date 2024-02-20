@@ -89,7 +89,12 @@
             <label for="registration_number">Registration Number:</label>
             <input type="text" id="registration_number" name="registration_number" required><br>
             <label for="delivery_zones">Delivery Zones:</label>
-            <input type="text" id="delivery_zones" name="delivery_zones" required><br>
+<select id="delivery_zones" name="delivery_zones" required>
+    <option value="">Select a delivery zone</option>
+    {% for location in locations %}
+    <option value="{{ location }}">{{ location }}</option>
+    {% endfor %}
+</select><br>
             <label for="availability_timings">Availability Timings:</label>
             <input type="text" id="availability_timings" name="availability_timings" required><br>
             <button type="submit">Add Delivery Boy</button>

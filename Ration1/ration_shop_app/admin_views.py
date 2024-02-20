@@ -108,7 +108,10 @@ class ApprovedShopListView(TemplateView):
 class AddDeliveryBoy(View):
     def get(self, request, *args, **kwargs):
         delivery_boys = UserType.objects.filter(type="Delivery")
-        return render(request, 'admin/add_delivery_boy.html', {'delivery_boys': delivery_boys})
+        locations = Shop.objects.values_list('location', flat=True).distinct()
+        
+        
+        return render(request, 'admin/add_delivery_boy.html', {'delivery_boys': delivery_boys,'locations': locations})
 
     def post(self, request, *args, **kwargs):
         email = request.POST['email']
@@ -122,10 +125,11 @@ class AddDeliveryBoy(View):
 
         # Generate a random password for the delivery boy
         password = User.objects.make_random_password()
-
+        
         # Create a user with the provided email and generated password
         user = User.objects.create_user(username=email, password=password, first_name=name, email=email,
                                             is_staff='0', last_name='1')
+        
 
         # Create a UserType object for the delivery boy
         user_type = UserType.objects.create(
@@ -148,6 +152,7 @@ class AddDeliveryBoy(View):
 
         # Get updated list of delivery boys
         delivery_boys = UserType.objects.filter(type="Delivery")
+        
         
         return render(request, 'admin/add_delivery_boy.html', {'message': 'Delivery boy added successfully', 'delivery_boys': delivery_boys})
     
