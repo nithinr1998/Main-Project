@@ -29,6 +29,7 @@ urlpatterns = [
     path('customer/',customer_urls.urls()),
     path('shop/',include('ration_shop_app.shop_urls')),
     path('admin/',include('ration_shop_app.admin_urls')),
+    path('Delivery/',include('ration_shop_app.delivery_urls')),
     path('',IndexView.as_view()),
     path('time',TimeView.as_view()),
     path('login',loginview.as_view(), name='login'),

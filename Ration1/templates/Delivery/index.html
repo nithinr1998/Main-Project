@@ -17,10 +17,9 @@ alert("{{ message }}")
                         <span>Functions</span>
                     </div>
                     <ul>
-                        <li><a href="/shop">Home</a></li>
-                        <li><a href="cust_view">Customers</a></li>
-                        <li><a href="add_product">Add stock</a></li>
-                        <li><a href="viewproduct">View stock</a></li>
+                        <li><a href="/Delivery">Home</a></li>
+                        <li><a href="{% url 'delivery-customer-list' %}">Customers</a></li>
+                        <li><a href="{% url 'delivery-order-history' %}">Orders</a></li>
                     </ul>
                 </div>
             </div>
@@ -46,7 +45,7 @@ alert("{{ message }}")
                         </div>
                     </div>
                 </div>
-                <div class="hero__item set-bg" data-setbg="{% static 'assets/img/hero/delivery.png' %}">
+                <div class="hero__item set-bg" data-setbg="{% static 'assets/img/hero/delivry.png' %}">
                 </div>
             </div>
         </div>
@@ -55,41 +54,6 @@ alert("{{ message }}")
 <!-- Hero Section End --> 
 
 
- <!-- Categories Section Begin -->
- <section class="categories">
-   <div class="container">
-       <div class="row">
-           <h2 class="text-center">Our Products</h2><br>
-           <div class="categories__slider owl-carousel">
-               <div class="col-lg-3">
-                   <div class="categories__item set-bg" data-setbg="{% static 'assets/img/categories/cat-1.jpg' %}">
-                       <h5><a href="#">Rice</a></h5>
-                   </div>
-               </div>
-               <div class="col-lg-3">
-                   <div class="categories__item set-bg" data-setbg="{% static 'assets/img/categories/cat-2.jpg' %}">
-                       <h5><a href="#">Kerosene</a></h5>
-                   </div>
-               </div>
-               <div class="col-lg-3">
-                   <div class="categories__item set-bg" data-setbg="{% static 'assets/img/categories/cat-3.jpg' %}">
-                       <h5><a href="#">Wheat</a></h5>
-                   </div>
-               </div>
-               <div class="col-lg-3">
-                   <div class="categories__item set-bg" data-setbg="{% static 'assets/img/categories/cat-4.jpg' %}">
-                       <h5><a href="#">Sugar</a></h5>
-                   </div>
-               </div>
-               <div class="col-lg-3">
-                   <div class="categories__item set-bg" data-setbg="{% static 'assets/img/categories/cat-5.jpg' %}">
-                       <h5><a href="#">Atta</a></h5>
-                   </div>
-               </div>
-           </div>
-       </div>
-   </div>
-</section>
-<!-- Categories Section End -->
+ 
 <!-- Featured Section End -->
 {% endblock content %} 

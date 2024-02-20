@@ -1,0 +1,71 @@
+{% extends 'Delivery/index.html' %}
+{% load static %}
+
+{% block content %}
+    {% if message %}
+        <script>
+            alert("{{ message }}")
+        </script>
+    {% endif %}
+    <br>
+    <br>
+    <div class="col-xl-10">
+        <div id="page-inner">
+            <h1>Customer List</h1>
+            <table class="table table-bordered table-striped table-hover">
+                <thead style="background-color: #b3e0a1;"> <!-- Light green background color for the table head -->
+                    <th class="info">Customer</th>
+                    <th class="info">Ration Card Number</th>
+                    <th class="info">Email</th>
+                    <th class="info">Contact Number</th>
+                    <th class="info">Address</th>
+                    <th class="info">Location</th>
+                </thead>
+                {% for customer in customers %}
+                    <tr>
+                        <td>{{ customer.user.first_name }}</td>
+                        <td>{{ customer.card_number }}</td>
+                        <td>{{ customer.user.email }}</td>
+                        <td>{{ customer.contact }}</td>
+                        <td>{{ customer.address }}</td>
+                        <td>{{ customer.location }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        #page-inner {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #b3e0a1; /* Light green background color for the table head */
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+{% endblock %}

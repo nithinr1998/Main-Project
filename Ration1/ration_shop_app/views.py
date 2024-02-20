@@ -115,7 +115,7 @@ class loginview(TemplateView):
             elif UserType.objects.get(user_id=user.id).type == "shop":
                 return redirect('/shop')
             elif UserType.objects.get(user_id=user.id).type == "Delivery":
-                return redirect('/shop')
+                return redirect('/Delivery')
             else:
                 return render(request, 'login.html', {'message': " User Account Not Authenticated"})
             
