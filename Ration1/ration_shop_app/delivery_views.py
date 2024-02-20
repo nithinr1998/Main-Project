@@ -3,6 +3,9 @@ from django.views import View
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from ration_shop_app.models import Cart,User,Customer
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 
@@ -31,3 +34,4 @@ class DeliveryCustomerListView(TemplateView):
             'customers': customers,
         }
         return context
+    
