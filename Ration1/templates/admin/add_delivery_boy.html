@@ -6,41 +6,43 @@
 <head>
     <title>Add Delivery Boy</title>
     <style>
+        /* Existing styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
         }
-
+    
         .container {
-            width: 500%;
+            width: 50%;
             margin: 30px auto;
             padding: 20px;
             background-color: #fff;
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-
+    
         h1 {
             text-align: center;
             color: #333;
         }
-
+    
         form {
             max-width: 600px;
             margin: 0 auto;
         }
-
+    
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
         }
-
+    
         input[type="text"],
         input[type="email"],
-        textarea {
+        textarea,
+        select {
             width: 100%;
             padding: 8px;
             margin-bottom: 10px;
@@ -48,7 +50,7 @@
             border-radius: 5px;
             box-sizing: border-box;
         }
-
+    
         button[type="submit"] {
             padding: 10px 20px;
             background-color: #4CAF50;
@@ -57,19 +59,84 @@
             border-radius: 5px;
             cursor: pointer;
         }
-
+    
         button[type="submit"]:hover {
             background-color: #45a049;
         }
-
+    
+    
+        /* Additional styles */
+        textarea {
+            height: 100px; /* Set the height of the textarea */
+        }
+    
+        select {
+            height: 40px; /* Set the height of the select dropdown */
+        }
+    
+        button[type="submit"] {
+            width: 100%; /* Make the button full-width */
+        }
+    
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                width: 80%;
+            }
+        }
+        .container {
+            width: 80%; /* Adjust the width as needed */
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        form {
+            max-width: 800px; /* Adjust the max-width as needed */
+            margin: 0 auto;
+        }
+        
+        label {
+            display: inline-block;
+            width: 150px; /* Adjust the width as needed */
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: calc(100% - 170px); /* Adjust the width as needed */
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
         .message {
             margin-top: 20px;
             padding: 10px;
             background-color: #f2f2f2;
             border: 1px solid #ccc;
             border-radius: 5px;
-        }
+        } 
     </style>
+    
 </head>
 <body>
     <div class="container">
@@ -77,26 +144,149 @@
         <form method="post">
             {% csrf_token %}
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br>
+            <input type="text" id="name" name="name" required oninput="validateName(this)"><br>
+            <div id="nameError" style="color: red;margin-left:152px"></div>
+            
+            <script>
+            function validateName(input) {
+                var nameRegex = /^[a-zA-Z]*$/;
+                var isValid = nameRegex.test(input.value);
+                var errorDiv = document.getElementById("nameError");
+            
+                if (!isValid) {
+                    errorDiv.textContent = "Name must contain only letters.";
+                    input.style.borderColor = "red";
+                } else {
+                    errorDiv.textContent = "";
+                    input.style.borderColor = "";
+                }
+            }
+            </script>
+            
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br>
-            <label for="contact_number">Contact Number:</label>
-            <input type="text" id="contact_number" name="contact_number" required><br>
-            <label for="address">Address:</label>
-            <textarea id="address" name="address" required></textarea><br>
-            <label for="vehicle_type">Vehicle Type:</label>
-            <input type="text" id="vehicle_type" name="vehicle_type" required><br>
-            <label for="registration_number">Registration Number:</label>
-            <input type="text" id="registration_number" name="registration_number" required><br>
+<input type="email" id="email" name="email" required oninput="validateEmail(this)"><br>
+<div id="emailError" style="color: red;margin-left:152px"></div>
+
+<script>
+function validateEmail(input) {
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var isValid = emailRegex.test(input.value);
+    var errorDiv = document.getElementById("emailError");
+
+    if (!isValid) {
+        errorDiv.textContent = "Please enter a valid email address.";
+        input.style.borderColor = "red";
+    } else {
+        errorDiv.textContent = "";
+        input.style.borderColor = "";
+    }
+}
+</script>
+
+<label for="contact_number">Contact Number:</label>
+<input type="text" id="contact_number" name="contact_number" required oninput="validateContactNumber(this)"><br>
+<div id="contactNumberError" style="color: red;margin-left:152px"></div>
+
+<script>
+function validateContactNumber(input) {
+    var contactRegex = /^\d{10}$/;
+    var isValid = contactRegex.test(input.value);
+    var errorDiv = document.getElementById("contactNumberError");
+
+    if (!isValid) {
+        errorDiv.textContent = "Contact number must be 10 digits.";
+        input.style.borderColor = "red";
+    } else {
+        errorDiv.textContent = "";
+        input.style.borderColor = "";
+    }
+}
+</script>
+
+<label for="address">Address:</label>
+<textarea id="address" name="address" required oninput="validateAddress(this)"></textarea><br>
+<div id="addressError" style="color: red;margin-left:152px"></div>
+
+<script>
+function validateAddress(input) {
+    var isValid = input.value.trim() !== "";
+    var errorDiv = document.getElementById("addressError");
+
+    if (!isValid) {
+        errorDiv.textContent = "Address is required.";
+        input.style.borderColor = "red";
+    } else {
+        errorDiv.textContent = "";
+        input.style.borderColor = "";
+    }
+}
+</script>
+
+<label for="vehicle_type">Vehicle Type:</label>
+<input type="text" id="vehicle_type" name="vehicle_type" required oninput="validateVehicleType(this)"><br>
+<div id="vehicleTypeError" style="color: red;margin-left:152px"></div>
+
+<script>
+function validateVehicleType(input) {
+    var isValid = input.value.trim() !== "";
+    var errorDiv = document.getElementById("vehicleTypeError");
+
+    if (!isValid) {
+        errorDiv.textContent = "Vehicle type is required.";
+        input.style.borderColor = "red";
+    } else {
+        errorDiv.textContent = "";
+        input.style.borderColor = "";
+    }
+}
+</script>
+
+<label for="registration_number">Registration Number:</label>
+<input type="text" id="registration_number" name="registration_number" required oninput="validateRegistrationNumber(this)"><br>
+<div id="registrationNumberError" style="color: red;margin-left:152px"></div>
+
+<script>
+function validateRegistrationNumber(input) {
+    var registrationRegex = /^\d{6}$/;
+    var isValid = registrationRegex.test(input.value);
+    var errorDiv = document.getElementById("registrationNumberError");
+
+    if (!isValid) {
+        errorDiv.textContent = "Registration number must be 6 digits.";
+        input.style.borderColor = "red";
+    } else {
+        errorDiv.textContent = "";
+        input.style.borderColor = "";
+    }
+}
+</script>
+
             <label for="delivery_zones">Delivery Zones:</label>
-<select id="delivery_zones" name="delivery_zones" required>
-    <option value="">Select a delivery zone</option>
-    {% for location in locations %}
-    <option value="{{ location }}">{{ location }}</option>
-    {% endfor %}
-</select><br>
+            <select id="delivery_zones" name="delivery_zones" required>
+            <option value="">Select a delivery zone</option>
+            {% for location in locations %}
+            <option value="{{ location }}">{{ location }}</option>
+            {% endfor %}
+            </select><br>
             <label for="availability_timings">Availability Timings:</label>
-            <input type="text" id="availability_timings" name="availability_timings" required><br>
+<input type="text" id="availability_timings" name="availability_timings" required oninput="validateAvailabilityTimings(this)"><br>
+<div id="availabilityTimingsError" style="color: red;margin-left:152px"></div>
+
+<script>
+function validateAvailabilityTimings(input) {
+    var isValid = input.value.trim() !== "";
+    var errorDiv = document.getElementById("availabilityTimingsError");
+
+    if (!isValid) {
+        errorDiv.textContent = "Availability timings are required.";
+        input.style.borderColor = "red";
+    } else {
+        errorDiv.textContent = "";
+        input.style.borderColor = "";
+    }
+}
+</script>
+
             <button type="submit">Add Delivery Boy</button>
         </form>
 

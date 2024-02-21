@@ -237,7 +237,7 @@
       </div>
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
-      <nav class="sidebar sidebar-offcanvas" id="sidebar" style="background-color: #944dff;">
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
             <li class="nav-item">
                 <a class="nav-link" href="/admin">
@@ -276,7 +276,6 @@
       <!-- partial -->
       {% block content %}
 
-  {% endblock  %}  
 <!-- partial:partials/_footer.html -->
 <footer class="footer">
   <div class="card">
@@ -300,7 +299,7 @@
 <!-- page-body-wrapper ends -->
 </div>
 <!-- container-scroller -->
-
+{% endblock  %}  
 <!-- base:js -->
 <script src="{% static 'assets/ml/vendors/js/vendor.bundle.base.js' %}"></script>
 <!-- endinject -->
@@ -364,10 +363,6 @@
     }
   });
 </script>
-</body>
-
-</html>
-
 </body>
 
 </html>

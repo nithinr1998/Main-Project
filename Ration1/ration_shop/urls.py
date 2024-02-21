@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.urls import path,include
 from django.contrib.auth import views as auth_views
 
-from ration_shop_app.views import IndexView,loginview,Customer_RegView,Shop_RegView,TimeView
+from ration_shop_app.views import IndexView,loginview,Customer_RegView,Shop_RegView,TimeView,blogview,contactview
 from ration_shop_app import admin_urls, customer_urls, shop_urls
 
 urlpatterns = [
@@ -35,6 +35,8 @@ urlpatterns = [
     path('login',loginview.as_view(), name='login'),
     path('customerreg',Customer_RegView.as_view()),
     path('shopreg',Shop_RegView.as_view()),
+    path('blog',blogview.as_view(), name='blog'),
+    path('contact',contactview.as_view(), name='contact'),
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset_form'),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),

@@ -12,6 +12,13 @@ class IndexView(TemplateView):
 class TimeView(TemplateView):
     template_name = 'shoptiming.html'
     
+class blogview(TemplateView):
+    template_name = 'blog.html'    
+
+class contactview(TemplateView):
+    template_name = 'contact.html'   
+    
+        
 class Customer_RegView(TemplateView):
     template_name = 'cust_reg.html'  
     
