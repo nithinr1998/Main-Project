@@ -124,13 +124,12 @@ class loginview(TemplateView):
             elif UserType.objects.get(user_id=user.id).type == "Delivery":
                 return redirect('/Delivery')
             else:
-                return render(request, 'login.html', {'message': " User Account Not Authenticated"})
+                return render(request, 'login.html', {'message': "Invalid Username or Password"})
             
                
 
 
-        else:
-            return render(request, 'login.html', {'message': "Invalid Username or Password"})
+        
 def logout_view(request):
     logout(request)
     return redirect('/')        

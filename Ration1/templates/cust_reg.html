@@ -31,7 +31,7 @@
                             </div>
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input class="form-control" type="text" id="name" name="name" placeholder="Enter your name">
+                                    <input class="form-control" type="text" id="name" name="name" placeholder="Enter your name" required >
                                     <span id="nameError" class="text-danger"></span>
                                 </div>
                             
@@ -66,7 +66,7 @@
                             <div class="form-group">
                                 <div class="form-group">
                                     <label for="card_number">Card Number:</label>
-                                    <input class="form-control" type="text" id="card_number" name="card_number" placeholder="11 digit Ration Card Number">
+                                    <input class="form-control" type="text" id="card_number" name="card_number" placeholder="11 digit Ration Card Number" required>
                                     <span id="cardNumberError" class="text-danger"></span>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@
                             <div class="form-group">
                                 <div class="form-group">
                                     <label for="email">Email:</label>
-                                    <input class="form-control" type="email" id="email" name="email" placeholder="Email">
+                                    <input class="form-control" type="email" id="email" name="email" placeholder="Email" required>
                                     <span id="emailError" class="text-danger"></span>
                                 </div>
                             </div>
@@ -143,7 +143,7 @@
                             <div class="form-group">
                                 <div class="form-group">
                                     <label for="contact">Contact:</label>
-                                    <input class="form-control" type="text" id="contact" name="contact" placeholder="Contact Number">
+                                    <input class="form-control" type="text" id="contact" name="contact" placeholder="Contact Number" required>
                                     <span id="contactError" class="text-danger"></span>
                                 </div>
                             </div>
@@ -184,23 +184,69 @@
                             </script>
                             
                             <div class="form-group">
-                                <div class="form-group">
-                                    <label for="address">Permanent Address:</label>
-                                    <input class="form-control" type="text" name="address" placeholder="Address">
-                                </div>
+                                <label for="address">Permanent Address:</label>
+                                <input class="form-control" type="text" name="address" id="address" placeholder="Address" required>
+                                <div id="addressError" style="color: red; display: none;">This field is required.</div>
                             </div>
+                            
+                            <script>
+                                const addressInput = document.getElementById('address');
+                                const addressError = document.getElementById('addressError');
+                            
+                                addressInput.addEventListener('input', function() {
+                                    if (!addressInput.value.trim()) {
+                                        addressError.style.display = 'block';
+                                    } else {
+                                        addressError.style.display = 'none';
+                                    }
+                                });
+                            </script>
+                            
                             <div class="form-group">
-                                <div class="form-group">
-                                    <label for="location">Place:</label>
-                                    <input class="form-control"  type="location" name="location" placeholder="Place">
-                                </div>
-                            <div class="form-group">
-                                <div class="form-group">
-                                    <label for="password">Password:</label>
-                                    <input class="form-control" type="password" id="password" name="password" placeholder="Password">
-                                    <span id="passwordError" class="text-danger"></span>
-                                </div>
+                                <label for="location">Place:</label>
+                                <input class="form-control" type="text" name="location" id="location" placeholder="Place" required>
+                                <div id="locationError" style="color: red; display: none;">This field is required.</div>
                             </div>
+                            
+                            <script>
+                                const locationInput = document.getElementById('location');
+                                const locationError = document.getElementById('locationError');
+                            
+                                locationInput.addEventListener('input', function() {
+                                    if (!locationInput.value.trim()) {
+                                        locationError.style.display = 'block';
+                                    } else {
+                                        locationError.style.display = 'none';
+                                    }
+                                });
+                            </script>
+                            
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input class="form-control" type="password" id="password" name="password" placeholder="Password" required>
+                                <span id="passwordError" class="text-danger"></span>
+                            </div>
+                            
+                            <script>
+                                const passwordInput = document.getElementById('password');
+                                const passwordError = document.getElementById('passwordError');
+                            
+                                passwordInput.addEventListener('input', function() {
+                                    const password = passwordInput.value;
+                                    const hasNumber = /\d/.test(password);
+                                    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+                                    const isValid = password.length >= 8 && hasNumber && hasSpecial;
+                            
+                                    if (!isValid) {
+                                        passwordError.textContent = "Password must be 8 characters and include at least one special character and one number.";
+                                        passwordError.style.display = 'block';
+                                    } else {
+                                        passwordError.textContent = "";
+                                        passwordError.style.display = 'none';
+                                    }
+                                });
+                            </script>
+                            
                         </div>
                             
                             <script>

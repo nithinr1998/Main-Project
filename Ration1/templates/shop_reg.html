@@ -26,7 +26,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="ownerName">Owner Name</label>
-                                        <input type="text" id="ownerName" name="name" class="form-control" placeholder="Enter owner name" oninput="validateOwnerName(this)">
+                                        <input type="text" id="ownerName" name="name" class="form-control" placeholder="Enter owner name" oninput="validateOwnerName(this)" required>
                                         <span id="ownerNameError" class="error-message"></span>
                                     </div>
                                 </div>
@@ -54,7 +54,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="license">License Number</label>
-                                    <input type="text" id="license" name="license" class="form-control" placeholder="Enter 10 digit license number" oninput="validateLicenseNumber(this)">
+                                    <input type="text" id="license" name="license" class="form-control" placeholder="Enter 10 digit license number" oninput="validateLicenseNumber(this)" required>
                                     <span id="licenseError" class="error-message"></span>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
 <div class="col-md-6">
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" class="form-control" placeholder="Enter email">
+        <input type="email" id="email" name="email" class="form-control" placeholder="Enter email" required>
         <!-- Error message span -->
         <span id="emailError" style="color: red;"></span>
     </div>
@@ -134,30 +134,109 @@
         return emailRegex.test(email);
     }
 </script>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="mobile">Contact</label>
-                                    <input type="tel" id="mobile" name="mobile" class="form-control" placeholder="Enter contact number">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="address">Permanent Address</label>
-                                    <input type="text" id="address" name="address" class="form-control" placeholder="Enter address">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="location">Place</label>
-                                    <input type="text" id="location" name="location" class="form-control" placeholder="Enter place">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter password">
-                                </div>
-                            </div>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="mobile">Contact</label>
+        <input type="tel" id="mobile" name="mobile" class="form-control" placeholder="Enter contact number" required>
+        <span id="mobileError" class="text-danger"></span>
+    </div>
+</div>
+
+<script>
+    const mobileInput = document.getElementById('mobile');
+    const mobileError = document.getElementById('mobileError');
+
+    mobileInput.addEventListener('input', function() {
+        const mobile = mobileInput.value;
+        const isValid = /^\d{10}$/.test(mobile);
+
+        if (!isValid) {
+            mobileError.textContent = "Contact number must be 10 digits and contain only numbers.";
+            mobileError.style.display = 'block';
+        } else {
+            mobileError.textContent = "";
+            mobileError.style.display = 'none';
+        }
+    });
+</script>
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="address">Permanent Address</label>
+        <input type="text" id="address" name="address" class="form-control" placeholder="Enter address" required>
+        <span id="addressError" class="text-danger"></span>
+    </div>
+</div>
+
+<script>
+    const addressInput = document.getElementById('address');
+    const addressError = document.getElementById('addressError');
+
+    addressInput.addEventListener('input', function() {
+        const address = addressInput.value.trim();
+        const isValid = address !== '';
+
+        if (!isValid) {
+            addressError.textContent = "This field is required.";
+            addressError.style.display = 'block';
+        } else {
+            addressError.textContent = "";
+            addressError.style.display = 'none';
+        }
+    });
+</script>
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="location">Place</label>
+        <input type="text" id="location" name="location" class="form-control" placeholder="Enter place" required>
+        <span id="locationError" class="text-danger"></span>
+    </div>
+</div>
+
+<script>
+    const locationInput = document.getElementById('location');
+    const locationError = document.getElementById('locationError');
+
+    locationInput.addEventListener('input', function() {
+        const location = locationInput.value.trim();
+        const isValid = location !== '';
+
+        if (!isValid) {
+            locationError.textContent = "This field is required.";
+            locationError.style.display = 'block';
+        } else {
+            locationError.textContent = "";
+            locationError.style.display = 'none';
+        }
+    });
+</script>
+
+<div class="col-md-6">
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Enter password" required>
+        <span id="passwordError" class="text-danger"></span>
+    </div>
+</div>
+
+<script>
+    const passwordInput = document.getElementById('password');
+    const passwordError = document.getElementById('passwordError');
+
+    passwordInput.addEventListener('input', function() {
+        const password = passwordInput.value;
+        const isValid = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(password);
+
+        if (!isValid) {
+            passwordError.textContent = "Password must be 8 characters and include at least one special character and one number.";
+            passwordError.style.display = 'block';
+        } else {
+            passwordError.textContent = "";
+            passwordError.style.display = 'none';
+        }
+    });
+</script>
+
                             <div class="col-12">
                                 <div class="form-group text-center">
                                     <button type="submit" class="btn btn-primary btn-lg btn-block">Register Here</button>

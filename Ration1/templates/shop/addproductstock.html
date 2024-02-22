@@ -18,62 +18,66 @@
                 </div>
             </div>
             <div class="col-xl-8 col-lg-8 col-md-7">
-                <div class="form">
-                    <form id="register-form" action="" method="post" onsubmit="return validateForm()">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="input_field">
-                                    <label for="item">Item Name:</label>
-                                    <select name="item">
-                                        {% for d in item %}
-                                            <option value="{{d.id}}">{{d.item}} </option>
-                                        {% endfor %}
-                                    </select>
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Add Item</h3>
+                        <form id="register-form" action="" method="post" onsubmit="return validateForm()">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="input_field">
+                                        <label for="item">Item Name:</label>
+                                        <select name="item" class="form-control">
+                                            {% for d in item %}
+                                                <option value="{{d.id}}">{{d.item}} </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="input_field">
+                                        <label for="quantity">Quantity:</label>
+                                        <input type="text" name="quantity" id="quantity" class="form-control" placeholder="Total quantity" required>
+                                        <span id="quantity-error" class="error-message"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="input_field">
+                                        <label for="arrived">Item arrived on:</label>
+                                        <input type="date" name="arrived" class="form-control" placeholder="Item arrived date" required>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="input_field">
+                                        <label for="amount">Amount per Kg or Lt:</label>
+                                        <input type="text" name="amount" id="amount" class="form-control" placeholder="Amount per Kg or Lt" required>
+                                        <span id="amount-error" class="error-message"></span>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="input_field">
+                                        <label for="card">Allotted to card:</label>
+                                        <select name="card" class="form-control">
+                                            {% for d in card %}
+                                                <option value="{{d.id}}">{{d.card}} </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12">
+                                    <div class="input_field">
+                                        <input type="submit" value="Add Item" class="btn btn-primary">                                  
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6">
-                                <div class="input_field">
-                                    <label for="quantity">Quantity:</label>
-                                    <input type="text" name="quantity" id="quantity" placeholder="total quantity">
-                                    <span id="quantity-error" class="error-message"></span>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="input_field">
-                                    <label for="arrived">Item arrived on:</label>
-                                    <input type="date" name="arrived" placeholder="Item arrived date">
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="input_field">
-                                    <label for="amount">Amount per Kg or Lt:</label>
-                                    <input type="text" name="amount" id="amount" placeholder="Amount per Kg or Lt">
-                                    <span id="amount-error" class="error-message"></span>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="input_field">
-                                    <label for="card">Allotted to card:</label>
-                                    <select name="card">
-                                        {% for d in card %}
-                                            <option value="{{d.id}}">{{d.card}} </option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xl-12">
-                                <div class="input_field">
-                                    <input type="submit" value="Add Item" class="boxed-btn3-line">                                  
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Estimate_area end  -->
 <script>
     function validateForm() {
