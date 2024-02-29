@@ -23,57 +23,131 @@
     </div>
     <!-- slider_area_end -->
 
-    <div class="Estimate_area overlay">
-        <div class="container">
-            <div class="row justify-content-center"> <!-- Centering the form -->
-                <div class="col-md-8">
-                    <div class="form">
-                        <div class="Estimate_info text-center"> <!-- Centering the heading -->
-                            <h3>Update Profile</h3>                      
-                        </div>
-                        <br>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg rounded-lg mt-5">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="text-center mb-0">Update Profile</h3>
+                    </div>
+                    <div class="card-body">
                         <form id="register-form" action="" method="post">
                             {% csrf_token %}
-
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="input_field">
+                                    <div class="form-group">
                                         <label for="name">Name:</label>
-                                        <input type="text" name="name" value="{{ view_cust.user.first_name }}" placeholder="Your name">
+                                        <input type="text" name="name" id="name" value="{{ view_cust.user.first_name }}" class="form-control" placeholder="Your name">
+                                        <span id="nameError" class="text-danger"></span>
                                     </div>
                                 </div>
+                                
+                                <script>
+                                    const nameInput = document.getElementById('name');
+                                    const nameError = document.getElementById('nameError');
+                                
+                                    nameInput.addEventListener('input', function() {
+                                        const name = nameInput.value.trim();
+                                        const isValid = /^[A-Za-z\s]+$/.test(name);
+                                
+                                        if (!isValid) {
+                                            nameError.textContent = "Name must contain only characters.";
+                                            nameError.style.color = 'red';  // Set error message color to red
+                                        } else {
+                                            nameError.textContent = "";
+                                        }
+                                    });
+                                </script>
+                                
                                 <div class="col-md-6">
-                                    <div class="input_field">
+                                    <div class="form-group">
                                         <label for="card_number">Card Number:</label>
-                                        <input type="card_number" name="card_number" value="{{ view_cust.card_number }}" placeholder="11 digit Ration Card Number">
+                                        <input type="text" name="card_number" id="card_number" value="{{ view_cust.card_number }}" class="form-control" placeholder="11 digit Ration Card Number">
+                                        <span id="cardNumberError" class="text-danger"></span>
                                     </div>
                                 </div>
+                                
+                                <script>
+                                    const cardNumberInput = document.getElementById('card_number');
+                                    const cardNumberError = document.getElementById('cardNumberError');
+                                
+                                    cardNumberInput.addEventListener('input', function() {
+                                        const cardNumber = cardNumberInput.value.trim();
+                                        const isValid = /^\d{11}$/.test(cardNumber);
+                                
+                                        if (!isValid) {
+                                            cardNumberError.textContent = "Card Number must contain exactly 11 digits and contain only numbers.";
+                                            cardNumberError.style.color = 'red';  // Set error message color to red
+                                        } else {
+                                            cardNumberError.textContent = "";
+                                        }
+                                    });
+                                </script>
+                                
                                 <div class="col-md-6">
-                                    <div class="input_field">
+                                    <div class="form-group">
                                         <label for="email">Mail Id:</label>
-                                        <input type="email" name="email" value="{{ view_cust.user.email }}" placeholder="Email">
+                                        <input type="email" name="email" id="email" value="{{ view_cust.user.email }}" class="form-control" placeholder="Email">
+                                        <span id="emailError" class="text-danger"></span>
                                     </div>
                                 </div>
+                                
+                                <script>
+                                    const emailInput = document.getElementById('email');
+                                    const emailError = document.getElementById('emailError');
+                                
+                                    emailInput.addEventListener('input', function() {
+                                        const email = emailInput.value.trim();
+                                        const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+                                
+                                        if (!isValid) {
+                                            emailError.textContent = "Invalid email format.";
+                                            emailError.style.color = 'red';  // Set error message color to red
+                                        } else {
+                                            emailError.textContent = "";
+                                        }
+                                    });
+                                </script>
+                                
                                 <div class="col-md-6">
-                                    <div class="input_field">
+                                    <div class="form-group">
                                         <label for="contact">Contact:</label>
-                                        <input type="contact" name="contact" value="{{ view_cust.contact }}" placeholder="Contact Number">
+                                        <input type="text" name="contact" id="contact" value="{{ view_cust.contact }}" class="form-control" placeholder="Contact Number">
+                                        <span id="contactError" class="text-danger"></span>
                                     </div>
                                 </div>
+                                
+                                <script>
+                                    const contactInput = document.getElementById('contact');
+                                    const contactError = document.getElementById('contactError');
+                                
+                                    contactInput.addEventListener('input', function() {
+                                        const contact = contactInput.value.trim();
+                                        const isValid = /^\d{10}$/.test(contact);
+                                
+                                        if (!isValid) {
+                                            contactError.textContent = "Contact number must be exactly 10 digits and contain only numbers.";
+                                            contactError.style.color = 'red';  // Set error message color to red
+                                        } else {
+                                            contactError.textContent = "";
+                                        }
+                                    });
+                                </script>
+                                
                                 <div class="col-md-6">
-                                    <div class="input_field">
+                                    <div class="form-group">
                                         <label for="address">Permanent Address:</label>
-                                        <input type="address" name="address" value="{{ view_cust.address }}" placeholder="Address">
+                                        <input type="text" name="address" value="{{ view_cust.address }}" class="form-control" placeholder="Address" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="input_field">
+                                    <div class="form-group">
                                         <label for="location">Place:</label>
-                                        <input type="location" name="location" value="{{ view_cust.location }}" placeholder="Place">
+                                        <input type="text" name="location" value="{{ view_cust.location }}" class="form-control" placeholder="Place" required>
                                     </div>
-                                </div>         
-                                <div class="col-md-12 text-center"> <!-- Centering the button -->
-                                    <div class="input_field">
+                                </div>
+                                <div class="col-md-12 text-center">
+                                    <div class="form-group">
                                         <input type="hidden" class="form-control mb-20" value="{{ view_cust.user.id }}" name="id" required autocomplete="off">
                                         <button class="btn btn-primary" value="pf" name="profile" type="submit">
                                             <i class="fa fa-fw fa-lg fa-check-circle"></i> Update Profile

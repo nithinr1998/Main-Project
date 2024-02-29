@@ -25,13 +25,15 @@ class Customer_RegView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(Customer_RegView, self).get_context_data(**kwargs)
         card = Card.objects.all()
+        locations = Shop.objects.values_list('location', flat=True).distinct()  # Assuming 'location' is a field in your Shop model
         context['card'] = card
+        context['locations'] = locations
         return context 
 
     def post(self, request, *args, **kwargs):
         card = request.POST['card']
         name = request.POST['name']
-        card_number =request.POST['card_number']
+        card_number = request.POST['card_number']
         email = request.POST['email']
         contact = request.POST['contact']
         address = request.POST['address']
@@ -59,12 +61,13 @@ class Customer_RegView(TemplateView):
             usertype.user = user
             usertype.type = "customer"
             usertype.save()
-            # messages="Registered Successfully"
 
             return render(request, 'index.html', {'message': "successfully added"})
+
         
 class Shop_RegView(TemplateView):
     template_name = 'shop_reg.html'   
+    
 
     def post(self, request, *args, **kwargs):
         name = request.POST['name']
@@ -96,7 +99,7 @@ class Shop_RegView(TemplateView):
             usertype.type = "shop"
             usertype.save()
             # messages="Registered Successfully"
-
+            
             return render(request, 'index.html', {'message': "successfully added"})
         
 class loginview(TemplateView):

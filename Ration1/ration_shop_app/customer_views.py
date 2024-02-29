@@ -3,20 +3,27 @@ from django.contrib.auth.models import User
 from django.views import View
 from django.views.generic import TemplateView
 
-from ration_shop_app.models import Cart, Customer, Member, Product,Card
+from ration_shop_app.models import Cart, Customer, Member, Product,Card,Product_Item
 
 class Indexview(TemplateView):
     template_name = 'customer/index.html'
     
 class View_Product(TemplateView):
-    template_name = 'customer/products_list.html'
+   template_name = 'customer/products_list.html'
 
-    def get_context_data(self, **kwargs):
+   def get_context_data(self, **kwargs):
         context = super(View_Product, self).get_context_data(**kwargs)
         cust = Customer.objects.get(user_id=self.request.user.id)
         view_pp = Product.objects.filter(card_id=cust.id)
         context['view_pp'] = view_pp
+        im=Product_Item.objects.all()
+        context['im'] = im
+        print(context)
         return context
+
+
+    
+     
 class AddMember(TemplateView):
     template_name = 'customer/addmember.html'
     def get_context_data(self, **kwargs):
@@ -113,6 +120,7 @@ class CartView(TemplateView):
         ca.save()
 
         return redirect(request.META['HTTP_REFERER'], {'message': "cart"})
+    
     
 
 class view_cart(TemplateView):

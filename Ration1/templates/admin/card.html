@@ -31,39 +31,14 @@ alert("{{ message }}")
                                 
                                     cardInput.addEventListener('input', function() {
                                         const card = cardInput.value.trim();
-                                        const isValid = /^[a-zA-Z]{6}$/.test(card);
+                                        const isValid = /^[a-zA-Z]{3}$/.test(card);
                                 
                                         if (!isValid) {
-                                            cardError.textContent = "Card color must be exactly 6 letters and contain only characters.";
+                                            cardError.textContent = "Card color must be exactly 3 letters and contain only characters.";
                                             cardError.style.display = 'block';
                                         } else {
                                             cardError.textContent = "";
                                             cardError.style.display = 'none';
-                                        }
-                                    });
-                                </script>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="allowed_quantity">Allowed Quantity per Card:</label>
-                                        <input type="text" id="allowed_quantity" name="allowed_quantity" class="form-control" placeholder="Allowed quantity per card" required>
-                                        <span id="allowedQuantityError" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                
-                                <script>
-                                    const allowedQuantityInput = document.getElementById('allowed_quantity');
-                                    const allowedQuantityError = document.getElementById('allowedQuantityError');
-                                
-                                    allowedQuantityInput.addEventListener('input', function() {
-                                        const allowedQuantity = allowedQuantityInput.value.trim();
-                                        const isValid = /^[0-9]+$/.test(allowedQuantity);
-                                
-                                        if (!isValid) {
-                                            allowedQuantityError.textContent = "Allowed quantity per card must contain only numbers.";
-                                            allowedQuantityError.style.display = 'block';
-                                        } else {
-                                            allowedQuantityError.textContent = "";
-                                            allowedQuantityError.style.display = 'none';
                                         }
                                     });
                                 </script>

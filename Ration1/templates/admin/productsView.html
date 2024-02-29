@@ -14,11 +14,19 @@
             <table class="table table-bordered table-striped table-hover">
                 <thead style="background-color: #b3e0a1;"> <!-- Light green background color for the table head -->
                     <th class="info">Product Name</th>
+                    <th class="info">Image</th>
                     <th class="info">Remove</th>
                 </thead>
                 {% for i in view %}
                     <tr>
                         <td>{{ i.item }}</td>
+                        <td>
+                            {% if i.image %}
+                                <img src="{{ i.image }}" style="max-width: 200px; max-height: 200px;">
+                            {% else %}
+                                No image available
+                            {% endif %}
+                        </td>
                         <td><a href="remove?id={{ i.id }}" class="btn btn-danger">Remove</a></td>
                     </tr>
                 {% endfor %}

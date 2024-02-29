@@ -1,5 +1,7 @@
 from django.urls import path
 from . import admin_views
+from django.conf import settings
+from django.conf.urls.static import static
 from ration_shop_app.admin_views import ApproveView, Indexview,NewShopView, RejectView,AddProduct,AddCard,View_Product,CustView,Reject,ApprovedShopListView,AddDeliveryBoy,DeliveryBoyHistoryView
 
 urlpatterns = [
@@ -17,6 +19,10 @@ urlpatterns = [
     path('add_delivery_boy/', AddDeliveryBoy.as_view(), name='add_delivery_boy'),
     path('delivery_boys_history/', DeliveryBoyHistoryView.as_view(), name='delivery_boys_history'),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
     
 

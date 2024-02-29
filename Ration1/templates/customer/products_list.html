@@ -6,48 +6,47 @@
 alert("{{ message }}")
 </script>
 {% endif %}
-    <!-- slider_area_start -->
-    <div class="slider_area">
-        <div class="single_slider  d-flex align-items-center slider_bg_1">
-            <div class="container">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col-xl-8">
-                        <div class="slider_text text-center justify-content-center">
-                            <h3>CUSTOMER PAGE</h3>
-                                <a class="boxed-btn3" href="s#">Our Services</a>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div id="page-inner">
+                <h1>Products List</h1>
+                {% regroup view_pp by card.card as card_list %} <!-- Grouping products by card -->
+                {% for card in card_list %}
+                <div class="col"> <!-- Adjust the column size based on your layout -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h2>{{ card.grouper }}</h2> <!-- Displaying card name as heading -->
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                {% for item in card.list %}
+                                <div class="col-lg-3 col-md-4 col-6 mb-4"> <!-- Adjust the column size based on your layout -->
+                                    <div class="card">
+                    
+                                        {% if item.item.image %}
+                                 <img src="{{ item.item.image }}" style="max-width: 300px; max-height: 200px;">
+                                     {% else %}
+                                    No image available
+                                    {% endif %}
+                                     <!--   <img src="{{ item.image.url }}" class="card-img-top" alt="Product Image"> <!-- Replace with your image URL -->
+                                        <div class="card-body">
+                                            <p>{{ item.item.item }}</p>
+                                            <p>{{ item.arrived }}</p>
+                                            <p>{{ item.quantity }} kg (lt)</p>
+                                            <p>{{ item.amount }} /-</p>
+                                            <a href="/customer/CartView/{{ item.id }}/" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
     </div>
-    <!-- slider_area_end -->
-    <br>
-    <br>
-    <div class="col-xl-12">
-        <div id="page-inner" >
-            <h1> Products List</h1>
-                <table class="table table-bordered table-striped table-hover">
-                    <thead style="background-color: grey; color: white;"> <!-- grey background color for the table head -->
-                        <th class="info">Card</th>
-                        <th class="info">Item</th>
-                        <th class="info">Arrived On</th>
-                        <th class="info">Stock remaining</th>
-                        <th class="info">Amount per kg</th>
-                        <th class="info">Action</th>
-                    </thead>
-                    {% for i in view_pp  %}
-                        <tr>
-                            <td>{{ i.card.card}}</td>
-                            <td>{{ i.item.item }}</td>
-                            <td>{{ i.arrived }}</td>
-                            <td>{{ i.quantity}} kg ( lt)</td>
-                            <td>{{ i.amount}} /-</td>
-                            <td><a href="/customer/CartView/{{i.id}}/" class="cart-btn"><i class="fa fa-shopping-cart"></i>Add to Cart</a></td>
-                        </tr>
-                    {% endfor %}
-                </table>
-        </div>
-    </div>
-    
-{% endblock  %}
+</div>
+{% endblock %}

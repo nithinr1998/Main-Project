@@ -1,5 +1,6 @@
 from django.urls import path
-
+from django.conf import settings
+from django.conf.urls.static import static
 from ration_shop_app.customer_views import CartView, Indexview, Payment, UpdateProfile,View_Product,AddMember,ApprovedmemberView,CardOwnerView, View_confirm_order, cancel_order, chpayment, view_cart
 
 urlpatterns = [
@@ -23,3 +24,6 @@ urlpatterns = [
 
 def urls():
     return urlpatterns, 'customer','customer'
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -6,30 +6,45 @@
     alert("{{ message }}")
 </script>
 {% endif %}
-<!-- Estimate_area start -->
-<div class="Estimate_area overlay">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="Estimate_info">
-                    <h3>Register to avail services</h3>
-                    <p>The Department of Civil Supplies functions under the Department of Food, Civil Supplies and Consumer Affairs of the Government of Kerala.</p>
-                    <a href="#" class="boxed-btn3">Call us: +91 9966336699</a>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header">
+                    <h3 class="text-center font-weight-bold text-primary mt-4 mb-5">Register to avail services</h3>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form">
+                <div class="card-body">
+                    <p>The Department of Civil Supplies functions under the Department of Food, Civil Supplies and Consumer Affairs of the Government of Kerala.</p>
                     <form id="register-form" action="" method="post">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="input_field">
+                                <div class="form-group">
                                     <label for="name">Name:</label>
-                                    <input type="text" name="name" placeholder="Member name" required>
+                                    <input type="text" name="name" id="name" class="form-control" placeholder="Member name" required>
+                                    <span id="nameError" class="text-danger"></span>
                                 </div>
                             </div>
+                            
+                            <script>
+                                const nameInput = document.getElementById('name');
+                                const nameError = document.getElementById('nameError');
+                            
+                                nameInput.addEventListener('input', function() {
+                                    const name = nameInput.value.trim();
+                                    const isValid = /^[a-zA-Z]+$/.test(name);
+                            
+                                    if (!isValid) {
+                                        nameError.textContent = "Name must contain only characters.";
+                                        nameError.style.color = 'red';  // Set error message color to red
+                                    } else {
+                                        nameError.textContent = "";
+                                    }
+                                });
+                            </script>
+                            
                             <div class="col-md-12">
-                                <div class="input_field">
+                                <div class="form-group">
                                     <label for="relation">Relation with card owner:</label>
                                     <select class="custom-select" name="relation" required>
                                         <option value="">Select Relation with card owner</option>
@@ -43,13 +58,32 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="input_field">
+                                <div class="form-group">
                                     <label for="age">Age:</label>
-                                    <input type="number" name="age" placeholder="Age" required>
+                                    <input type="number" name="age" id="age" class="form-control" placeholder="Age" required>
+                                    <span id="ageError" class="text-danger"></span>
                                 </div>
                             </div>
+                            
+                            <script>
+                                const ageInput = document.getElementById('age');
+                                const ageError = document.getElementById('ageError');
+                            
+                                ageInput.addEventListener('input', function() {
+                                    const age = ageInput.value.trim();
+                                    const isValid = /^\d{3}$/.test(age);
+                            
+                                    if (!isValid) {
+                                        ageError.textContent = "Age must be a 3-digit number.";
+                                        ageError.style.color = 'red';  // Set error message color to red
+                                    } else {
+                                        ageError.textContent = "";
+                                    }
+                                });
+                            </script>
+                            
                             <div class="col-md-12">
-                                <div class="input_field">
+                                <div class="form-group">
                                     <label for="gender">Gender:</label>
                                     <select class="custom-select" name="gender">
                                         <option selected disabled>Select Gender</option>
@@ -60,13 +94,30 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="input_field">
+                                <div class="form-group">
                                     <label for="job">Job:</label>
-                                    <input type="text" name="job" placeholder="Job">
+                                    <input type="text" name="job" id="job" class="form-control" placeholder="Job">
+                                    <span id="jobError" class="text-danger"></span>
                                 </div>
                             </div>
+                            
+                            <script>
+                                const jobInput = document.getElementById('job');
+                                const jobError = document.getElementById('jobError');
+                            
+                                jobInput.addEventListener('input', function() {
+                                    const job = jobInput.value.trim();
+                                    if (!job) {
+                                        jobError.textContent = "Job is required.";
+                                        jobError.style.color = 'red';  // Set error message color to red
+                                    } else {
+                                        jobError.textContent = "";
+                                    }
+                                });
+                            </script>
+                            
                             <div class="col-md-12">
-                                <div class="input_field">
+                                <div class="form-group">
                                     <label for="card">Card:</label>
                                     <select class="custom-select" name="card" required>
                                         <option selected disabled>Select card</option>
@@ -77,8 +128,8 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <div class="input_field">
-                                    <input type="submit" value="Add Member" class="boxed-btn3-blue">
+                                <div class="form-group">
+                                    <input type="submit" value="Add Member" class="btn btn-primary btn-lg btn-block">
                                 </div>
                             </div>
                         </div>
@@ -88,5 +139,4 @@
         </div>
     </div>
 </div>
-<!-- Estimate_area end -->
 {% endblock %}

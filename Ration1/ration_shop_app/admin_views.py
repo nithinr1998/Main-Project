@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView, View
 from django.core.mail import EmailMessage
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 
 from ration_shop_app.models import Card, Customer, Product, Product_Item, Shop,UserType
 
@@ -47,26 +49,34 @@ class AddCard(TemplateView):
     def post(self, request, *args, **kwargs):
 
         card = request.POST['card']
-        allowed_quantity = request.POST['allowed_quantity']
         fe = Card()
         fe.card= card
-        fe.allowed_quantity=allowed_quantity
         fe.status ='card added'
         fe.save()
         return render(request, 'admin/index.html', {'message': "Card Successfully added"})
     
 class AddProduct(TemplateView):
-    template_name = 'admin/products.html' 
+    template_name = 'admin/products.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {})
     
     def post(self, request, *args, **kwargs):
-        
-        item = request.POST['item']      
-        reg = Product_Item()       
-        reg.item = item
-        reg.status='Product added'
+        item_name = request.POST.get('item', '')
+        image_file = request.FILES.get('image', None)
+
+        if image_file:
+            # Save the image file to the media directory
+            file_name = default_storage.save('product_images/' + image_file.name, ContentFile(image_file.read()))
+            image_path = 'media/' + file_name
+        else:
+            image_path = None
+
+        reg = Product_Item(item=item_name, image=image_path)
+        reg.status = 'Product added'
         reg.save()
-        
-        return render(request, 'admin/index.html', {'message': "product successfully added "})
+
+        return render(request, 'admin/index.html', {'message': "Product successfully added"})
 
 class View_Product(TemplateView):
     template_name = 'admin/productsView.html'

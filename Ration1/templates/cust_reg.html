@@ -204,23 +204,16 @@
                             
                             <div class="form-group">
                                 <label for="location">Place:</label>
-                                <input class="form-control" type="text" name="location" id="location" placeholder="Place" required>
+                                <select class="form-control" name="location" id="location" required>
+                                    <option value="">Select Location</option>
+                                    {% for loc in locations %}
+                                        <option value="{{ loc }}">{{ loc }}</option>
+                                    {% endfor %}
+                                </select>
                                 <div id="locationError" style="color: red; display: none;">This field is required.</div>
                             </div>
                             
-                            <script>
-                                const locationInput = document.getElementById('location');
-                                const locationError = document.getElementById('locationError');
-                            
-                                locationInput.addEventListener('input', function() {
-                                    if (!locationInput.value.trim()) {
-                                        locationError.style.display = 'block';
-                                    } else {
-                                        locationError.style.display = 'none';
-                                    }
-                                });
-                            </script>
-                            
+                        
                             <div class="form-group">
                                 <label for="password">Password:</label>
                                 <input class="form-control" type="password" id="password" name="password" placeholder="Password" required>

@@ -8,11 +8,11 @@ class UserType(models.Model):
     
 class Card(models.Model):
     card = models.CharField(max_length=20, null=True)
-    allowed_quantity=models.CharField(max_length=100, null=True)
     status = models.CharField(max_length=100, null=True)
     
 class Product_Item(models.Model):
     item = models.CharField(max_length=20, null=True)
+    image = models.ImageField(upload_to='product_images/', null=True, blank=True) # Image field for product image
     status = models.CharField(max_length=100, null=True)
     
 class Product(models.Model):
