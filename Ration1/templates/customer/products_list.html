@@ -3,14 +3,14 @@
 {% block content %} 
 {% if message %}
 <script>
-alert("{{ message }}")
+    alert("{{ message }}");
 </script>
 {% endif %}
 <div class="container">
     <div class="row">
         <div class="col">
             <div id="page-inner">
-                <h1>Products List</h1>
+                <h2>Products List</h2>
                 {% regroup view_pp by card.card as card_list %} <!-- Grouping products by card -->
                 {% for card in card_list %}
                 <div class="col"> <!-- Adjust the column size based on your layout -->
@@ -22,18 +22,16 @@ alert("{{ message }}")
                             <div class="row">
                                 {% for item in card.list %}
                                 <div class="col-lg-3 col-md-4 col-6 mb-4"> <!-- Adjust the column size based on your layout -->
-                                    <div class="card">
-                    
+                                    <div class="card product-card"> <!-- Add the "product-card" class here -->
                                         {% if item.item.image %}
-                                 <img src="{{ item.item.image }}" style="max-width: 300px; max-height: 200px;">
-                                     {% else %}
-                                    No image available
-                                    {% endif %}
-                                     <!--   <img src="{{ item.image.url }}" class="card-img-top" alt="Product Image"> <!-- Replace with your image URL -->
+                                            <img src="{{ item.item.image }}" style="width: 100%; height: 200px; object-fit: cover;" class="card-img-top product-image" alt="Product Image">
+                                        {% else %}
+                                            <p class="no-image-text">No image available</p>
+                                        {% endif %}
                                         <div class="card-body">
-                                            <p>{{ item.item.item }}</p>
+                                            <p class="product-name">{{ item.item.item }}</p>
                                             <p>{{ item.arrived }}</p>
-                                            <p>{{ item.quantity }} kg (lt)</p>
+                                            <p>Max:{{ item.quantity }} kg (lt)</p>
                                             <p>{{ item.amount }} /-</p>
                                             <a href="/customer/CartView/{{ item.id }}/" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
                                         </div>
@@ -49,4 +47,41 @@ alert("{{ message }}")
         </div>
     </div>
 </div>
+
+<style>
+    /* Additional styles for product list */
+    .product-image {
+        transition: transform 0.3s; /* Add smooth transition for image transform */
+    }
+
+    .product-image:hover {
+        transform: scale(1.1); /* Scale up the image on hover */
+    }
+
+    .no-image-text {
+        /* Style for the text when no image is available */
+        color: #aaa;
+        text-align: center;
+    }
+
+    .product-name {
+        font-weight: bold;
+    }
+
+    /* Style for the product container */
+    .product-card {
+        border: 1px solid #ddd; /* Default border color and size */
+        transition: border-color 0.3s, box-shadow 0.3s; /* Add smooth transition for border color and box shadow */
+        border-radius: 5px; /* Add border radius for rounded corners */
+        padding: 10px; /* Add padding inside the container */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+    }
+    
+    .product-card:hover {
+        border-color: lightgreen; /* Change the border color to light green on hover */
+        border-width: 2px; /* Increase the border width on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add a stronger shadow on hover */
+    }
+    
+</style>
 {% endblock %}

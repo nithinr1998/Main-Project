@@ -5,6 +5,7 @@ from django.views.generic import TemplateView, View
 from django.core.mail import EmailMessage
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
+from django.db.models import Max
 
 from ration_shop_app.models import Card, Customer, Product, Product_Item, Shop,UserType
 
@@ -119,8 +120,6 @@ class AddDeliveryBoy(View):
     def get(self, request, *args, **kwargs):
         delivery_boys = UserType.objects.filter(type="Delivery")
         locations = Shop.objects.values_list('location', flat=True).distinct()
-        
-        
         return render(request, 'admin/add_delivery_boy.html', {'delivery_boys': delivery_boys,'locations': locations})
 
     def post(self, request, *args, **kwargs):
@@ -129,19 +128,27 @@ class AddDeliveryBoy(View):
         contact_number = request.POST['contact_number']
         address = request.POST['address']
         vehicle_type = request.POST['vehicle_type']
-        registration_number = request.POST['registration_number']
         delivery_zones = request.POST['delivery_zones']
         availability_timings = request.POST['availability_timings']
 
         # Generate a random password for the delivery boy
         password = User.objects.make_random_password()
         
+        # Get the maximum registration number currently in the database
+        max_registration_number = UserType.objects.aggregate(Max('registration_number'))['registration_number__max']
+        
+        # If there are no existing registration numbers, start from 1, else increment the maximum by 1
+        if max_registration_number:
+            new_registration_number = str(int(max_registration_number) + 1).zfill(6)  # Ensure 6 digits
+        else:
+            new_registration_number = '000001'
+        
         # Create a user with the provided email and generated password
         user = User.objects.create_user(username=email, password=password, first_name=name, email=email,
                                             is_staff='0', last_name='1')
         
 
-        # Create a UserType object for the delivery boy
+        # Create a UserType object for the delivery boy with the new registration number
         user_type = UserType.objects.create(
             user=user,
             type="Delivery",
@@ -149,7 +156,7 @@ class AddDeliveryBoy(View):
             contact_number=contact_number,
             address=address,
             vehicle_type=vehicle_type,
-            registration_number=registration_number,
+            registration_number=new_registration_number,
             delivery_zones=delivery_zones,
             availability_timings=availability_timings
         )
@@ -163,10 +170,7 @@ class AddDeliveryBoy(View):
         # Get updated list of delivery boys
         delivery_boys = UserType.objects.filter(type="Delivery")
         
-        
         return render(request, 'admin/add_delivery_boy.html', {'message': 'Delivery boy added successfully', 'delivery_boys': delivery_boys})
-    
-    
     
 class DeliveryBoyHistoryView(View):
     def get(self, request, *args, **kwargs):
