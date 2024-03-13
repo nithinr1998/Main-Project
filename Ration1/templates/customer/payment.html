@@ -28,7 +28,7 @@
     <!-- Credit Card Payment Form - START -->
 
     <div class="row justify-content-center">
-        <div class="col-xs-12 col-md-6">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header text-center">
                     <h5 class="card-title">Payable Amount: {{ asz }}</h5>
@@ -38,36 +38,29 @@
                         {% csrf_token %}
 
                         <div class="form-group">
-                            <label>CARD NUMBER</label>
-                            <div class="input-group">
-                                <input type="tel" class="form-control" placeholder="Valid Card Number" required pattern="[0-9]{4}[0-9]{4}[0-9]{4}[0-9]{4}" />
-                                <span class="input-group-addon"><span class="fa fa-credit-card"></span></span>
-                            </div>
+                            <label for="cardNumber">Card Number</label>
+                            <input type="tel" class="form-control" id="cardNumber" placeholder="Valid Card Number" required pattern="[0-9]{16}" />
+                            <span id="cardNumberError" class="error-message"></span>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-7">
-                                <div class="form-group">
-                                    <label>EXPIRATION DATE</label>
-                                    <input type="tel" class="form-control" placeholder="MM / YY" required />
-                                </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="expirationDate">Expiration Date</label>
+                                <input type="tel" class="form-control" id="expirationDate" placeholder="MM / YY" required />
                             </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label>CV CODE</label>
-                                    <input type="tel" class="form-control" placeholder="CVC" pattern="[0-9]{3}" required />
-                                </div>
+                            <div class="form-group col-md-6">
+                                <label for="cvCode">CV Code</label>
+                                <input type="tel" class="form-control" id="cvCode" placeholder="CVC" pattern="[0-9]{3}" required />
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>CARD OWNER</label>
-                            <input type="text" class="form-control" placeholder="Card Owner Names" onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || (event.charCode==32)" required />
+                            <label for="cardOwner">Card Owner</label>
+                            <input type="text" class="form-control" id="cardOwner" placeholder="Card Owner Names" required />
                         </div>
 
-                    </div>
-                    <div class="card-footer text-center">
-                        <button class="btn btn-warning btn-lg" type="submit">Process payment</button>
+                    <div class="text-center">
+                        <button class="btn btn-warning btn-lg" type="submit">Process Payment</button>
                     </div>
                     </form>
                 </div>
@@ -78,5 +71,73 @@
     <!-- Credit Card Payment Form - END -->
 
 </div>
+
+
+<script>
+    document.getElementById("cardNumber").addEventListener("input", function() {
+        var cardNumber = this.value;
+        var cardNumberError = document.getElementById("cardNumberError");
+
+        // Reset previous error message
+        cardNumberError.innerHTML = "";
+
+        // Validate card number
+        if (!cardNumber.match(/^[0-9]{16}$/)) {
+            cardNumberError.innerHTML = "Please enter a valid 16-digit card number.";
+            cardNumberError.style.color = "red";
+        } else {
+            cardNumberError.innerHTML = "Card number is valid.";
+            cardNumberError.style.color = "green"; // Change color to green if valid
+        }
+    });
+</script>
+
+<script>
+    document.getElementById('expirationDate').addEventListener('input', function () {
+        var input = this.value.replace(/\s/g, '');
+        if (/^\d{2}\/\d{2}$/.test(input)) {
+            var [month, year] = input.split('/');
+            var currentDate = new Date();
+            var currentMonth = currentDate.getMonth() + 1;
+            var currentYear = currentDate.getFullYear() % 100;
+
+            if (parseInt(month) > 0 && parseInt(month) <= 12 && parseInt(year) >= currentYear) {
+                this.setCustomValidity('');
+                this.style.borderColor = '';
+            } else {
+                this.setCustomValidity('Invalid expiration date');
+                this.style.borderColor = 'red';
+            }
+        } else {
+            this.setCustomValidity('Invalid format (MM/YY)');
+            this.style.borderColor = 'red';
+        }
+    });
+</script>
+
+<script>
+    document.getElementById('cvCode').addEventListener('input', function () {
+        var input = this.value.replace(/\s/g, '');
+        if (/^\d{3}$/.test(input)) {
+            this.setCustomValidity('');
+            this.style.borderColor = '';
+        } else {
+            this.setCustomValidity('Invalid CV code');
+            this.style.borderColor = 'red';
+        }
+    });
+</script>
+<script>
+    document.getElementById('cardOwner').addEventListener('input', function () {
+        var input = this.value.replace(/\s/g, '');
+        if (/^[a-zA-Z\s]*$/.test(input)) {
+            this.setCustomValidity('');
+            this.style.borderColor = '';
+        } else {
+            this.setCustomValidity('Invalid characters. Only letters and spaces are allowed');
+            this.style.borderColor = 'red';
+        }
+    });
+</script>
 
 {% endblock %}

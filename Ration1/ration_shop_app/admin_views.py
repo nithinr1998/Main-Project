@@ -171,6 +171,8 @@ class AddDeliveryBoy(View):
         delivery_boys = UserType.objects.filter(type="Delivery")
         
         return render(request, 'admin/add_delivery_boy.html', {'message': 'Delivery boy added successfully', 'delivery_boys': delivery_boys})
+from django.core.mail import send_mail
+from django.conf import settings
     
 class DeliveryBoyHistoryView(View):
     def get(self, request, *args, **kwargs):
@@ -184,7 +186,23 @@ class DeliveryBoyHistoryView(View):
         if delivery_boy_id:
             try:
                 delivery_boy = UserType.objects.get(id=delivery_boy_id)
+                delivery_boy_email = delivery_boy.user.email
+                
+                # Save the deletion reason to the database
+                delivery_boy.delete_reason = reason
+                delivery_boy.save()
+                
+                # Delete the delivery boy
                 delivery_boy.delete()
+                
+                send_mail(
+                    'Delivery Boy Deletion',
+                    f'Your account has been deleted. Reason: {reason}',
+                    settings.EMAIL_HOST_USER,
+                    [delivery_boy_email],
+                    fail_silently=False,
+                )
+                
                 message = f"Delivery boy {delivery_boy_id} deleted successfully. Reason: {reason}"
             except UserType.DoesNotExist:
                 message = f"Delivery boy {delivery_boy_id} not found."
@@ -193,3 +211,11 @@ class DeliveryBoyHistoryView(View):
         
         delivery_boys = UserType.objects.filter(type="Delivery")
         return render(request, 'admin/Delivery_Boys.html', {'delivery_boys': delivery_boys, 'message': message})
+
+
+
+class DeletedDeliveryBoyHistoryView(View):
+    def get(self, request, *args, **kwargs):
+        deleted_delivery_boys = UserType.objects.filter(type="Delivery", is_deleted=True).order_by('-delete_date')
+        print(deleted_delivery_boys)
+        return render(request, 'admin/deleted_delivery_boys.html', {'deleted_delivery_boys': deleted_delivery_boys})

@@ -18,7 +18,6 @@ class View_Product(TemplateView):
         context['view_pp'] = view_pp
         im=Product_Item.objects.all()
         context['im'] = im
-        print(context)
         return context
 
 
@@ -176,6 +175,8 @@ class chpayment(TemplateView):
             i.save()
         return render(request,'customer/index.html',{'message':" payment Success"})
     
+    
+from django.db.models import Sum    
 class View_confirm_order(TemplateView):
     template_name = 'customer/view_order.html'
 
@@ -183,8 +184,13 @@ class View_confirm_order(TemplateView):
         user = Customer.objects.get(user_id=self.request.user.id)
 
         pro = Cart.objects.filter(cust_id=user.id, payment='paid')
+        
+        # Calculate total amount paid
+        total_amount_paid = pro.aggregate(total_amount=Sum('amount'))['total_amount']
+
         context = {
             'pro': pro,
+            'total_amount_paid': total_amount_paid,
         }
         return context
     
@@ -248,3 +254,53 @@ class UpdateProfile(TemplateView):
 
         messages = "Update Successful."
         return render(request, 'customer/index.html', {'messages': "Update Successful"})
+    
+    
+from django.shortcuts import redirect
+from django.http import JsonResponse
+from django.urls import reverse
+
+    
+def chatbot_redirect(request):
+    if request.method == 'POST':
+        message = request.POST.get('message')
+
+        # Check if the message is a greeting
+        if message.lower() in ['hello', 'hai', 'hi', 'hola']:
+            response_message = "How can I help you?"
+            return JsonResponse({'response_message': response_message})
+
+        # Check if the message contains the word 'packages' or 'package'
+        if 'packages' in message.lower() or 'package' in message.lower():
+            # If 'packages' is found in the message, construct the response with a link to view packages
+            view_packages_link = reverse('matdest:view_packages')
+            booked_packages_link = reverse('matdest:my_packages')
+
+            response_message = "Here are some matching links:<br>"
+            response_message += f"<a href='{view_packages_link}'>View Packages</a><br>"
+            response_message += f"<a href='{booked_packages_link}'>Show Booked Packages</a>"
+            return JsonResponse({'response_message': response_message})
+
+        # Implement your logic here to determine the redirect URL based on the message
+        if message.lower() == 'premium':
+            response_message = "Click to get more details of premium: <a href='{}'>Premium</a>".format(reverse('matpayment:view_premium'))
+            return JsonResponse({'response_message': response_message})
+        
+        if message.lower() == 'booking':
+            response_message = "Click to get more details of booked packages: <a href='{}'>My Bookings</a>".format(reverse('matdest:my_packages'))
+            return JsonResponse({'response_message': response_message})
+        
+        if 'chat' in message.lower() or 'chats' in message.lower() or 'message' in message.lower():
+            response_message = "Click to get mychats: <a href='{}'>Chats</a>".format(reverse('matchat:mychats'))
+            return JsonResponse({'response_message': response_message})
+        else:
+            redirect_url = '/path/to/default/view/'  # Replace with the default URL
+
+        # If the message doesn't match any predefined responses, construct a default response
+        default_response = "Sorry, your query didn't match any of our options."
+        return JsonResponse({'response_message': default_response})
+    else:
+        # If the request method is not POST, return an error response
+        return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+

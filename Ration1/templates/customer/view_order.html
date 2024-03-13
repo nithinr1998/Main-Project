@@ -6,46 +6,55 @@
 alert("{{ message }}")
 </script>
 {% endif %}
-<!-- slider_area_start -->
-<div class="slider_area">
-    <div class="single_slider  d-flex align-items-center slider_bg_1">
-        <div class="container">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-xl-8">
-                    <div class="slider_text text-center justify-content-center">
-                        {% comment %} <p>user</p> {% endcomment %}
-                        <h3>CUSTOMER PAGE</h3>
-                            <a class="boxed-btn3" href="service.html">Our Services</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+<!-- Display the items' details -->
+<h1> Items Details</h1>
+<table id="print-table" class="table table-bordered table-striped table-hover">
+    <th class="info">Item</th>
+    <th class="info">Amount</th>  
+    <th class="info">Kg</th>
+    {% for i in pro  %}
+    <tr>
+        <td>{{ i.product.item.item }}</td>
+        <td>{{ i.amount }}</td>  
+        <td>{{ i.quantity }} kg</td>
+    </tr>
+    {% endfor %}
+    <!-- Display total amount paid -->
+    <tr>
+        <td colspan="2" class="text-right"><strong>Total Amount Paid:</strong></td>
+        <td>{{ total_amount_paid }}</td>
+    </tr>
+</table>
+
+<!-- Add a button to print the table -->
+<div class="text-center">
+    <button class="btn btn-primary" onclick="printTable()">Print</button>
 </div>
-<!-- slider_area_end -->
-<br>
-<br>
-<div class="col-xl-12">
-    <div id="page-inner">
-        <h1> Products List</h1>
-        <div class="card">
-            <div class="card-body">
-                <table class="table table-bordered table-striped table-hover">
-                    <th class="info">Card</th>
-                    <th class="info">Item</th>
-                    <th class="info">Amount paid</th>  
-                    <th class="info">Payment Status</th>
-                    {% for i in pro  %}
-                    <tr>
-                        <td>{{ i.product.card.card}}</td>
-                        <td>{{ i.product.item.item }}</td>
-                        <td>{{ i.amount }}</td>  
-                        <td>{{ i.payment }}</td>              
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+
+<!-- Print-specific CSS to hide everything except the table -->
+<style>
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #print-table,
+    #print-table * {
+        visibility: visible;
+    }
+    #print-table {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
+</style>
+
+<script>
+// Function to print the table
+function printTable() {
+    window.print();
+}
+</script>
+
 {% endblock %}

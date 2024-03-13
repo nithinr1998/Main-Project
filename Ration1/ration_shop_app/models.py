@@ -5,7 +5,7 @@ from django.contrib.auth.models import User, AbstractUser
 class UserType(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     type = models.CharField(max_length=50,null=True)
-    
+
 class Card(models.Model):
     card = models.CharField(max_length=20, null=True)
     status = models.CharField(max_length=100, null=True)
@@ -70,3 +70,13 @@ class UserType(models.Model):
     registration_number = models.CharField(max_length=50, null=True)
     delivery_zones = models.CharField(max_length=100, null=True)
     availability_timings = models.CharField(max_length=100, null=True)
+    is_deleted = models.BooleanField(default=False)
+    delete_date = models.DateTimeField(auto_now_add=True)
+    delete_reason = models.TextField(blank=True, null=True)
+    
+    
+    
+class DeliveryOrder(models.Model):
+    delivery_boy = models.ForeignKey(UserType, on_delete=models.CASCADE, null=True)
+    order = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True)
+    status = models.CharField(max_length=30, null=True)    

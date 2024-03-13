@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from ration_shop_app.customer_views import CartView, Indexview, Payment, UpdateProfile,View_Product,AddMember,ApprovedmemberView,CardOwnerView, View_confirm_order, cancel_order, chpayment, view_cart
+from ration_shop_app.customer_views import CartView, Indexview, Payment, UpdateProfile,View_Product,AddMember,ApprovedmemberView,CardOwnerView, View_confirm_order, cancel_order, chpayment, view_cart,ChatbotRedirectView
 
 urlpatterns = [
 
@@ -18,8 +18,10 @@ urlpatterns = [
     path('chpayment', chpayment.as_view()),
     path('View_confirm_order',View_confirm_order.as_view()),
     path('cancel_order', cancel_order.as_view()),
-    path('updateprofile',UpdateProfile.as_view())
-]
+    path('updateprofile',UpdateProfile.as_view()),
+    path('chatbot/', ChatbotRedirectView.as_view(), name='chatbot_redirect'),
+     
+    ]
 
 
 def urls():

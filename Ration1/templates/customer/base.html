@@ -22,6 +22,66 @@
     <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %} " type="text/css">
     <link rel="stylesheet" href="{% static 'assets/css/slicknav.min.css' %} " type="text/css">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %} " type="text/css">
+
+    <style>
+
+    /* Chat icon styles */
+    .chat-icon {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #ff6600;
+        color: #ffffff;
+        border-radius: 50%;
+        padding: 10px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    /* Chat window styles */
+    .chat-window {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 300px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        display: none;
+        z-index: 9999; /* Ensure it appears above other elements */
+    }
+    .chat-header {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .close-btn {
+        cursor: pointer;
+    }
+    .chat-body {
+        height: 200px;
+        overflow-y: auto;
+        padding: 10px;
+    }
+    .chat-footer {
+        display: flex;
+        padding: 10px;
+    }
+    .chat-footer input[type="text"] {
+        flex: 1;
+        margin-right: 10px;
+    }
+    .chat-footer button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+</style>
 </head>
 
 <body>
@@ -251,6 +311,68 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     </div>
 </footer>
 <!-- Footer Section End -->
+<div class="chat-icon" onclick="toggleChat()">Chat with us</div>
+<div id="chat-window" class="chat-window">
+    <div class="chat-header">
+        <span class="close-btn" onclick="toggleChat()">&times;</span>
+        <h2>Chat Window</h2>
+    </div>
+    <div class="chat-body">
+        <!-- Chat messages will be displayed here -->
+    </div>
+    <div class="chat-footer">
+        <input type="text" id="message-input" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+    function toggleChat() {
+        var chatWindow = document.getElementById('chat-window');
+        chatWindow.style.display = chatWindow.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function sendMessage() {
+        var messageInput = document.getElementById('message-input');
+        var message = messageInput.value;
+    
+        // Append the sent message to the chat body
+        var chatBody = document.querySelector('.chat-body');
+        chatBody.innerHTML += '<div class="message sent">' + message + '</div>';
+    
+        // Send message via AJAX POST request
+        $.ajax({
+            type: 'POST',
+            url: 'chatbot_redirect/',  // Update the URL to match the correct URL pattern
+            data: {
+                'message': message,
+                'csrfmiddlewaretoken': '{{ csrf_token }}' // Ensure CSRF token is included
+            },
+            success: function(response) {
+                // Handle success response
+                console.log('Message sent successfully');
+                if (response.response_message) {
+                    // If the response contains a message, display it in the chat window
+                    chatBody.innerHTML += '<div class="message received">' + response.response_message + '</div>';
+                } else if (response.redirect_url) {
+                    // If the response contains a redirect URL, redirect to that URL
+                    window.location.href = response.redirect_url;
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle error response if needed
+                console.error('Error sending message:', error);
+            }
+        });
+        
+    
+        // Clear the input field after sending the message
+        messageInput.value = '';
+    }
+    
+    
+</script>
+
 
 <!-- Js Plugins -->
 <script src="{% static 'assets/js/jquery-3.3.1.min.js' %} "></script>

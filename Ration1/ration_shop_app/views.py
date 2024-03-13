@@ -108,13 +108,10 @@ class loginview(TemplateView):
     def post(self, request, *args, **kwargs):
         email = request.POST['email']
         password = request.POST['password']
-        if email == "admin123@gmail.com" and password == "Admin@123":
+        if email == "admin@gmail.com" and password == "admin@123":
             return redirect('/admin')
 
         user = authenticate(username=email, password=password)
-        print(user)
-        print(user.id)
-        print(user.last_name)
         if user is not None:
             login(request, user)
             
@@ -126,8 +123,8 @@ class loginview(TemplateView):
                 return redirect('/shop')
             elif UserType.objects.get(user_id=user.id).type == "Delivery":
                 return redirect('/Delivery')
-            else:
-                return render(request, 'login.html', {'message': "Invalid Username or Password"})
+        else:
+            return render(request, 'login.html', {'message': "Invalid Username or Password"})
             
                
 

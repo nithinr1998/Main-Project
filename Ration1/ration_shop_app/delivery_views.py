@@ -13,18 +13,33 @@ from django.contrib import messages
 class Indexview(TemplateView):
     template_name = 'Delivery/index.html'
     
+class mapview(TemplateView):
+    template_name = 'Delivery/map.html'    
 
-class DeliveryOrderHistoryView(TemplateView):
-    template_name = 'Delivery/delivery_order_history.html'
+from django.views.generic import DetailView
+from django.shortcuts import redirect
+from .models import DeliveryOrder
+
+class ConfirmDeliveryView(DetailView):
+    model = DeliveryOrder
+    template_name = 'delivery/delivery_order_history.html'
+    context_object_name = 'order'
+
+    def post(self, request, *args, **kwargs):
+        order = self.get_object()
+        action = request.POST.get('action')
+        if action == 'accept':
+            order.status = 'accepted'
+        elif action == 'reject':
+            order.status = 'rejected'
+        order.save()
+        return redirect('delivery_dashboard')  # Redirect to delivery dashboard or another page
 
     def get_context_data(self, **kwargs):
-        # Fetch orders for the delivery man based on customer ID
-        delivered_orders = Cart.objects.filter(cust_id=self.request.user.id, payment='paid')
-
-        context = {
-            'delivered_orders': delivered_orders,
-        }
+        context = super().get_context_data(**kwargs)
+        context['action'] = self.request.POST.get('action')
         return context
+
     
 class DeliveryCustomerListView(TemplateView):
     template_name = 'Delivery/delivery_customer_list.html'
@@ -35,3 +50,5 @@ class DeliveryCustomerListView(TemplateView):
             'customers': customers,
         }
         return context
+
+
