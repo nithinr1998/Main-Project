@@ -16,29 +16,49 @@ class Indexview(TemplateView):
 class mapview(TemplateView):
     template_name = 'Delivery/map.html'    
 
-from django.views.generic import DetailView
-from django.shortcuts import redirect
-from .models import DeliveryOrder
 
-class ConfirmDeliveryView(DetailView):
-    model = DeliveryOrder
-    template_name = 'delivery/delivery_order_history.html'
-    context_object_name = 'order'
+from django.views.generic import TemplateView
+from ration_shop_app.models import Cart
 
-    def post(self, request, *args, **kwargs):
-        order = self.get_object()
-        action = request.POST.get('action')
-        if action == 'accept':
-            order.status = 'accepted'
-        elif action == 'reject':
-            order.status = 'rejected'
-        order.save()
-        return redirect('delivery_dashboard')  # Redirect to delivery dashboard or another page
+class DeliveryOrdersView(TemplateView):
+    template_name = 'delivery/delivery_orders.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['action'] = self.request.POST.get('action')
+        orders = Cart.objects.filter(status='paid', delivery_boy=None)
+        context['orders'] = orders
         return context
+
+    def post(self, request, *args, **kwargs):
+        order_id = kwargs['id']
+        action = request.POST.get('action')
+        order = Cart.objects.get(id=order_id)
+        if action == 'accept':
+            order.delivery_boy = request.user
+            order.save()
+        elif action == 'reject':
+            order.delete()
+        return redirect('delivery_orders')
+
+
+    
+from django.shortcuts import redirect, get_object_or_404
+from django.views import View
+from .models import Cart
+
+class AcceptOrderView(View):
+    def post(self, request, id):
+        order = get_object_or_404(Cart, id=id)
+        order.delivery_boy = request.user
+        order.save()
+        return redirect('delivery_orders')
+
+class RejectOrderView(View):
+    def post(self, request, id):
+        order = get_object_or_404(Cart, id=id)
+        order.delete()
+        return redirect('delivery_orders')
+
 
     
 class DeliveryCustomerListView(TemplateView):

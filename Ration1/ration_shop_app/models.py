@@ -59,6 +59,7 @@ class Cart(models.Model):
     status = models.CharField(max_length=30,null=True)
     amount=models.CharField(max_length=30,null=True)
     quantity = models.CharField(max_length=1000, null=True)
+    delivery_boy = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
 class UserType(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
@@ -76,7 +77,3 @@ class UserType(models.Model):
     
     
     
-class DeliveryOrder(models.Model):
-    delivery_boy = models.ForeignKey(UserType, on_delete=models.CASCADE, null=True)
-    order = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True)
-    status = models.CharField(max_length=30, null=True)    

@@ -343,7 +343,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         // Send message via AJAX POST request
         $.ajax({
             type: 'POST',
-            url: 'chatbot_redirect/',  // Update the URL to match the correct URL pattern
+            url: 'chatbot_redirect',  // Update the URL to match the correct URL pattern
             data: {
                 'message': message,
                 'csrfmiddlewaretoken': '{{ csrf_token }}' // Ensure CSRF token is included

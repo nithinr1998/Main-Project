@@ -19,7 +19,7 @@ urlpatterns = [
     path('View_confirm_order',View_confirm_order.as_view()),
     path('cancel_order', cancel_order.as_view()),
     path('updateprofile',UpdateProfile.as_view()),
-    path('chatbot/', ChatbotRedirectView.as_view(), name='chatbot_redirect'),
+    path('chatbot/', ChatbotRedirectView.as_view(), name='chatbot_redirect')
      
     ]
 

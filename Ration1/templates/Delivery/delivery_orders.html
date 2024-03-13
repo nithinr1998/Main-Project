@@ -1,0 +1,49 @@
+{% extends 'Delivery/base.html' %}
+{% block content %}
+<div class="container">
+    <h1 class="mt-5 mb-4">Delivery Orders</h1>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Place</th>
+                    <th>Address</th>
+                    <th>Items</th>
+                    <th>Total Amount Paid</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.cust.user.first_name }}</td>
+                    <td>{{ order.cust.location }}</td>
+                    <td>{{ order.cust.address }}</td>
+                    <td>
+                        <ul>
+                            <li>{{ order.product.item.item }} - {{ order.quantity }} kg</li>
+                        </ul>
+                    </td>
+                    <td>{{ order.amount }}</td>
+                    <td>{{ order.status }}</td>
+                    <td>
+                        <form action="{% url 'accept_order' order.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success" name="action" value="accept">Accept</button>
+                        </form>
+                        <form action="{% url 'reject_order' order.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger" name="action" value="reject">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -256,13 +256,16 @@ class UpdateProfile(TemplateView):
         return render(request, 'customer/index.html', {'messages': "Update Successful"})
     
     
-from django.shortcuts import redirect
+from django.views import View
 from django.http import JsonResponse
 from django.urls import reverse
+from django.views.decorators.cache import never_cache
+from django.contrib.auth.decorators import login_required
 
-    
-def chatbot_redirect(request):
-    if request.method == 'POST':
+class ChatbotRedirectView(View):
+    @never_cache
+    @login_required(login_url='accounts:login')
+    def post(self, request):
         message = request.POST.get('message')
 
         # Check if the message is a greeting
@@ -299,8 +302,3 @@ def chatbot_redirect(request):
         # If the message doesn't match any predefined responses, construct a default response
         default_response = "Sorry, your query didn't match any of our options."
         return JsonResponse({'response_message': default_response})
-    else:
-        # If the request method is not POST, return an error response
-        return JsonResponse({'error': 'Invalid request method'}, status=400)
-
-
