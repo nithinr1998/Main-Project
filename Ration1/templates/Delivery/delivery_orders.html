@@ -1,20 +1,22 @@
 {% extends 'Delivery/base.html' %}
 {% block content %}
 <div class="container">
-    <h3 class="mt-5 mb-4">Delivery Orders</h3>
-    <form method="get" action="{% url 'delivery_orders' %}" class="form-inline mb-4">
-        <div class="form-group mr-2">
-            <label for="place">Filter by Place:</label>
-            <select name="place" id="place" class="form-control">
-                <option value="">All Places</option>
+    <h3 class="mt-5 mb-4">Delivery Notification</h3>
+    <form method="post" action="">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="locationSelect">Filter by Location:</label>
+            <select class="form-control" id="locationSelect" name="location">
+                <option value="">All Locations</option>
                 {% for order in orders %}
-                <option value="{{ order.cust.location }}">{{ order.cust.location }}</option>
+                    <option value="{{ order.cust.location }}">{{ order.cust.location }}</option>
                 {% endfor %}
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Filter</button>
     </form>
-    <div class="table-responsive">
+    {% if orders %}
+    <div class="table-responsive mt-4">
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -43,19 +45,20 @@
                     <td>{{ order.amount }}</td>
                     <td>{{ order.status }}</td>
                     <td>
-                        <form action="{% url 'accept_order' order.id %}" method="post">
+                        <form method="post" action="{% url 'accept_order' order.id %}">
                             {% csrf_token %}
+                            <input type="hidden" name="order_id" value="{{ order.id }}">
                             <button type="submit" class="btn btn-success" name="action" value="accept">Accept</button>
                         </form>
-                        <form action="{% url 'reject_order' order.id %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger" name="action" value="reject">Reject</button>
-                        </form>
+                                                                    
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+    {% else %}
+    <p>No orders available</p>
+    {% endif %}
 </div>
 {% endblock %}

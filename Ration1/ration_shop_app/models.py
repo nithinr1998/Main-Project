@@ -53,11 +53,11 @@ class Member(models.Model):
     status = models.CharField(max_length=100, null=True)
 
 class Cart(models.Model):
-    cust = models.ForeignKey(Customer,on_delete=models.CASCADE,null=True)
-    product = models.ForeignKey(Product,on_delete=models.CASCADE,null=True)
-    payment = models.CharField(max_length=30,null=True)
-    status = models.CharField(max_length=30,null=True)
-    amount=models.CharField(max_length=30,null=True)
+    cust = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    payment = models.CharField(max_length=30, null=True)
+    status = models.CharField(max_length=30, null=True)
+    amount = models.CharField(max_length=30, null=True)
     quantity = models.CharField(max_length=1000, null=True)
     delivery_boy = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -74,6 +74,5 @@ class UserType(models.Model):
     is_deleted = models.BooleanField(default=False)
     delete_date = models.DateTimeField(auto_now_add=True)
     delete_reason = models.TextField(blank=True, null=True)
-    
     
     

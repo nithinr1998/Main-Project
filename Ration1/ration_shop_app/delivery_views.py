@@ -16,52 +16,49 @@ class Indexview(TemplateView):
 class mapview(TemplateView):
     template_name = 'Delivery/map.html'    
 
+from django.shortcuts import render, redirect
+from django.views.generic import TemplateView
+from ration_shop_app.models import Cart
 
 class DeliveryOrdersView(TemplateView):
     template_name = 'delivery/delivery_orders.html'
 
-    def get_queryset(self):
-        place = self.request.GET.get('place')
-        if place:
-            return Cart.objects.filter(status='paid', delivery_boy=None, cust__location=place)
-        return Cart.objects.filter(status='paid', delivery_boy=None)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        orders = self.get_queryset()
+        location_filter = self.request.GET.get('location')
+        if location_filter:
+            orders = Cart.objects.filter(status='paid', delivery_boy=None, cust__location=location_filter)
+        else:
+            orders = Cart.objects.filter(status='paid', delivery_boy=None)
         context['orders'] = orders
         return context
 
     def post(self, request, *args, **kwargs):
-        order_id = kwargs['id']
+        order_id = request.POST.get('order_id')
         action = request.POST.get('action')
         order = Cart.objects.get(id=order_id)
         if action == 'accept':
             order.delivery_boy = request.user
             order.save()
+            # Redirect to the delivery process view
+            return redirect('delivery_process', order_id=order.id)
         elif action == 'reject':
             order.delete()
         return redirect('delivery_orders')
 
-
-
     
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect
 from django.views import View
-from .models import Cart
 
 class AcceptOrderView(View):
-    def post(self, request, id):
-        order = get_object_or_404(Cart, id=id)
+    def post(self, request, *args, **kwargs):
+        order_id = request.POST.get('order_id')
+        order = Cart.objects.get(id=order_id)
         order.delivery_boy = request.user
         order.save()
-        return redirect('delivery_orders')
+        # Redirect to the delivery process view
+        return redirect('delivery_process', order_id=order_id)
 
-class RejectOrderView(View):
-    def post(self, request, id):
-        order = get_object_or_404(Cart, id=id)
-        order.delete()
-        return redirect('delivery_orders')
 
 
     
@@ -76,3 +73,18 @@ class DeliveryCustomerListView(TemplateView):
         return context
 
 
+from django.core.exceptions import ObjectDoesNotExist
+
+class DeliveryProcessView(TemplateView):
+    template_name = 'delivery/delivery_process.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            order_id = self.kwargs['order_id']
+            order = Cart.objects.get(id=order_id)
+            context['order'] = order
+        except ObjectDoesNotExist:
+            # Handle the case where the Cart object does not exist
+            return redirect('delivery_orders')
+        return context

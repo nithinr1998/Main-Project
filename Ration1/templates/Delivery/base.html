@@ -81,6 +81,7 @@
                         <li><a href="#">customers</a>
                             <ul class="header__menu__dropdown">
                                 <li><a href="{% url 'delivery-customer-list' %}">Customer List</a></li>
+                                <li><a href="{% url 'delivery_process' order.id %}">DleiveryProcess</a></li>
                             </ul>
                         </li>
                         <li><a href="{% url 'delivery_orders' %}">Delivery Orders</a></li>
