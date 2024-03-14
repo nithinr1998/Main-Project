@@ -1,7 +1,19 @@
 {% extends 'Delivery/base.html' %}
 {% block content %}
 <div class="container">
-    <h1 class="mt-5 mb-4">Delivery Orders</h1>
+    <h3 class="mt-5 mb-4">Delivery Orders</h3>
+    <form method="get" action="{% url 'delivery_orders' %}" class="form-inline mb-4">
+        <div class="form-group mr-2">
+            <label for="place">Filter by Place:</label>
+            <select name="place" id="place" class="form-control">
+                <option value="">All Places</option>
+                {% for order in orders %}
+                <option value="{{ order.cust.location }}">{{ order.cust.location }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
     <div class="table-responsive">
         <table class="table table-bordered">
             <thead>

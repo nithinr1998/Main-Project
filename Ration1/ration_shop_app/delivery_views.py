@@ -17,15 +17,18 @@ class mapview(TemplateView):
     template_name = 'Delivery/map.html'    
 
 
-from django.views.generic import TemplateView
-from ration_shop_app.models import Cart
-
 class DeliveryOrdersView(TemplateView):
     template_name = 'delivery/delivery_orders.html'
 
+    def get_queryset(self):
+        place = self.request.GET.get('place')
+        if place:
+            return Cart.objects.filter(status='paid', delivery_boy=None, cust__location=place)
+        return Cart.objects.filter(status='paid', delivery_boy=None)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        orders = Cart.objects.filter(status='paid', delivery_boy=None)
+        orders = self.get_queryset()
         context['orders'] = orders
         return context
 
@@ -39,6 +42,7 @@ class DeliveryOrdersView(TemplateView):
         elif action == 'reject':
             order.delete()
         return redirect('delivery_orders')
+
 
 
     
