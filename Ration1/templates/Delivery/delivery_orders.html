@@ -45,14 +45,39 @@
                     <td>{{ order.amount }}</td>
                     <td>{{ order.status }}</td>
                     <td>
-                        <form method="post" action="{% url 'accept_order' order.id %}">
+                        <form id="accept-form-{{ order.id }}" method="post" action="{% url 'accept_order' order.id %}">
                             {% csrf_token %}
                             <input type="hidden" name="order_id" value="{{ order.id }}">
-                            <button type="submit" class="btn btn-success" name="action" value="accept">Accept</button>
+                            <button id="accept-btn-{{ order.id }}" type="submit" class="btn {% if order.accepted %}btn-danger{% else %}btn-success{% endif %} accept-btn" name="action" value="accept">
+                                {% if order.accepted %}Open Details{% else %}Accept{% endif %}
+                            </button>
+                            
                         </form>
-                                                                    
                     </td>
                 </tr>
+                <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let acceptBtns = document.querySelectorAll('.accept-btn');
+        acceptBtns.forEach(function (btn) {
+            btn.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent form submission
+                let btn = event.currentTarget;
+                if (btn.classList.contains('btn-accepted')) {
+                    // Redirect to the delivery process page
+                    window.location.href = "{% url 'delivery_process' order.id %}";
+                } else {
+                    btn.classList.add('btn-accepted');
+                    btn.classList.remove('btn-success');
+                    btn.classList.add('btn-danger');
+                    btn.innerText = 'Open Details';
+                    btn.style.color = 'green';
+                }
+            });
+        });
+    });
+</script>
+
+                
                 {% endfor %}
             </tbody>
         </table>

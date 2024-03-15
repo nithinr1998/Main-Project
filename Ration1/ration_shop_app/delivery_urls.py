@@ -5,6 +5,7 @@ from .delivery_views import Indexview, DeliveryOrdersView, DeliveryCustomerListV
 
 urlpatterns = [
     path('', Indexview.as_view()),
+    
     path('delivery_orders/', DeliveryOrdersView.as_view(), name='delivery_orders'),
     path('accept_order/<int:id>/', AcceptOrderView.as_view(), name='accept_order'),
     path('delivery_process/<int:order_id>/', DeliveryProcessView.as_view(), name='delivery_process'),

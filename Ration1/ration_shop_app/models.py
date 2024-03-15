@@ -76,3 +76,12 @@ class UserType(models.Model):
     delete_reason = models.TextField(blank=True, null=True)
     
     
+
+
+class DeliveryOrder(models.Model):
+    cart = models.OneToOneField(Cart, on_delete=models.CASCADE, related_name='delivery_order')
+    delivery_boy = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    accepted = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Delivery Order for Cart {self.cart.id}"
