@@ -79,44 +79,35 @@ class ApprovedmemberView(TemplateView):
         return context
     
 from decimal import Decimal
+from django.shortcuts import redirect, get_object_or_404
+from django.views.generic import TemplateView
+from .models import Cart, Product, Customer
+
 class CartView(TemplateView):
     template_name = 'customer/products_list.html'
 
     def dispatch(self, request, *args, **kwargs):
         id = kwargs.get('id')
-
-        # Use get_object_or_404 to handle the case where the product with the given 'id' does not exist
         product = get_object_or_404(Product, pk=id)
-
-        ca = Cart()
         re = Customer.objects.get(user_id=self.request.user.id)
 
-        # Handle the case where 'total_quantity' is None
-        qty = re.total_quantity
-        if qty is None:
-            qty = 0
+        qty = re.total_quantity or 0
+        product_quantity = product.quantity or 0
 
-        # Handle the case where 'product.quantity' is None
-        product_quantity = product.quantity
-        if product_quantity is None:
-            product_quantity = 0
+        product.quantity = max(0, int(product_quantity) - qty)
 
-        # Update the product quantity
-        product.quantity = max(0, product_quantity - qty)
-
-        # Calculate and set the amount in the Cart model
-        ca.amount = product.amount
-        ca.quantity = product.quantity
-
-        # Save the changes
-        product.save()
-        ca.payment = 'null'
-        ca.product = product
-        ca.cust = re
-        ca.status = 'cart'
+        ca = Cart(
+            amount=product.amount,
+            quantity=product.quantity,
+            payment='null',
+            product=product,
+            cust=re,
+            status='cart'
+        )
         ca.save()
 
         return redirect(request.META['HTTP_REFERER'], {'message': "cart"})
+
 
     def post(self, request, *args, **kwargs):
         order_id = request.POST.get('order_id')
@@ -144,39 +135,46 @@ class view_cart(TemplateView):
 
         return context
 
-        
+from .models import Cart, Customer,Pay
+from datetime import datetime
+
 class Payment(TemplateView):
     template_name = 'customer/payment.html'
 
     def get_context_data(self, **kwargs):
         context = super(Payment, self).get_context_data(**kwargs)
         user = Customer.objects.get(user_id=self.request.user.id)
-        ct = Cart.objects.filter(status='cart', cust_id=user.id)
+        cart_items = Cart.objects.filter(status='cart', cust_id=user.id)
+        total_amount = sum(float(cart_item.amount) for cart_item in cart_items)
 
-        total = 0
-        for i in ct:
-            total = total + int(i.amount)
-
-        context['view'] = ct
-        context['asz'] = total
+        context['view'] = cart_items
+        context['total_amount'] = total_amount
 
         return context
 
+
 class chpayment(TemplateView):
-    def dispatch(self,request,*args,**kwargs):
-
+    def dispatch(self, request, *args, **kwargs):
         user = Customer.objects.get(user_id=self.request.user.id)
+        cart_items = Cart.objects.filter(status='cart', cust_id=user.id)
 
+        total_amount = sum(float(cart_item.amount) for cart_item in cart_items)
 
-        ch = Cart.objects.filter(cust_id=user.id,status='cart')
+        for cart_item in cart_items:
+            payment = Pay.objects.create(
+                cust=user,
+                product=cart_item.product,
+                payment_status='paid',
+                total_amount=float(cart_item.amount),
+                quantity=int(cart_item.quantity),
+                payment_date=datetime.now()  # Save the current date and time as the payment date
+            )
 
+            cart_item.status = 'paid'
+            cart_item.payment = 'paid'
+            cart_item.save()
 
-        print(ch)
-        for i in ch:
-            i.payment = 'paid'
-            i.status = 'paid'
-            i.save()
-        return render(request,'customer/index.html',{'message':" payment Success"})
+        return render(request, 'customer/index.html', {'message': "Payment success"})
     
     
 from django.db.models import Sum    

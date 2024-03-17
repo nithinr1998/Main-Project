@@ -1,0 +1,50 @@
+{% extends 'Delivery/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h3 class="mb-4">Order Details</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Customer Details:</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text"><strong>Name:</strong> {{ customer.user.first_name }}</p>
+                    <p class="card-text"><strong>Place:</strong> {{ customer.location }}</p>
+                    <p class="card-text"><strong>Address:</strong> {{ customer.address }}</p>
+                    <p class="card-text"><strong>Email:</strong> {{ customer.user.email }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">Order Items:</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in items %}
+                                <tr>
+                                    <td>{{ item.product.item.item }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>{{ item.total_amount }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

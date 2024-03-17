@@ -1,89 +1,21 @@
 {% extends 'Delivery/base.html' %}
 {% block content %}
-<div class="container">
-    <h3 class="mt-5 mb-4">Delivery Notification</h3>
-    <form method="post" action="">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="locationSelect">Filter by Location:</label>
-            <select class="form-control" id="locationSelect" name="location">
-                <option value="">All Locations</option>
-                {% for order in orders %}
-                    <option value="{{ order.cust.location }}">{{ order.cust.location }}</option>
-                {% endfor %}
-            </select>
+<div class="container mt-5">
+    <h3 class="mb-4">Picked Orders</h3>
+    <div class="row">
+        {% for order in picked_orders %}
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Order Code: {{ order.order_code }}</h5>
+                    <p class="card-text"><strong>Customer Name:</strong> {{ order.customer_name }}</p>
+                    <p class="card-text"><strong>Customer Email:</strong> {{ order.customer_email }}</p>
+                    <p class="card-text"><strong>Order Received Date:</strong> {{ order.order_received_date }}</p>
+                    <a href="mailto:{{ order.customer_email }}?subject=Your%20order%20is%20dispatched" class="btn btn-success">Send Email</a>
+                </div>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">Filter</button>
-    </form>
-    {% if orders %}
-    <div class="table-responsive mt-4">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Customer</th>
-                    <th>Place</th>
-                    <th>Address</th>
-                    <th>Items</th>
-                    <th>Total Amount Paid</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for order in orders %}
-                <tr>
-                    <td>{{ order.id }}</td>
-                    <td>{{ order.cust.user.first_name }}</td>
-                    <td>{{ order.cust.location }}</td>
-                    <td>{{ order.cust.address }}</td>
-                    <td>
-                        <ul>
-                            <li>{{ order.product.item.item }} - {{ order.quantity }} kg</li>
-                        </ul>
-                    </td>
-                    <td>{{ order.amount }}</td>
-                    <td>{{ order.status }}</td>
-                    <td>
-                        <form id="accept-form-{{ order.id }}" method="post" action="{% url 'accept_order' order.id %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="order_id" value="{{ order.id }}">
-                            <button id="accept-btn-{{ order.id }}" type="submit" class="btn {% if order.accepted %}btn-danger{% else %}btn-success{% endif %} accept-btn" name="action" value="accept">
-                                {% if order.accepted %}Open Details{% else %}Accept{% endif %}
-                            </button>
-                            
-                        </form>
-                    </td>
-                </tr>
-                <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        let acceptBtns = document.querySelectorAll('.accept-btn');
-        acceptBtns.forEach(function (btn) {
-            btn.addEventListener('click', function (event) {
-                event.preventDefault(); // Prevent form submission
-                let btn = event.currentTarget;
-                if (btn.classList.contains('btn-accepted')) {
-                    // Redirect to the delivery process page
-                    window.location.href = "{% url 'delivery_process' order.id %}";
-                } else {
-                    btn.classList.add('btn-accepted');
-                    btn.classList.remove('btn-success');
-                    btn.classList.add('btn-danger');
-                    btn.innerText = 'Open Details';
-                    btn.style.color = 'green';
-                }
-            });
-        });
-    });
-</script>
-
-                
-                {% endfor %}
-            </tbody>
-        </table>
+        {% endfor %}
     </div>
-    {% else %}
-    <p>No orders available</p>
-    {% endif %}
 </div>
 {% endblock %}

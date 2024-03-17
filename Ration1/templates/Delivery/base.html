@@ -78,13 +78,8 @@
                 <nav class="header__menu">
                     <ul>
                         <li class="active"><a href="/Delivery">Home</a></li>
-                        <li><a href="#">customers</a>
-                            <ul class="header__menu__dropdown">
-                                <li><a href="{% url 'delivery-customer-list' %}">Customer List</a></li>
-                                {% comment %} <li><a href="{% url 'delivery_process' order.id %}">DeliveryProcess</a></li> {% endcomment %}
-                            </ul>
-                        </li>
-                        <li><a href="{% url 'delivery_orders' %}">Delivery Orders</a></li>
+                        <li><a href="{% url 'delivery_orders' %}">Pending Delivery</a></li>
+                        <li><a href="{% url 'picked_orders' %}">My Delivery</a></li>
                         <li><a href="{% url 'map' %}">MAP</a></li>
                     </ul>
                 </nav>

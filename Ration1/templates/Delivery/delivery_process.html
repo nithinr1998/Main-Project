@@ -2,24 +2,17 @@
 {% block content %}
 <div class="container">
     <h3 class="mt-5 mb-4">Delivery Process</h3>
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Order Details</h5>
-            <p class="card-text">Order ID: {{ order.id }}</p>
-            <p class="card-text">Customer: {{ order.cust.user.first_name }}</p>
-            <p class="card-text">Address: {{ order.cust.address }}</p>
-            <p class="card-text">Total Payment: ₹{{ order.amount }}</p>
-            <p class="card-text">Status: {{ order.status }}</p>
-            <p class="card-text">Delivery Boy E-mail: {{ order.delivery_boy }}</p>
-        </div>
-    </div>
-    <div class="mt-4">
-        <form method="post" action="">
-            {% csrf_token %}
-            <input type="hidden" name="order_id" value="{{ order.id }}">
-            <button type="submit" class="btn btn-danger" name="action" value="decline">Decline Delivery</button>
-            <button type="submit" class="btn btn-success" name="action" value="out_for_delivery">Out for Delivery</button>
-        </form>
-    </div>
+    <p>Delivering Order ID: {{ order.id }}</p>
+    <p>Customer: {{ order.cust.user.first_name }}</p>
+    <p>Address: {{ order.cust.address }}</p>
+    <p>Items:</p>
+    <ul>
+        {% for item in order.cart_set.all %}
+        <li>{{ item.product.item.item }} - {{ item.quantity }} kg</li>
+        {% endfor %}
+    </ul>
+    <p>Total Payment: {{ order.amount }}</p>
+    <p>Status: {{ order.status }}</p>
+    <p>Delivery Boy: {{ order.delivery_boy }}</p>
 </div>
 {% endblock %}

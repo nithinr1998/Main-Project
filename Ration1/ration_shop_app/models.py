@@ -75,13 +75,13 @@ class UserType(models.Model):
     delete_date = models.DateTimeField(auto_now_add=True)
     delete_reason = models.TextField(blank=True, null=True)
     
-    
-
-
-class DeliveryOrder(models.Model):
-    cart = models.OneToOneField(Cart, on_delete=models.CASCADE, related_name='delivery_order')
-    delivery_boy = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    accepted = models.BooleanField(default=False)
+class Pay(models.Model):
+    cust = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    payment_status = models.CharField(max_length=30, null=True)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    quantity = models.IntegerField(default=1)  # Assuming default quantity is 1
+    payment_date = models.DateTimeField(auto_now_add=True)  # Add a field for payment date, auto_now_add=True will set the date automatically on creation
 
     def __str__(self):
-        return f"Delivery Order for Cart {self.cart.id}"
+        return f"Payment for {self.product} by {self.cust} on {self.payment_date}"
