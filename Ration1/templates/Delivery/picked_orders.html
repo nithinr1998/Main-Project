@@ -12,13 +12,21 @@
     <div class="row">
         {% for order in picked_orders %}
         <div class="col-md-6">
-            <div class="card mb-4">
-                <div class="card-body">
+            <div class="card mb-4" style="height: 100%;">
+                <div class="card-body" style="overflow-y: auto; max-height: 300px;">
                     <h5 class="card-title">Order Code: {{ order.order_code }}</h5>
                     <p class="card-text"><strong>Customer Name:</strong> {{ order.customer_name }}</p>
                     <p class="card-text"><strong>Customer Email:</strong> {{ order.customer_email }}</p>
                     <p class="card-text"><strong>Order Received Date:</strong> {{ order.order_received_date }}</p>
-                    <button type="button" class="btn btn-primary" onclick="openConfirmation('{{ order.customer_email }}', '{{ order.order_received_date }}')">Send Email</button>
+                    <div class="text-center mb-3">
+                        <button type="button" class="btn btn-primary" onclick="openConfirmation('{{ order.customer_email }}', '{{ order.order_received_date }}')">Send Email</button>
+                    </div>
+                    <h6 class="card-subtitle mb-2 text-muted">Items:</h6>
+                    <ul class="list-group">
+                        {% for item in order.items %}
+                        <li class="list-group-item">{{ item.item }} - Quantity: {{ item.quantity }} - Amount: {{ item.amount }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </div>

@@ -32,10 +32,11 @@ urlpatterns = [
     path('Delivery/',include('ration_shop_app.delivery_urls')),
     path('',IndexView.as_view()),
     path('time',TimeView.as_view()),
-    path('login',loginview.as_view(), name='login'),
+   
     path('customerreg',Customer_RegView.as_view()),
     path('shopreg',Shop_RegView.as_view()),
     path('blog',blogview.as_view(), name='blog'),
+    path('login/',loginview.as_view(), name='login'),
     path('contact',contactview.as_view(), name='contact'),
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset_form'),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),

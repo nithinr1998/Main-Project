@@ -259,3 +259,27 @@ class UpdateProfile(TemplateView):
     
 
 
+from django.http import JsonResponse
+from django.views import View
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+
+@method_decorator(csrf_exempt, name='dispatch')
+class ChatbotView(View):
+    def post(self, request):
+        message = request.POST.get('message')
+        response_message = self.get_response(message)
+        return JsonResponse({'response_message': response_message})
+
+    def get_response(self, message):
+        # Your chatbot logic goes here
+        if message.lower() in ['hello', 'hi']:
+            return "Hello! How can I help you today?"
+        elif 'order' in message.lower():
+            return "To place an order, please visit our order page."
+        else:
+            return "I'm sorry, I didn't understand that. Please try again."
+
+    def get(self, request):
+        return JsonResponse({'error': 'Invalid request method'}, status=400)
+

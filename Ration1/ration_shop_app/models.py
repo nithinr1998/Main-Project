@@ -85,3 +85,7 @@ class Pay(models.Model):
 
     def __str__(self):
         return f"Payment for {self.product} by {self.cust} on {self.payment_date}"
+    
+    
+    
+    

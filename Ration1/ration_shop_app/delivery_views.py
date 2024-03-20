@@ -58,6 +58,7 @@ class ViewOrderDetailsView(TemplateView):
             return redirect('delivery_orders')
         return context
 
+
 class MarkAsPickedView(View):
     def post(self, request, *args, **kwargs):
         customer_id = kwargs.get('customer_id')
@@ -91,15 +92,22 @@ class PickedOrdersView(TemplateView):
         for customer_id, customer_orders in grouped_orders.items():
             total_amount = sum(order.total_amount for order in customer_orders)
             customer = customer_orders[0].cust
+            items = [{
+                'item': item.product.item.item,
+                'quantity': item.quantity,
+                'amount': item.total_amount
+            } for item in customer_orders]
             grouped_orders[customer_id] = {
-                'order_code': f'ORD{customer_orders[0].id}',  # Assuming order code format
+                'order_code': f'ORD{customer_orders[0].id}',
                 'customer_name': customer.user.first_name,
-                'customer_email': customer.user.email,  # Include the customer's email
+                'customer_email': customer.user.email,
                 'order_received_date': customer_orders[0].payment_date,
+                'items': items
             }
         
         context['picked_orders'] = grouped_orders.values()
         return context
+
 
 class SendEmailView(TemplateView):
     template_name = 'Delivery/picked_orders.html'
@@ -111,10 +119,10 @@ class SendEmailView(TemplateView):
         message = ''
 
         delivery_rules = [
-            'Estimated delivery date is not final and may change.',
-            'Delivery times are between 9:00 AM and 6:00 PM.',
-            'A OTP may be required upon delivery.',
-            'Delivery may be delayed due to unforeseen circumstances (e.g., weather conditions, traffic).',
+            'Estimated delivery date is not final and may change.\n'
+            'Delivery times are between 9:00 AM and 6:00 PM.\n'
+            'A OTP may be required upon delivery.\n'
+            'Delivery may be delayed due to unforeseen circumstances (e.g., weather conditions, traffic).\n'
         ]
 
         try:
@@ -130,3 +138,7 @@ class SendEmailView(TemplateView):
             message = str(e)
 
         return render(request, self.template_name, {'message': message})
+    
+    
+    
+    

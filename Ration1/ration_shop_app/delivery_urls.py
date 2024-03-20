@@ -10,7 +10,7 @@ urlpatterns = [
     path('mark-as-picked/<int:customer_id>/', MarkAsPickedView.as_view(), name='mark_as_picked'),
     path('picked-orders/', PickedOrdersView.as_view(), name='picked_orders'),
     path('map/', mapview.as_view(), name='map'),
-    path('send-email/', SendEmailView.as_view(), name='send_email'),
+    path('send-email/', SendEmailView.as_view(), name='send_email'),   
     
     
 ]
