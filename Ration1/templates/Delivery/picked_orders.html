@@ -9,28 +9,37 @@
 
 <div class="container mt-5">
     <h3 class="mb-4">Picked Orders</h3>
-    <div class="row">
-        {% for order in picked_orders %}
-        <div class="col-md-6">
-            <div class="card mb-4" style="height: 100%;">
-                <div class="card-body" style="overflow-y: auto; max-height: 300px;">
-                    <h5 class="card-title">Order Code: {{ order.order_code }}</h5>
-                    <p class="card-text"><strong>Customer Name:</strong> {{ order.customer_name }}</p>
-                    <p class="card-text"><strong>Customer Email:</strong> {{ order.customer_email }}</p>
-                    <p class="card-text"><strong>Order Received Date:</strong> {{ order.order_received_date }}</p>
-                    <div class="text-center mb-3">
-                        <button type="button" class="btn btn-primary" onclick="openConfirmation('{{ order.customer_email }}', '{{ order.order_received_date }}')">Send Email</button>
-                    </div>
-                    <h6 class="card-subtitle mb-2 text-muted">Items:</h6>
-                    <ul class="list-group">
-                        {% for item in order.items %}
-                        <li class="list-group-item">{{ item.item }} - Quantity: {{ item.quantity }} - Amount: {{ item.amount }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Order Code</th>
+                    <th>Customer Name</th>
+                    <th>Customer Email</th>
+                    <th>Order Received Date</th>
+                    <th>Items</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in picked_orders %}
+                <tr>
+                    <td>{{ order.order_code }}</td>
+                    <td>{{ order.customer_name }}</td>
+                    <td>{{ order.customer_email }}</td>
+                    <td>{{ order.order_received_date }}</td>
+                    <td>
+                        <ul class="list-unstyled">
+                            {% for item in order.items %}
+                            <li>{{ item.item }} - Quantity: {{ item.quantity }} - Amount: {{ item.amount }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td><button class="btn btn-primary" onclick="openConfirmation('{{ order.customer_email }}', '{{ order.order_received_date }}')">Send Email</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -58,6 +67,29 @@
         </div>
     </div>
 </div>
+
+<style>
+    .table-responsive {
+        overflow-x: auto;
+    }
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .table th,
+    .table td {
+        border: 1px solid #dee2e6;
+        padding: 8px;
+        text-align: left;
+    }
+    .table th {
+        background-color: #f8f9fa;
+        color: #333;
+    }
+    .table tbody tr:hover {
+        background-color: #f9f9f9;
+    }
+</style>
 
 <script>
     function openConfirmation(customerEmail, expectedDeliveryDate) {

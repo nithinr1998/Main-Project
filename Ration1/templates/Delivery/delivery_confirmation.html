@@ -1,0 +1,17 @@
+{% extends 'Delivery/base.html' %}
+{% block content %} 
+<div class="container mt-5">
+    <h3 class="mb-4">Delivery Confirmation</h3>
+    <p>Please enter the OTP received to confirm delivery for order: <strong>{{ order_code }}</strong></p>
+    <p>Customer Name: <strong>{{ customer_name }}</strong></p>
+    <p>Customer Email: <strong>{{ customer_email }}</strong></p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="otp">OTP:</label>
+            <input type="text" class="form-control" id="otp" name="otp" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Confirm Delivery</button>
+    </form>
+</div>
+{% endblock %}

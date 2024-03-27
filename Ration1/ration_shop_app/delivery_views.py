@@ -28,7 +28,9 @@ class DeliveryOrdersView(TemplateView):
         grouped_orders = defaultdict(list)
         for order in orders:
             grouped_orders[order.cust.id].append(order)
-        
+
+        total_orders_received = len(orders)  # Calculate the total number of orders received
+
         for customer_id, customer_orders in grouped_orders.items():
             total_amount = sum(order.total_amount for order in customer_orders)
             grouped_orders[customer_id] = {
@@ -38,8 +40,9 @@ class DeliveryOrdersView(TemplateView):
                 'total_amount': total_amount,
                 'payment_status': customer_orders[0].payment_status,
             }
-        
+
         context['grouped_orders'] = grouped_orders.values()
+        context['total_orders_received'] = total_orders_received  # Pass the total number of orders received to the context
         return context
 
 
@@ -134,11 +137,24 @@ class SendEmailView(TemplateView):
                 fail_silently=False,
             )
             message = 'Email sent successfully'
+
+            # Remove the picked orders from the database
+            picked_orders = Pay.objects.filter(payment_status='picked', cust__user__email=customer_email)
+            picked_orders.delete()
         except Exception as e:
             message = str(e)
 
-        return render(request, self.template_name, {'message': message})
+        return redirect('picked_orders')
     
     
-    
-    
+class DeliveryConfirmationView(TemplateView):
+    template_name = 'Delivery/delivery_confirmation.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order_code = kwargs.get('order_code')
+        order = Pay.objects.get(order_code=order_code)  # Assuming you have an Order model
+        context['order_code'] = order_code
+        context['customer_name'] = order.customer_name
+        context['customer_email'] = order.customer_email
+        return context

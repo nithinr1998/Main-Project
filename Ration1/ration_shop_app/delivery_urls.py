@@ -11,6 +11,6 @@ urlpatterns = [
     path('picked-orders/', PickedOrdersView.as_view(), name='picked_orders'),
     path('map/', mapview.as_view(), name='map'),
     path('send-email/', SendEmailView.as_view(), name='send_email'),   
-    
+
     
 ]

@@ -1,0 +1,102 @@
+{% extends 'admin/base.html' %}
+
+{% block style %}
+<style>
+    /* Additional styles */
+    .container {
+        margin-top: 20px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background-color: #007bff;
+        color: white;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    input[type="file"] {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .messages-container {
+        margin-top: 20px;
+    }
+
+    .message {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .message.success {
+        background-color: #d4edda;
+        color: #155724;
+        border-color: #c3e6cb;
+    }
+
+    .message.error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border-color: #f5c6cb;
+    }
+
+    .error-message {
+        color: #dc3545;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+</style>
+{% endblock style %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="mb-0">Add Delivery Boys</h1>
+        </div>
+        <div class="card-body">
+            <!-- Display a button to trigger the file input -->
+            <form id="deliveryForm" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input id="xlSheet" type="file" name="xl_sheet" accept=".xlsx, .xls" class="form-control">
+                <div id="fileError" class="error-message" style="display: none;">Please select a valid Excel file.</div>
+                <button type="submit" class="btn btn-add-delivery" style="background-color: #000099; color: white;">Add Delivery Boys</button>
+            </form>
+
+            <!-- Display messages (success or error) -->
+            <div class="messages-container">
+                {% for message in messages %}
+                    <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('deliveryForm').addEventListener('submit', function(event) {
+        var fileInput = document.getElementById('xlSheet');
+        var fileError = document.getElementById('fileError');
+
+        if (fileInput.files.length === 0 || !/\.(xlsx|xls)$/i.test(fileInput.value)) {
+            fileError.innerHTML = 'Please select a valid Excel file (xlsx or xls).';
+            fileError.style.color = '#dc3545';
+            fileError.style.display = 'block';
+            event.preventDefault();
+        } else {
+            fileError.style.display = 'none';
+        }
+    });
+</script>
+
+{% endblock content %}
