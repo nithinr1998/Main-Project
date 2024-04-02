@@ -87,5 +87,15 @@ class Pay(models.Model):
         return f"Payment for {self.product} by {self.cust} on {self.payment_date}"
     
     
-    
-    
+class DeliveryDetail(models.Model):
+    customer_name = models.CharField(max_length=100, blank=True, null=True)
+    email = models.EmailField()
+    address = models.TextField(blank=True, null=True)
+    place = models.CharField(max_length=100, blank=True, null=True)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    items_bought = models.TextField(blank=True, null=True)
+    delivery_date = models.DateField(blank=True, null=True)
+    delivery_success = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.customer_name}'s delivery on {self.delivery_date}"

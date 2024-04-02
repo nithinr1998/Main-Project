@@ -1,0 +1,113 @@
+{% extends 'Delivery/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h3>Picked Orders Details</h3>
+    
+    <div class="table-responsive mt-4">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Place</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Items Bought</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in picked_orders %}
+                <tr>
+                    <td>{{ order.cust.user.first_name }}</td>
+                    <td>{{ order.cust.user.email }}</td>
+                    <td>{{ order.cust.address }}</td>
+                    <td>{{ order.cust.location }}</td>
+                    <td>{{ order.cust.contact }}</td>
+                    <td>
+                        {{ order.product.item.item }} (Qty: {{ order.quantity }})
+                    </td>
+                    
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="openReasonModal({{ order.id }})">
+                            Not Delivered
+                        </button>
+                        <a href="{% url 'cancel_delivery' order.id %}" class="btn btn-sm btn-warning">Cancel Delivery</a>
+                        <form action="{% url 'send_otp' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="email" value="{{ order.cust.user.email }}">
+                            <input type="hidden" name="customer_name" value="{{ order.cust.user.first_name }}">
+                            <input type="hidden" name="address" value="{{ order.cust.address }}">
+                            <input type="hidden" name="place" value="{{ order.cust.location }}">
+                            <input type="hidden" name="phone_number" value="{{ order.cust.contact }}">
+                            <input type="hidden" name="items_bought" value="{{ order.product.item.item }} (Qty: {{ order.quantity }})">
+                            <button type="submit" class="btn btn-sm btn-info" name="send_otp">Out for Delivery</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal for selecting reason for not delivering -->
+<div class="modal fade" id="reasonModal" tabindex="-1" role="dialog" aria-labelledby="reasonModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reasonModalLabel">Select Reason for Not Delivering</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <select id="reasonSelect" class="form-control">
+                    <option value="address_not_found">Address Not Found</option>
+                    <option value="customer_unavailable">Customer Unavailable</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="markNotDelivered()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for OTP verification -->
+<div class="modal fade" id="otpModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="otpModalLabel">Enter OTP</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="otpInput" class="form-control" placeholder="Enter OTP" required>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="verifyOTP()">Verify OTP</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openReasonModal(orderId) {
+        // Code to open the modal and pass the order ID if needed
+        $('#reasonModal').modal('show');
+    }
+
+    function markNotDelivered() {
+        var reason = $('#reasonSelect').val();
+        // AJAX request to mark the order as not delivered with the selected reason
+        $('#reasonModal').modal('hide');
+    }
+</script>
+
+{% endblock %}

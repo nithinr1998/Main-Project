@@ -8,6 +8,19 @@ from ration_shop_app.models import Cart, Customer, Member, Product,Card,Product_
 class Indexview(TemplateView):
     template_name = 'customer/index.html'
     
+    def get_context_data(self, **kwargs):
+        context = super(Indexview, self).get_context_data(**kwargs)
+        cust = Customer.objects.get(user_id=self.request.user.id)
+        card = cust.card  # Assuming Customer model has a 'card' field
+        cart_items = Cart.objects.filter(status='cart', cust=cust)
+        cart_product_ids = cart_items.values_list('product_id', flat=True)
+        view_pp = Product.objects.exclude(id__in=cart_product_ids).filter(card=card)
+        context['view_pp'] = view_pp
+        im = Product_Item.objects.all()
+        context['im'] = im
+        return context
+
+    
 class View_Product(TemplateView):
     template_name = 'customer/products_list.html'
 

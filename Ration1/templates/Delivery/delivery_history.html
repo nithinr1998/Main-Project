@@ -1,0 +1,63 @@
+{% extends 'Delivery/base.html' %}
+{% block content %}
+<style>
+.animate-charcter
+{
+   text-transform: uppercase;
+  background-image: linear-gradient(
+    -225deg,
+    #231557 0%,
+    #44107a 29%,
+    #ff1361 67%,
+    #fff800 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 2s linear infinite;
+  display: inline-block;
+      font-size: 49px;
+      font-weight: bold;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}
+</style>
+<div class="col-md-12 text-center">
+    <h3 class="animate-charcter"> Total Delivered Orders: {{ delivered_orders_count   }}</h3>
+</div>
+<div class="container mt-5">
+    <h3>Delivery History</h3>
+    
+    <div class="table-responsive mt-4">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Place</th>
+                    <th scope="col">Delivery Date</th>
+                    <th scope="col">Delivery Success</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for delivery_detail in delivery_details %}
+                <tr>
+                    <td>{{ delivery_detail.customer_name }}</td>
+                    <td>{{ delivery_detail.place }}</td>
+                    <td>{{ delivery_detail.delivery_date }}</td>
+                    <td>{% if delivery_detail.delivery_success %}Success{% else %}Not Delivered{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,6 +1,7 @@
 {% extends 'Delivery/base.html' %}
 {% load static %}
-{% block content %} 
+
+{% block content %}
 {% if message %}
 <script>
     alert("{{ message }}");
@@ -9,113 +10,108 @@
 
 <div class="container mt-5">
     <h3 class="mb-4">Picked Orders</h3>
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Order Code</th>
-                    <th>Customer Name</th>
-                    <th>Customer Email</th>
-                    <th>Order Received Date</th>
-                    <th>Items</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for order in picked_orders %}
-                <tr>
-                    <td>{{ order.order_code }}</td>
-                    <td>{{ order.customer_name }}</td>
-                    <td>{{ order.customer_email }}</td>
-                    <td>{{ order.order_received_date }}</td>
-                    <td>
-                        <ul class="list-unstyled">
-                            {% for item in order.items %}
-                            <li>{{ item.item }} - Quantity: {{ item.quantity }} - Amount: {{ item.amount }}</li>
-                            {% endfor %}
-                        </ul>
-                    </td>
-                    <td><button class="btn btn-primary" onclick="openConfirmation('{{ order.customer_email }}', '{{ order.order_received_date }}')">Send Email</button></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="row">
+        {% for order in picked_orders %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Order Code: {{ order.order_code }}</h5>
+                    <p class="card-text">Customer Name: {{ order.customer_name }}</p>
+                    <p class="card-text">Customer Email: {{ order.customer_email }}</p>
+                    <p class="card-text">Customer Address: {{ order.customer_address }}</p>
+                    <p class="card-text">Customer Place: {{ order.customer_place }}</p>
+                    <p class="card-text">Customer Phone Number: {{ order.customer_phone }}</p>
+                    <p class="card-text">Order Received Date: {{ order.order_received_date }}</p>
+                    <h6 class="card-subtitle mb-2 text-muted">Items:</h6>
+                    <ul class="list-unstyled">
+                        {% for item in order.items %}
+                        <li>{{ item.item }} - Quantity: {{ item.quantity }} - Amount: {{ item.amount }}</li>
+                        {% endfor %}
+                    </ul>
+                    <form method="post" action="{% url 'picked_orders' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="order_code" value="{{ order.order_code }}">
+                        <select name="reason">
+                            <option value="reason1">Reason 1</option>
+                            <option value="reason2">Reason 2</option>
+                            <option value="reason3">Reason 3</option>
+                            <option value="reason4">Reason 4</option>
+                            <option value="reason5">Reason 5</option>
+                        </select>
+                        <button type="submit" name="mark_as_not_delivered" class="btn btn-danger">Not Delivered</button>
+                    </form>
+                    <button class="btn btn-secondary" onclick="window.location.href='{% url 'delivery_orders' %}'">Cancel</button>
+                    <button class="btn btn-info" onclick="sendOTP('{{ order.customer_email }}')">Send OTP</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>
 
-<!-- Modal for confirmation -->
-<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<!-- Modal for OTP Verification -->
+<div class="modal fade" id="otpModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="confirmationModalLabel">Confirm Email</h5>
+                <h5 class="modal-title" id="otpModalLabel">Enter OTP</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p><strong>Customer Email:</strong> <span id="customerEmail"></span></p>
-                <div class="form-group">
-                    <label for="expectedDeliveryDate">Expected Delivery Date:</label>
-                    <input type="date" class="form-control" id="expectedDeliveryDate">
-                </div>
+                <form id="otpForm">
+                    <div class="form-group">
+                        <label for="otp">OTP:</label>
+                        <input type="text" class="form-control" id="otp" name="otp">
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="sendEmail()">Send Email</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="verifyOTP('{{ order.order_code }}')">Verify OTP</button>
             </div>
         </div>
     </div>
 </div>
 
-<style>
-    .table-responsive {
-        overflow-x: auto;
-    }
-    .table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-    .table th,
-    .table td {
-        border: 1px solid #dee2e6;
-        padding: 8px;
-        text-align: left;
-    }
-    .table th {
-        background-color: #f8f9fa;
-        color: #333;
-    }
-    .table tbody tr:hover {
-        background-color: #f9f9f9;
-    }
-</style>
-
 <script>
-    function openConfirmation(customerEmail, expectedDeliveryDate) {
-        $('#customerEmail').text(customerEmail);
-        $('#expectedDeliveryDate').val(expectedDeliveryDate);
-        $('#confirmationModal').modal('show');
-    }
-
-    function sendEmail() {
-        var customerEmail = $('#customerEmail').text();
-        var expectedDeliveryDate = $('#expectedDeliveryDate').val();
-    
+    function sendOTP(customerEmail) {
         $.ajax({
-            url: '{% url "send_email" %}',
-            type: 'POST',
+            url: '{% url "picked_orders" %}',
+            type: 'post',
             data: {
                 csrfmiddlewaretoken: '{{ csrf_token }}',
-                customer_email: customerEmail,
-                estimated_delivery_date: expectedDeliveryDate
+                send_otp: true,
+                order_code: '{{ order.order_code }}'
             },
             success: function(response) {
-                alert('Email sent successfully');
-                $('#confirmationModal').modal('hide');
+                $('#otpModal').html(response);
+                $('#otpModal').modal('show');
             },
             error: function(xhr, status, error) {
-                alert('Failed to send email');
+                alert('Failed to send OTP');
+            }
+        });
+    }
+
+    function verifyOTP(orderCode) {
+        var otp = $('#otp').val();
+        $.ajax({
+            url: '{% url "picked_orders" %}',
+            type: 'post',
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                verify_otp: true,
+                order_code: orderCode,
+                otp: otp
+            },
+            success: function(response) {
+                alert('OTP verified successfully');
+                $('#otpModal').modal('hide');
+            },
+            error: function(xhr, status, error) {
+                alert('Failed to verify OTP');
             }
         });
     }

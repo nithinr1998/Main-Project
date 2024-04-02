@@ -1,0 +1,13 @@
+{% extends 'Delivery/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h3>Checking Section</h3>
+    <p>{{ message }}</p>
+    <form method="post" action="{% url 'check_otp' %}">
+        {% csrf_token %}
+        <label for="otpInput">Enter the OTP sent to your email:</label>
+        <input type="text" id="otpInput" name="otp" class="form-control" placeholder="Enter OTP" required>
+        <button type="submit" class="btn btn-sm btn-info mt-2">Verify OTP</button>
+    </form>
+</div>
+{% endblock %}
