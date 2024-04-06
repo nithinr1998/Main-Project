@@ -33,8 +33,8 @@ urlpatterns = [
     path('',IndexView.as_view()),
     path('time',TimeView.as_view()),
    
-    path('customerreg',Customer_RegView.as_view()),
-    path('shopreg',Shop_RegView.as_view()),
+    path('customerreg',Customer_RegView.as_view(), name='customerreg'),
+    path('shopreg',Shop_RegView.as_view(), name='shopreg'),
     path('blog',blogview.as_view(), name='blog'),
     path('login/',loginview.as_view(), name='login'),
     path('contact',contactview.as_view(), name='contact'),

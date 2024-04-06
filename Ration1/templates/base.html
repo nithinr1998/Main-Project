@@ -61,7 +61,7 @@
                       </div>
 
                       <div class="header__top__right__auth">
-                              <a href="login"><i class="fa fa-user"></i><b> Login</b></a>
+                              <a href="{% url 'login' %}"><i class="fa fa-user"></i><b> Login</b></a>
                       </div>
                       
                   </div>
@@ -81,12 +81,12 @@
                   <ul>
                       <li class="active"><a href="/">Home</a></li>
                       <li><a href="https://civilsupplieskerala.gov.in/">e-Service</a></li>
-                      <li><a href="contact">Contact</a></li>
-                      <li><a href="blog">BlOG</a></li>
+                      <li><a href="{% url 'contact' %}">Contact</a></li>
+                      <li><a href="{% url 'blog' %}">BlOG</a></li>
                       <li><a href="#">Register</a>
                         <ul class="header__menu__dropdown">
-                            <li><a  href="customerreg">Customer</a></li>
-                            <li><a href="shopreg">Shop Owner</a></li>
+                            <li><a  href="{% url 'customerreg' %}">Customer</a></li>
+                            <li><a href="{% url 'shopreg' %}">Shop Owner</a></li>
                   </ul>
               </nav>
           </div>

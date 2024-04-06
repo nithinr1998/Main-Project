@@ -1,9 +1,11 @@
 {% extends 'Delivery/base.html' %}
+{% load static %}
+
 {% block content %}
 <div class="container mt-5">
     <h3>Picked Orders Details</h3>
     
-    <div class="table-responsive mt-4">
+    <div class="table-responsive" style="min-width: 1200px; margin-left: -50px;">
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
@@ -33,7 +35,7 @@
                             Not Delivered
                         </button>
                         <a href="{% url 'cancel_delivery' order.id %}" class="btn btn-sm btn-warning">Cancel Delivery</a>
-                        <form action="{% url 'send_otp' %}" method="post">
+                        <form action="{% url 'send_otp' %}" method="post" class="d-inline">
                             {% csrf_token %}
                             <input type="hidden" name="email" value="{{ order.cust.user.email }}">
                             <input type="hidden" name="customer_name" value="{{ order.cust.user.first_name }}">
@@ -99,15 +101,14 @@
 
 <script>
     function openReasonModal(orderId) {
-        // Code to open the modal and pass the order ID if needed
         $('#reasonModal').modal('show');
     }
 
     function markNotDelivered() {
         var reason = $('#reasonSelect').val();
-        // AJAX request to mark the order as not delivered with the selected reason
         $('#reasonModal').modal('hide');
     }
 </script>
+
 
 {% endblock %}

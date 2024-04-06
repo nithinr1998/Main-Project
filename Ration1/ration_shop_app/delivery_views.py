@@ -18,7 +18,8 @@ class Indexview(TemplateView):
     template_name = 'Delivery/index.html'
     
 class mapview(TemplateView):
-    template_name = 'Delivery/map.html'    
+    template_name = 'Delivery/map.html'
+        
 class DeliveryOrdersView(TemplateView):
     template_name = 'Delivery/delivery_orders.html'
 
@@ -30,7 +31,7 @@ class DeliveryOrdersView(TemplateView):
         for order in orders:
             grouped_orders[order.cust.id].append(order)
 
-            total_delivery_codes = len(grouped_orders)  # Calculate the total number of orders received
+        total_delivery_codes = len(grouped_orders)  # Calculate the total number of orders received
 
         for customer_id, customer_orders in grouped_orders.items():
             total_amount = sum(order.total_amount for order in customer_orders)
@@ -189,8 +190,25 @@ class DeliveryHistoryListView(ListView):
     template_name = 'Delivery/delivery_history.html'
     context_object_name = 'delivery_details'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        # Retrieve filter values from the request
+        customer_name = self.request.GET.get('customer_name')
+        place = self.request.GET.get('place')
+        delivery_date = self.request.GET.get('delivery_date')
+
+        # Apply filters to the queryset
+        if customer_name:
+            queryset = queryset.filter(customer_name__icontains=customer_name)
+        if place:
+            queryset = queryset.filter(place__icontains=place)
+        if delivery_date:
+            queryset = queryset.filter(delivery_date=delivery_date)
+
+        return queryset.distinct()
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        delivered_orders_count = DeliveryDetail.objects.filter(delivery_success=True).count()
+        delivered_orders_count = self.get_queryset().filter(delivery_success=True).count()
         context['delivered_orders_count'] = delivered_orders_count
         return context
